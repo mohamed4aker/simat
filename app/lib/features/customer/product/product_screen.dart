@@ -261,12 +261,15 @@ class _StockLine extends StatelessWidget {
       children: [
         Icon(icon, size: 17, color: color),
         const SizedBox(width: 7),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: color,
+        Expanded(
+          child: Text(
+            label,
+            maxLines: 2,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
           ),
         ),
       ],
@@ -559,6 +562,8 @@ class _BuyBar extends ConsumerWidget {
                     product.inStock
                         ? 'أضف للعربة · ${Fmt.price(product.price * quantity)}'
                         : 'نفد المخزون',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 14.5),
                   ),
                 ),
