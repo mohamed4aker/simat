@@ -49,7 +49,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       if (user != null && user.isAdmin) {
         context.go('/admin');
       } else {
-        context.go(widget.redirect ?? '/home');
+        // لو كان جاي من مسار إداري وهو مش أدمن، نرجّعه للمتجر.
+        final target = widget.redirect;
+        final isAdminTarget = target?.startsWith('/admin') ?? false;
+        context.go(isAdminTarget ? '/home' : (target ?? '/home'));
       }
     } on AuthException catch (e) {
       setState(() => _error = e.message);

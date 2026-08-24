@@ -552,29 +552,32 @@ class SeedData {
           role: UserRole.admin,
           createdAt: _daysAgo(200),
         ),
-        AppUser(
-          id: 'u_demo',
-          name: 'أحمد محمود',
-          phone: '01011112222',
-          email: 'ahmed@example.com',
-          password: '123456',
-          createdAt: _daysAgo(120),
-          addresses: [
-            Address(
-              id: 'a_demo_1',
-              label: 'المنزل',
-              fullName: 'أحمد محمود',
-              phone: '01011112222',
-              governorate: 'القاهرة',
-              city: 'مدينة نصر',
-              street: 'شارع عباس العقاد',
-              building: '24',
-              isDefault: true,
-            ),
-          ],
-        ),
+        demoCustomer(),
         ..._demoCustomers(),
       ];
+
+  /// حساب العميل التجريبي (اللي بيتعرض في شاشة الدخول).
+  static AppUser demoCustomer() => AppUser(
+        id: 'u_demo',
+        name: 'أحمد محمود',
+        phone: '01011112222',
+        email: 'ahmed@example.com',
+        password: '123456',
+        createdAt: _daysAgo(120),
+        addresses: const [
+          Address(
+            id: 'a_demo_1',
+            label: 'المنزل',
+            fullName: 'أحمد محمود',
+            phone: '01011112222',
+            governorate: 'القاهرة',
+            city: 'مدينة نصر',
+            street: 'شارع عباس العقاد',
+            building: '24',
+            isDefault: true,
+          ),
+        ],
+      );
 
   static const List<String> _customerNames = [
     'منى سعيد',
@@ -705,7 +708,12 @@ class SeedData {
   static List<Order> orders() {
     final rnd = Random(42);
     final catalog = products().where((p) => p.isActive).toList();
-    final customers = _demoCustomers();
+    // العميل التجريبي بيتحط مرتين عشان يبقى عنده تاريخ طلبات واضح.
+    final customers = [
+      demoCustomer(),
+      demoCustomer(),
+      ..._demoCustomers(),
+    ];
     final orders = <Order>[];
 
     const totalOrders = 140;

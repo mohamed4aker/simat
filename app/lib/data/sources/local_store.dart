@@ -25,7 +25,7 @@ class LocalStore {
   }
 
   static const String _kSeedVersion = 'simat.seed.version';
-  static const int seedVersion = 1;
+  static const int seedVersion = 2;
 
   static const String kProducts = 'simat.products';
   static const String kCategories = 'simat.categories';
