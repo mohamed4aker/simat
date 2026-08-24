@@ -1,4 +1,4 @@
-package com.simat.simat
+package com.simat.app
 
 import io.flutter.embedding.android.FlutterActivity
 
