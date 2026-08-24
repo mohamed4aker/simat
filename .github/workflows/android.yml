@@ -12,6 +12,9 @@ on:
       - '.github/workflows/android.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-apk:
     name: APK
@@ -48,6 +51,35 @@ jobs:
 
       - name: بناء App Bundle (لجوجل بلاي)
         run: flutter build appbundle --release
+
+      - name: تجهيز اسم الملف
+        run: |
+          mkdir -p dist
+          cp build/app/outputs/flutter-apk/app-release.apk \
+             dist/simat-v1.0.0-build-${{ github.run_number }}.apk
+          cp build/app/outputs/bundle/release/app-release.aab \
+             dist/simat-v1.0.0-build-${{ github.run_number }}.aab
+          ls -lh dist
+
+      - name: نشر نسخة للتنزيل المباشر
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: سِمة — نسخة تجريبية ${{ github.run_number }}
+          prerelease: true
+          body: |
+            نسخة تجريبية من تطبيق **سِمة — SIMAT**.
+
+            نزّل ملف `.apk` من تحت وثبّته على أي موبايل أندرويد
+            (هيطلبك تسمح بالتثبيت من مصدر غير معروف — ده طبيعي لأي
+            تطبيق مش نازل من Google Play).
+
+            **حسابات التجربة**
+            - أدمن: `01000000000` / `admin123`
+            - عميل: `01011112222` / `123456`
+          files: |
+            app/dist/simat-v1.0.0-build-${{ github.run_number }}.apk
+            app/dist/simat-v1.0.0-build-${{ github.run_number }}.aab
 
       - name: رفع ملف APK
         uses: actions/upload-artifact@v4
