@@ -46,8 +46,11 @@ jobs:
       - name: الاختبارات
         run: flutter test
 
-      - name: بناء APK
+      - name: بناء APK (نسخة شاملة)
         run: flutter build apk --release
+
+      - name: بناء APK لكل معمارية (ملفات أصغر)
+        run: flutter build apk --release --split-per-abi
 
       - name: بناء App Bundle (لجوجل بلاي)
         run: flutter build appbundle --release
@@ -56,7 +59,12 @@ jobs:
         run: |
           mkdir -p dist
           cp build/app/outputs/flutter-apk/app-release.apk \
-             dist/simat-v1.0.0-build-${{ github.run_number }}.apk
+             dist/simat-v1.0.0-build-${{ github.run_number }}-universal.apk
+          # ده اللي بيشتغل على ٩٩٪ من موبايلات النهاردة وحجمه أصغر بكتير
+          cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk \
+             dist/simat-v1.0.0-build-${{ github.run_number }}-arm64.apk
+          cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk \
+             dist/simat-v1.0.0-build-${{ github.run_number }}-arm32.apk
           cp build/app/outputs/bundle/release/app-release.aab \
              dist/simat-v1.0.0-build-${{ github.run_number }}.aab
           ls -lh dist
@@ -70,7 +78,9 @@ jobs:
           body: |
             نسخة تجريبية من تطبيق **سِمة — SIMAT**.
 
-            نزّل ملف `.apk` من تحت وثبّته على أي موبايل أندرويد
+            نزّل ملف **arm64** من تحت (ده اللي بيشتغل على معظم
+            الموبايلات وحجمه أصغر)، ولو مااشتغلش جرّب **universal**.
+            ثبّته على الموبايل عادي
             (هيطلبك تسمح بالتثبيت من مصدر غير معروف — ده طبيعي لأي
             تطبيق مش نازل من Google Play).
 
@@ -78,7 +88,9 @@ jobs:
             - أدمن: `01000000000` / `admin123`
             - عميل: `01011112222` / `123456`
           files: |
-            app/dist/simat-v1.0.0-build-${{ github.run_number }}.apk
+            app/dist/simat-v1.0.0-build-${{ github.run_number }}-arm64.apk
+            app/dist/simat-v1.0.0-build-${{ github.run_number }}-arm32.apk
+            app/dist/simat-v1.0.0-build-${{ github.run_number }}-universal.apk
             app/dist/simat-v1.0.0-build-${{ github.run_number }}.aab
 
       - name: رفع ملف APK
