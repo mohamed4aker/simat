@@ -97,13 +97,23 @@ LocalStore (JSON في shared_preferences)
 الطلبات الملغيّة والمرتجعة **مش** بتتحسب في الإيراد
 (`OrderStatus.countsAsRevenue`).
 
-## أداة تصوير الشاشات
+## أدوات التطوير في `tool/`
+
+| الأداة | بتعمل إيه |
+|---|---|
+| `screenshot_test.dart` | بتصوّر كل الشاشات PNG في `build/screens/` من غير محاكي |
+| `generate_brand_assets_test.dart` | بتولّد أيقونة التطبيق وشعار شاشة البداية من رمز سِمة المرسوم بالكود |
 
 ```bash
 flutter test tool/screenshot_test.dart
+flutter test tool/generate_brand_assets_test.dart
 ```
 
-بتطلع صور PNG لكل الشاشات في `build/screens/` من غير محاكي — مفيدة لمراجعة
-التصميم بسرعة.
+بعد توليد الأصول:
+
+```bash
+dart run flutter_launcher_icons
+dart run flutter_native_splash:create
+```
 
 </div>
