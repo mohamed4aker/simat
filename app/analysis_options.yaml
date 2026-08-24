@@ -1,0 +1,14 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    # أداة تصوير الشاشات — بتستخدم واجهات مخصّصة للاختبارات.
+    - tool/**
+  errors:
+    avoid_print: warning
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    require_trailing_commas: false
