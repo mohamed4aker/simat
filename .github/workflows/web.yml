@@ -1,0 +1,44 @@
+# بيتأكد إن الموقع بيتبني من غير أخطاء قبل ما يترفع.
+name: بناء الموقع
+
+on:
+  push:
+    branches:
+      - claude/perfume-store-app-5gy0rn
+      - main
+    paths:
+      - 'web/**'
+      - '.github/workflows/web.yml'
+  pull_request:
+    paths:
+      - 'web/**'
+  workflow_dispatch:
+
+jobs:
+  build-web:
+    name: Next.js
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: تحميل المكتبات
+        run: npm ci
+
+      - name: فحص الأنواع
+        run: npm run typecheck
+
+      - name: فحص الكود
+        run: npm run lint
+
+      - name: البناء
+        run: npm run build

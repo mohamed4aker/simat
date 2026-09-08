@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   هوية سِمة — SIMAT
+   الألوان مأخوذة حرفياً من دليل الهوية.
+   ═══════════════════════════════════════════════════════════ */
+
+@theme {
+  --color-wine: #6b1f2a;        /* العنابي العميق — الأساسي */
+  --color-wine-dark: #4e1620;
+  --color-wine-light: #8e3542;
+  --color-ivory: #f2ebe1;       /* العاجي الدافئ — الخلفية */
+  --color-surface: #fbf7f2;
+  --color-charcoal: #1c1a17;    /* الفحمي */
+  --color-copper: #b87333;      /* النحاسي — التمييز */
+  --color-copper-light: #d79a5e;
+  --color-sand: #d9cfc3;        /* الرملي — الثانوي */
+  --color-line: #e3d9cd;
+  --color-muted: #6e665c;
+  --color-faint: #9a9188;
+  --color-ok: #2e7d5b;
+  --color-warn: #c98a16;
+  --color-bad: #b3261e;
+
+  --font-sans: var(--font-cairo), system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* شريط التمرير بلون الهوية */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sand);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-copper);
+}
+
+::selection {
+  background: var(--color-wine);
+  color: #fff;
+}
+
+/* نمط القطرات المتكررة من دليل الهوية */
+.simat-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23b87333' stroke-opacity='0.16' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M14 14c0 7-9 10-9 16 0 5 4 9 9 9s9-4 9-9c0-6-9-9-9-16z'/%3E%3Cpath d='M42 28c0 7-9 10-9 16 0 5 4 9 9 9s9-4 9-9c0-6-9-9-9-16z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ظهور تدريجي للأقسام */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.5s ease-out both;
+}
+
+/* إخفاء شريط التمرير في القوائم الأفقية */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

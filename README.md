@@ -16,11 +16,11 @@
 
 المشروع بيتكوّن من ٣ أجزاء:
 
-| الجزء | الاسم التقني | الحالة |
-|---|---|---|
-| تطبيق العميل | Customer App (Android + iOS) | ✅ متعمل هنا |
-| لوحة الإدارة | Admin Dashboard / Back-office | ✅ متعملة جوّه نفس التطبيق |
-| الموقع | Storefront Web (نفس الـ API) | 🔜 المرحلة الجاية |
+| الجزء | الاسم التقني | الحالة | المجلد |
+|---|---|---|---|
+| تطبيق العميل | Customer App (Android + iOS) | ✅ جاهز | `app/` |
+| لوحة الإدارة | Admin Dashboard / Back-office | ✅ جاهزة جوّه التطبيق | `app/` |
+| الموقع | Storefront Web (Next.js + Supabase) | ✅ جاهز | `web/` |
 
 ---
 
@@ -73,7 +73,21 @@
 
 ---
 
-## التشغيل
+## الموقع
+
+الموقع مبني بـ **Next.js 16** وقاعدة بياناته **Supabase**، عربي RTL
+بالكامل وبنفس الهوية. خطوات الإعداد والرفع على النت (Vercel أو سيرفرك
+الخاص) كلها في [`web/README.md`](web/README.md).
+
+```bash
+cd web
+npm install
+npm run dev        # http://localhost:3000
+```
+
+---
+
+## تشغيل التطبيق
 
 ```bash
 cd app

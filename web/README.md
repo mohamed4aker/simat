@@ -1,0 +1,220 @@
+# موقع سِمة — SIMAT Storefront
+
+<div dir="rtl">
+
+متجر إلكتروني كامل بـ **Next.js 16** + **Supabase**، عربي RTL بالكامل
+وبهوية سِمة، جاهز يبيع ويترفع على النت.
+
+---
+
+## اللي الموقع بيعمله
+
+| الصفحة | الوصف |
+|---|---|
+| `/` | الرئيسية: بانر، تصنيفات، مختارات، عروض، الأكثر مبيعاً، وصل حديثاً |
+| `/shop` | المتجر: بحث + فلترة (تصنيف/فئة/تركيز/عروض/متوفر) + ترتيب |
+| `/product/[slug]` | صفحة المنتج: الهرم العطري، الثبات، التقييمات، منتجات مشابهة |
+| `/cart` | عربة التسوق (محفوظة في المتصفح) |
+| `/checkout` | إتمام الطلب: عنوان + دفع + كوبون — **من غير تسجيل حساب** |
+| `/order-received` | صفحة الشكر برقم الطلب (مناسبة لتتبّع الإعلانات) |
+| `/track` | تتبّع الطلب برقم الطلب + الموبايل |
+| `/about` `/shipping` `/privacy` `/contact` | صفحات ثابتة |
+| `/sitemap.xml` `/robots.txt` | مولّدين تلقائياً |
+
+**لجوجل:** كل صفحة منتج بتتولّد HTML كامل على السيرفر ومعاها بيانات
+منظّمة (`Product` + `Offer` + `AggregateRating`) — يعني السعر والتوفّر
+والتقييم ممكن يظهروا في نتائج البحث.
+
+---
+
+## فين قاعدة البيانات؟
+
+قاعدة البيانات في **Supabase** — خدمة بتديك قاعدة **PostgreSQL** حقيقية
+على سيرفر مُدار، مع لوحة تحكم بتشوف منها الجداول والطلبات.
+
+- **الباقة المجانية** كفاية للبداية (٥٠٠ ميجا + ٥ جيجا نقل شهرياً).
+- بتختار المنطقة وقت إنشاء المشروع — اختار **Frankfurt (eu-central-1)**
+  لأنها الأقرب لمصر.
+- الجداول: `products` · `categories` · `orders` · `order_items` ·
+  `order_events` · `reviews` · `coupons` · `shipping_rates` · `settings`
+
+### مهم: الأمان
+
+- الزائر **مش بيقدر** يقرا الطلبات أو يعدّل الأسعار — كل الجداول
+  الحسّاسة عليها **Row Level Security** ومفيش صلاحية قراءة للزوار.
+- الطلب بيتسجّل من خلال دالة محميّة في قاعدة البيانات
+  (`create_order`) هي اللي **بتحسب السعر والشحن والخصم من الجداول**،
+  فحتى لو حد عدّل الطلب من المتصفح مش هيأثر على الحساب.
+- تتبّع الطلب بيحتاج **رقم الطلب + رقم الموبايل** مع بعض.
+
+### وضع العرض (من غير قاعدة بيانات)
+
+من غير مفاتيح Supabase، الموقع بيشتغل عادي بمنتجات تجريبية عشان تقدر
+تشوفه وترفعه فوراً — بس الطلبات **مش بتتسجّل**. أول ما تحط المفاتيح
+بيتحوّل للوضع الحقيقي لوحده.
+
+---
+
+## الإعداد — ٥ خطوات
+
+### ١. اعمل مشروع Supabase
+[supabase.com](https://supabase.com) → New project → اختار
+**Frankfurt** → احفظ كلمة سر قاعدة البيانات.
+
+### ٢. شغّل ملفات SQL
+من **SQL Editor** في Supabase، شغّل بالترتيب:
+
+1. `supabase/schema.sql` — بينشئ الجداول والحماية والدوال.
+2. `supabase/seed.sql` — بيزرع الـ ٢٠ منتج والتصنيفات وأسعار الشحن.
+
+### ٣. هات المفاتيح
+**Project Settings → API**، انسخ:
+- `Project URL`
+- `anon public` key
+
+### ٤. حطهم في ملف البيئة
+```bash
+cp .env.example .env.local
+```
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
+NEXT_PUBLIC_SITE_URL=https://simat.store
+```
+
+> مفتاح `anon` ده **آمن** إنه يبقى في المتصفح — الحماية الحقيقية في
+> سياسات RLS. متحطّش مفتاح `service_role` هنا خالص.
+
+### ٥. شغّل
+```bash
+npm install
+npm run dev      # http://localhost:3000
+```
+
+---
+
+## الرفع على النت
+
+### الطريقة الأسهل — Vercel (مجاني، دقيقتين)
+
+1. ارفع الريبو على GitHub (معمول بالفعل).
+2. [vercel.com](https://vercel.com) → **Add New → Project** → اختار
+   الريبو.
+3. **Root Directory** = `web`
+4. زوّد نفس متغيّرات `.env.local` في **Environment Variables**.
+5. Deploy. هتاخد لينك شغّال على طول.
+
+**الدومين:** Vercel → Settings → Domains → اكتب `simat.store` →
+هيديك سجلات DNS تحطها عند مسجّل الدومين:
+
+| النوع | الاسم | القيمة |
+|---|---|---|
+| A | `@` | `76.76.21.21` |
+| CNAME | `www` | `cname.vercel-dns.com` |
+
+شهادة SSL بتتظبط تلقائي.
+
+### على سيرفرك الخاص (VPS)
+
+الموقع بيتبني كـ **standalone**، يعني مجلد واحد فيه كل حاجة.
+
+**بـ Docker (الأسهل):**
+```bash
+cd web
+docker build \
+  --build-arg NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co \
+  --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ... \
+  --build-arg NEXT_PUBLIC_SITE_URL=https://simat.store \
+  -t simat-web .
+
+docker run -d --name simat-web --restart always -p 3000:3000 simat-web
+```
+
+**من غير Docker:**
+```bash
+npm ci && npm run build
+cp -r .next/static .next/standalone/.next/static
+cp -r public .next/standalone/public
+node .next/standalone/server.js     # على المنفذ 3000
+```
+(استخدم `pm2` أو `systemd` عشان يفضل شغّال بعد الريستارت.)
+
+**Nginx كـ reverse proxy:**
+```nginx
+server {
+    listen 80;
+    server_name simat.store www.simat.store;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+بعدها SSL مجاني:
+```bash
+sudo certbot --nginx -d simat.store -d www.simat.store
+```
+
+---
+
+## إدارة المنتجات والطلبات
+
+دلوقتي من **لوحة Supabase** مباشرة (Table Editor):
+
+| عايز تعمل إيه | تروح فين |
+|---|---|
+| تزوّد منتج | جدول `products` → Insert row |
+| تعدّل سعر أو مخزون | جدول `products` → عدّل الصف |
+| توقف منتج | خلي `is_active = false` |
+| تشوف الطلبات | جدول `orders` (مرتّبة بالأحدث) |
+| تغيّر حالة طلب | جدول `orders` → عدّل `status` |
+| تعمل كوبون | جدول `coupons` → Insert row |
+| تغيّر سعر شحن محافظة | جدول `shipping_rates` |
+| ترفع صورة منتج | Storage → ارفع الصورة → حط اللينك في `image_url` |
+
+> **الخطوة الجاية:** ربط **تطبيق الموبايل** بنفس قاعدة البيانات دي،
+> وساعتها لوحة تحكم التطبيق (اللي فيها التقارير وإضافة المنتجات)
+> هتشتغل على نفس البيانات وما تحتاجش تدخل Supabase خالص.
+
+---
+
+## أوامر
+
+```bash
+npm run dev        # تشغيل محلي
+npm run build      # بناء للنشر
+npm run start      # تشغيل النسخة المبنية
+npm run typecheck  # فحص الأنواع
+npm run lint       # فحص الكود
+npm run gen:seed   # إعادة توليد supabase/seed.sql من src/lib/seed.ts
+```
+
+---
+
+## بنية المشروع
+
+```
+web/
+├── src/app/            الصفحات (App Router)
+├── src/components/     الواجهات: الهوية، المنتجات، العربة، الهيدر والفوتر
+├── src/lib/
+│   ├── store.ts        ← طبقة البيانات الوحيدة (Supabase أو البيانات المحلية)
+│   ├── supabase.ts     الاتصال بقاعدة البيانات
+│   ├── seed.ts         المنتجات التجريبية
+│   ├── types.ts        الأنواع المشتركة
+│   └── constants.ts    الشحن والمحافظات ومعلومات المتجر
+├── supabase/
+│   ├── schema.sql      الجداول + الحماية + الدوال
+│   └── seed.sql        البيانات الابتدائية (مولّد تلقائياً)
+└── Dockerfile          للنشر على سيرفرك
+```
+
+</div>

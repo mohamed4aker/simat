@@ -31,3 +31,14 @@ app/ios/Runner/GeneratedPluginRegistrant.*
 # نظام التشغيل
 .DS_Store
 Thumbs.db
+
+# Next.js (الموقع)
+web/node_modules/
+web/.next/
+web/out/
+web/.vercel/
+web/next-env.d.ts
+web/.env
+web/.env.local
+web/.env*.local
+web/tsconfig.tsbuildinfo
