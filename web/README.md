@@ -95,6 +95,11 @@ npm run dev      # http://localhost:3000
 
 ## الرفع على النت
 
+> **الموقع لسه مترفعش على النت.** لازم يترفع من حسابك إنت (Vercel أو
+> سيرفرك)، والخطوات تحت. في `‎.github/workflows/deploy-web.yml` كمان
+> workflow بيرفع الموقع تلقائياً مع كل تحديث أول ما تحط توكن Vercel
+> في أسرار الريبو.
+
 ### الطريقة الأسهل — Vercel (مجاني، دقيقتين)
 
 1. ارفع الريبو على GitHub (معمول بالفعل).
@@ -113,6 +118,26 @@ npm run dev      # http://localhost:3000
 | CNAME | `www` | `cname.vercel-dns.com` |
 
 شهادة SSL بتتظبط تلقائي.
+
+#### نشر تلقائي مع كل تحديث (اختياري)
+
+بعد ما تربط المشروع بـ Vercel مرة واحدة:
+
+```bash
+cd web && npx vercel link       # بيولّد web/.vercel/project.json
+```
+
+خُد `orgId` و `projectId` من الملف ده، وخُد توكن من
+[vercel.com/account/tokens](https://vercel.com/account/tokens)، وحطهم في
+**GitHub → Settings → Secrets and variables → Actions**:
+
+| السر | القيمة |
+|---|---|
+| `VERCEL_TOKEN` | التوكن |
+| `VERCEL_ORG_ID` | `orgId` |
+| `VERCEL_PROJECT_ID` | `projectId` |
+
+من ساعتها أي تعديل على الموقع بيترفع لوحده.
 
 ### على سيرفرك الخاص (VPS)
 
