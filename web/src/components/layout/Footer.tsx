@@ -120,7 +120,16 @@ export function Footer({ categories }: { categories: Category[] }) {
 
         <div className="mt-10 pt-6 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-faint">
           <p>© {new Date().getFullYear()} SIMAT — سِمة. كل الحقوق محفوظة.</p>
-          <p>{STORE.tagline}</p>
+          <div className="flex items-center gap-4">
+            <p>{STORE.tagline}</p>
+            {/* مدخل إدارة المتجر — الحماية من تسجيل الدخول نفسه مش من إخفاء الرابط */}
+            <Link
+              href="/admin"
+              className="opacity-60 hover:opacity-100 hover:text-wine transition"
+            >
+              إدارة المتجر
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
