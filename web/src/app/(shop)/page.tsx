@@ -13,8 +13,9 @@ import {
   getBestSellers, getCategories, getFeatured, getNewArrivals, getOffers,
 } from '@/lib/store';
 
-// الصفحة بتتولّد على السيرفر وتتحدّث كل ساعة — أسرع لجوجل وللزائر.
-export const revalidate = 3600;
+// الصفحة بتتولّد على السيرفر وبتتحدّث كل دقيقة، فأي منتج تضيفه
+// من لوحة التحكم بيظهر على طول تقريباً.
+export const revalidate = 60;
 
 const ICONS: Record<string, React.ComponentType<{ size?: number }>> = {
   flame: Flame,

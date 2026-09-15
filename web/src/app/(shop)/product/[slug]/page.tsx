@@ -14,7 +14,9 @@ import {
 } from '@/lib/store';
 import { concentrationShort, genderLabels } from '@/lib/types';
 
-export const revalidate = 3600;
+// الصفحة بتتولّد على السيرفر وبتتحدّث كل دقيقة، فأي منتج تضيفه
+// من لوحة التحكم بيظهر على طول تقريباً.
+export const revalidate = 60;
 
 /** بنولّد صفحات المنتجات وقت البناء عشان تفتح فوراً وتتفهرس في جوجل. */
 export async function generateStaticParams() {
