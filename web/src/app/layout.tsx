@@ -2,11 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Cairo, Playfair_Display } from 'next/font/google';
 import './globals.css';
 
-import { CartProvider } from '@/components/cart/CartProvider';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
 import { STORE, SITE_URL } from '@/lib/constants';
-import { getCategories } from '@/lib/store';
 
 const cairo = Cairo({
   variable: '--font-cairo',
@@ -55,26 +51,18 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const categories = await getCategories();
-
   return (
     <html
       lang="ar"
       dir="rtl"
       className={`${cairo.variable} ${playfair.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col">
-        <CartProvider>
-          <Header categories={categories} />
-          <main className="flex-1">{children}</main>
-          <Footer categories={categories} />
-        </CartProvider>
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

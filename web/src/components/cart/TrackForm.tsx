@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { Search, AlertCircle } from 'lucide-react';
 
-import { lookupOrder } from '@/app/track/actions';
+import { lookupOrder } from '@/lib/actions/track';
 import { buttonStyles, Card } from '@/components/ui';
 import { dateTimeAr, price } from '@/lib/format';
 import { orderStatusLabels, paymentLabels, type OrderStatus } from '@/lib/types';

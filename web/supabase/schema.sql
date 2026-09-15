@@ -455,3 +455,207 @@ $$;
 drop trigger if exists orders_touch on public.orders;
 create trigger orders_touch before update on public.orders
   for each row execute function public.touch_updated_at();
+
+-- ═══════════════════════════════════════════════════════════════
+--  ٤. لوحة تحكم الأدمن
+-- ═══════════════════════════════════════════════════════════════
+
+-- في Supabase الدالة auth.jwt() موجودة أصلاً. البلوك ده بيعملها بس
+-- لو مش موجودة (عشان الملف يشتغل على Postgres عادي وقت الاختبار).
+do $$
+begin
+  if to_regprocedure('auth.jwt()') is null then
+    create schema if not exists auth;
+    execute $f$
+      create function auth.jwt() returns jsonb
+      language sql stable as $inner$
+        select coalesce(
+          nullif(current_setting('request.jwt.claims', true), '')::jsonb,
+          '{}'::jsonb
+        )
+      $inner$;
+    $f$;
+  end if;
+end $$;
+
+-- إيميلات المسؤولين. أي حساب إيميله هنا بيقدر يدير المتجر.
+create table if not exists public.admin_users (
+  email      text primary key,
+  name       text default '',
+  created_at timestamptz default now()
+);
+
+alter table public.admin_users enable row level security;
+
+-- هل المستخدم الحالي أدمن؟
+create or replace function public.is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1 from public.admin_users
+     where lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+  );
+$$;
+
+grant execute on function public.is_admin() to anon, authenticated;
+
+-- الأدمن بيشوف قائمة المسؤولين، ومحدش غيره.
+drop policy if exists "الأدمن يقرا المسؤولين" on public.admin_users;
+create policy "الأدمن يقرا المسؤولين"
+  on public.admin_users for select using (public.is_admin());
+
+-- صلاحيات الأدمن الكاملة على جداول المتجر.
+do $$
+declare
+  t text;
+begin
+  foreach t in array array[
+    'products', 'categories', 'coupons', 'reviews',
+    'shipping_rates', 'settings', 'orders', 'order_items', 'order_events'
+  ] loop
+    execute format(
+      'drop policy if exists "الأدمن يدير %1$s" on public.%1$I', t);
+    execute format(
+      'create policy "الأدمن يدير %1$s" on public.%1$I '
+      'for all using (public.is_admin()) with check (public.is_admin())', t);
+  end loop;
+end $$;
+
+-- ملخّص المتجر للوحة التحكم (إيراد، طلبات، عملاء، مخزون منخفض).
+create or replace function public.admin_stats(p_days int default 30)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_start     timestamptz := now() - make_interval(days => p_days);
+  v_prev      timestamptz := now() - make_interval(days => p_days * 2);
+  v_revenue   numeric;
+  v_prev_rev  numeric;
+  v_orders    int;
+  v_items     int;
+  v_customers int;
+begin
+  if not public.is_admin() then
+    return jsonb_build_object('ok', false, 'error', 'مش مسموح');
+  end if;
+
+  select coalesce(sum(total), 0), count(*)
+    into v_revenue, v_orders
+    from public.orders
+   where created_at >= v_start
+     and status not in ('cancelled', 'returned');
+
+  select coalesce(sum(total), 0) into v_prev_rev
+    from public.orders
+   where created_at >= v_prev and created_at < v_start
+     and status not in ('cancelled', 'returned');
+
+  select coalesce(sum(i.quantity), 0) into v_items
+    from public.order_items i
+    join public.orders o on o.id = i.order_id
+   where o.created_at >= v_start
+     and o.status not in ('cancelled', 'returned');
+
+  select count(distinct customer_phone) into v_customers
+    from public.orders where created_at >= v_start;
+
+  return jsonb_build_object(
+    'ok', true,
+    'revenue', v_revenue,
+    'previous_revenue', v_prev_rev,
+    'orders', v_orders,
+    'items_sold', v_items,
+    'customers', v_customers,
+    'average_order', case when v_orders > 0
+                          then round(v_revenue / v_orders, 2) else 0 end,
+    'open_orders', (select count(*) from public.orders
+                     where status in ('pending','confirmed','preparing','shipped')),
+    'lifetime_revenue', (select coalesce(sum(total), 0) from public.orders
+                          where status not in ('cancelled','returned')),
+    'products', (select count(*) from public.products where is_active),
+    'low_stock', (
+      select coalesce(jsonb_agg(jsonb_build_object(
+               'id', id, 'name', name, 'stock', stock) order by stock), '[]'::jsonb)
+        from (select id, name, stock from public.products
+               where is_active and stock <= 5 order by stock limit 10) s
+    ),
+    'by_status', (
+      select coalesce(jsonb_object_agg(status, c), '{}'::jsonb)
+        from (select status, count(*) c from public.orders
+               where created_at >= v_start group by status) x
+    ),
+    'daily', (
+      select coalesce(jsonb_agg(jsonb_build_object(
+               'day', d::date, 'revenue', coalesce(r, 0), 'orders', coalesce(n, 0))
+               order by d), '[]'::jsonb)
+        from generate_series(date_trunc('day', v_start), date_trunc('day', now()),
+                             '1 day') d
+        left join (
+          select date_trunc('day', created_at) dd,
+                 sum(total) r, count(*) n
+            from public.orders
+           where created_at >= v_start
+             and status not in ('cancelled','returned')
+           group by 1
+        ) g on g.dd = d
+    ),
+    'top_products', (
+      select coalesce(jsonb_agg(jsonb_build_object(
+               'name', name, 'quantity', q, 'revenue', rev) order by rev desc), '[]'::jsonb)
+        from (
+          select i.name, sum(i.quantity) q, sum(i.quantity * i.unit_price) rev
+            from public.order_items i
+            join public.orders o on o.id = i.order_id
+           where o.created_at >= v_start
+             and o.status not in ('cancelled','returned')
+           group by i.name
+           order by rev desc
+           limit 8
+        ) tp
+    )
+  );
+end;
+$$;
+
+grant execute on function public.admin_stats(int) to authenticated;
+
+-- تغيير حالة الطلب مع تسجيلها في السجل.
+create or replace function public.admin_set_order_status(
+  p_order_id uuid,
+  p_status   text,
+  p_note     text default ''
+)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if not public.is_admin() then
+    return jsonb_build_object('ok', false, 'error', 'مش مسموح');
+  end if;
+  if p_status not in ('pending','confirmed','preparing','shipped',
+                      'delivered','cancelled','returned') then
+    return jsonb_build_object('ok', false, 'error', 'حالة غير معروفة');
+  end if;
+
+  update public.orders set status = p_status where id = p_order_id;
+  if not found then
+    return jsonb_build_object('ok', false, 'error', 'الطلب مش موجود');
+  end if;
+
+  insert into public.order_events (order_id, status, note)
+  values (p_order_id, p_status, coalesce(p_note, 'تحديث من لوحة التحكم'));
+
+  return jsonb_build_object('ok', true);
+end;
+$$;
+
+grant execute on function public.admin_set_order_status(uuid, text, text)
+  to authenticated;

@@ -7,7 +7,7 @@ import { AlertCircle, BadgePercent, Banknote, CreditCard, Smartphone, Wallet } f
 
 import { useCart } from '@/components/cart/CartProvider';
 import { buttonStyles, Card } from '@/components/ui';
-import { checkCoupon, submitOrder } from '@/app/checkout/actions';
+import { checkCoupon, submitOrder } from '@/lib/actions/checkout';
 import { GOVERNORATES, shippingFor } from '@/lib/constants';
 import { price } from '@/lib/format';
 import type { PaymentMethod } from '@/lib/types';
