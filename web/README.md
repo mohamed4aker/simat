@@ -157,7 +157,7 @@ docker run -d --name simat-web --restart always -p 3000:3000 simat-web
 
 **من غير Docker:**
 ```bash
-npm ci && npm run build
+npm ci && npm run build:standalone
 cp -r .next/static .next/standalone/.next/static
 cp -r public .next/standalone/public
 node .next/standalone/server.js     # على المنفذ 3000
@@ -187,6 +187,22 @@ server {
 ```bash
 sudo certbot --nginx -d simat.store -d www.simat.store
 ```
+
+---
+
+## لو الرفع على Vercel وقع
+
+أشهر ٣ أسباب وحلّها:
+
+| رسالة الخطأ | السبب | الحل |
+|---|---|---|
+| `No Next.js version detected` أو `package.json not found` | Vercel بيدوّر على المشروع في جذر الريبو، والموقع جوّه `web/` | **Settings → General → Root Directory** → اكتب `web` → Save → Redeploy |
+| `Error: Cannot find module ...` أو البناء بيقف فجأة | نسخة Node قديمة | **Settings → General → Node.js Version** → اختار `22.x` |
+| الموقع بيفتح بس المنتجات مش ظاهرة | متغيّرات البيئة ناقصة | **Settings → Environment Variables** → زوّد `NEXT_PUBLIC_SUPABASE_URL` و `NEXT_PUBLIC_SUPABASE_ANON_KEY` و `NEXT_PUBLIC_SITE_URL` → Redeploy |
+
+> الموقع بيتبني تمام على GitHub Actions في كل دفعة
+> (workflow «بناء الموقع»)، فلو البناء وقع عند Vercel بس، غالباً
+> إعدادات المشروع مش الكود.
 
 ---
 

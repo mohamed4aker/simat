@@ -15,7 +15,7 @@ ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL \
     NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
     NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 
-RUN npm run build
+RUN npm run build:standalone
 
 # ─── التشغيل ──────────────────────────────────────────────────
 FROM node:22-alpine AS runner
