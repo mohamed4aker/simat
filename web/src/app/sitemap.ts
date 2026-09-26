@@ -1,43 +1,43 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/constants';
-import { getCategories, getProducts } from '@/lib/store';
+import { getProducts } from '@/lib/store';
 
 export const revalidate = 3600;
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [products, categories] = await Promise.all([
-    getProducts(),
-    getCategories(),
-  ]);
-
-  const staticPages = [
-    { url: '', priority: 1 },
-    { url: '/shop', priority: 0.9 },
-    { url: '/about', priority: 0.5 },
-    { url: '/shipping', priority: 0.5 },
-    { url: '/contact', priority: 0.4 },
-    { url: '/privacy', priority: 0.3 },
-    { url: '/track', priority: 0.4 },
-  ].map((p) => ({
-    url: `${SITE_URL}${p.url}`,
-    lastModified: new Date(),
+/** كل صفحة بتتسجل مرة بالعربي ومرة بالإنجليزي مع الربط بينهم. */
+function entry(path: string, priority: number, lastModified = new Date()) {
+  return {
+    url: `${SITE_URL}/ar${path}`,
+    lastModified,
     changeFrequency: 'weekly' as const,
-    priority: p.priority,
-  }));
+    priority,
+    alternates: {
+      languages: {
+        ar: `${SITE_URL}/ar${path}`,
+        en: `${SITE_URL}/en${path}`,
+      },
+    },
+  };
+}
 
-  return [
-    ...staticPages,
-    ...categories.map((c) => ({
-      url: `${SITE_URL}/shop?category=${c.slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    })),
-    ...products.map((p) => ({
-      url: `${SITE_URL}/product/${p.slug}`,
-      lastModified: new Date(p.createdAt),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    })),
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const products = await getProducts();
+
+  const pages = [
+    entry('', 1),
+    entry('/shop', 0.9),
+    entry('/faq', 0.6),
+    entry('/about', 0.5),
+    entry('/shipping', 0.5),
+    entry('/contact', 0.4),
+    entry('/privacy', 0.3),
+    entry('/track', 0.4),
+    ...products.map((p) => entry(`/product/${p.slug}`, 0.8, new Date(p.createdAt))),
   ];
+
+  // نفس الصفحات بالإنجليزي كعناوين مستقلة
+  return pages.flatMap((p) => [
+    p,
+    { ...p, url: p.url.replace(`${SITE_URL}/ar`, `${SITE_URL}/en`) },
+  ]);
 }

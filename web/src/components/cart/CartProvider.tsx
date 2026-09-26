@@ -1,53 +1,73 @@
 'use client';
 
 import { useMemo, useSyncExternalStore } from 'react';
-import { cartStore, subscribeNoop } from '@/lib/cart-store';
-import type { CartLine, Product } from '@/lib/types';
+import {
+  cartStore,
+  extrasStore,
+  linesStore,
+  subscribeNoop,
+  toggleWishlist,
+  wishlistStore,
+  type CartExtras,
+} from '@/lib/cart-store';
+import { uiStore, type UiState } from '@/lib/ui-store';
+import type { CartLine } from '@/lib/types';
 
-/**
- * مفيش Context هنا — كل مكوّن بيشترك في المخزن مباشرة.
- * الـ Provider موجود بس عشان يفضل شكل الشجرة واضح.
- */
-export function CartProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
-}
-
-export interface CartApi {
+export interface CartApi extends CartExtras {
   lines: CartLine[];
   count: number;
   subtotal: number;
   /** false لحد ما المتصفح يقرا العربة المحفوظة. */
   ready: boolean;
-  add: (product: Product, quantity?: number) => void;
-  setQuantity: (productId: string, quantity: number) => void;
-  remove: (productId: string) => void;
-  clear: () => void;
 }
 
 export function useCart(): CartApi {
   const lines = useSyncExternalStore(
-    cartStore.subscribe,
-    cartStore.getSnapshot,
-    cartStore.getServerSnapshot,
+    linesStore.subscribe,
+    linesStore.getSnapshot,
+    linesStore.getServerSnapshot,
   );
-
-  const ready = useSyncExternalStore(
-    subscribeNoop,
-    () => true,
-    () => false,
+  const extras = useSyncExternalStore(
+    extrasStore.subscribe,
+    extrasStore.getSnapshot,
+    extrasStore.getServerSnapshot,
   );
+  const ready = useHydrated();
 
   return useMemo(
     () => ({
+      ...extras,
       lines,
       ready,
       count: lines.reduce((sum, l) => sum + l.quantity, 0),
       subtotal: lines.reduce((sum, l) => sum + l.price * l.quantity, 0),
-      add: cartStore.add,
-      setQuantity: cartStore.setQuantity,
-      remove: cartStore.remove,
-      clear: cartStore.clear,
     }),
-    [lines, ready],
+    [lines, extras, ready],
   );
 }
+
+export function useWishlist(): string[] {
+  return useSyncExternalStore(
+    wishlistStore.subscribe,
+    wishlistStore.getSnapshot,
+    wishlistStore.getServerSnapshot,
+  );
+}
+
+export function useUi(): UiState {
+  return useSyncExternalStore(
+    uiStore.subscribe,
+    uiStore.getSnapshot,
+    uiStore.getServerSnapshot,
+  );
+}
+
+export function useHydrated(): boolean {
+  return useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
+}
+
+export { cartStore, toggleWishlist, uiStore };

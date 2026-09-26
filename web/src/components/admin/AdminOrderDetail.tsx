@@ -32,6 +32,9 @@ interface OrderRow {
   payment_method: PaymentMethod;
   status: OrderStatus;
   notes: string;
+  alt_phone?: string | null;
+  is_gift?: boolean;
+  gift_message?: string;
   created_at: string;
 }
 
@@ -165,6 +168,11 @@ export function AdminOrderDetail({ orderId }: { orderId: string }) {
         <h2 className="font-bold mb-3">العميل والعنوان</h2>
         <p className="font-bold">{order.customer_name}</p>
         <p className="mt-1 text-sm text-muted" dir="ltr">{order.customer_phone}</p>
+        {order.alt_phone && (
+          <p className="text-sm text-muted">
+            رقم بديل / واتساب: <span dir="ltr">{order.alt_phone}</span>
+          </p>
+        )}
         {order.customer_email && (
           <p className="text-sm text-muted" dir="ltr">{order.customer_email}</p>
         )}
@@ -174,6 +182,12 @@ export function AdminOrderDetail({ orderId }: { orderId: string }) {
         </p>
         {order.address_notes && (
           <p className="text-xs text-faint">علامة مميزة: {order.address_notes}</p>
+        )}
+        {order.is_gift && (
+          <div className="mt-3 rounded-xl border border-copper/40 bg-copper/10 px-3 py-2 text-sm">
+            <b>🎁 طلب هدية — متحطش فاتورة أو أسعار في الطرد.</b>
+            {order.gift_message && <p className="mt-1">رسالة الكارت: «{order.gift_message}»</p>}
+          </div>
         )}
         {order.notes && (
           <p className="mt-3 rounded-xl bg-sand/40 px-3 py-2 text-sm">

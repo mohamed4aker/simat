@@ -12,7 +12,14 @@ const nextConfig: NextConfig = {
     // صور المنتجات ممكن تتحط في Supabase Storage أو أي مكان تاني.
     remotePatterns: [
       { protocol: 'https', hostname: '**.supabase.co' },
+      // صور الأقسام في الرئيسية (مؤقتة لحد ما تيجي صور التصوير الحقيقية)
+      { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
+  },
+
+  experimental: {
+    // صفحة 404 واحدة للموقع كله (عندنا layout للواجهة وlayout للأدمن).
+    globalNotFound: true,
   },
 };
 

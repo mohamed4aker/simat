@@ -6,7 +6,11 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/cart', '/checkout', '/order-received'],
+      disallow: [
+        '/admin',
+        '/ar/checkout', '/en/checkout',
+        '/ar/order-received', '/en/order-received',
+      ],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
   };

@@ -1,6 +1,9 @@
 -- ═══════════════════════════════════════════════════════════════
 --  SIMAT — سِمة | مخطّط قاعدة البيانات (Supabase / PostgreSQL)
---  شغّل الملف ده مرة واحدة في:  Supabase → SQL Editor → New query
+--  شغّل الملف ده في:  Supabase → SQL Editor → New query
+--
+--  الملف آمن يتشغّل أكتر من مرة: لو قاعدة البيانات موجودة قبل كده
+--  بيضيف الأعمدة والدوال الجديدة بس من غير ما يمسح أي بيانات.
 -- ═══════════════════════════════════════════════════════════════
 
 -- ── ١. الجداول ────────────────────────────────────────────────
@@ -136,6 +139,35 @@ create table if not exists public.order_events (
   created_at timestamptz default now()
 );
 
+-- المشتركين في النشرة البريدية
+create table if not exists public.newsletter_subscribers (
+  email      text primary key,
+  lang       text default 'ar',
+  created_at timestamptz default now()
+);
+
+-- ── ١-ب. الموقع بلغتين + طلبات الهدايا ────────────────────────
+-- «add column if not exists» عشان الملف يحدّث قاعدة موجودة من غير
+-- ما يلمس بياناتها.
+
+alter table public.categories
+  add column if not exists description_en text default '';
+
+alter table public.products
+  add column if not exists description_en text   default '',
+  add column if not exists family         text   default '',
+  add column if not exists family_en      text   default '',
+  add column if not exists kind           text   default 'bottle',
+  add column if not exists label_style    text   default 'bordeaux',
+  add column if not exists top_notes_en   text[] default '{}',
+  add column if not exists heart_notes_en text[] default '{}',
+  add column if not exists base_notes_en  text[] default '{}';
+
+alter table public.orders
+  add column if not exists alt_phone    text,
+  add column if not exists is_gift      boolean default false,
+  add column if not exists gift_message text default '';
+
 -- ── ٢. الحماية (Row Level Security) ──────────────────────────
 -- القاعدة: الزائر يقرا المنتجات بس. الطلبات والكوبونات بتتعامل
 -- من خلال دوال محميّة عشان محدش يقدر يتلاعب بالأسعار أو يقرا
@@ -150,6 +182,7 @@ alter table public.settings       enable row level security;
 alter table public.orders         enable row level security;
 alter table public.order_items    enable row level security;
 alter table public.order_events   enable row level security;
+alter table public.newsletter_subscribers enable row level security;
 
 drop policy if exists "قراءة التصنيفات للجميع" on public.categories;
 create policy "قراءة التصنيفات للجميع"
@@ -244,6 +277,11 @@ $$;
 -- إنشاء الطلب.
 -- الأسعار والشحن والخصم كلهم بيتحسبوا هنا من قاعدة البيانات،
 -- فمهما اتبعت من المتصفح مش هيأثر على الحساب.
+
+-- النسخة القديمة من الدالة (قبل خانات الهدية والرقم البديل).
+drop function if exists public.create_order(
+  text,text,text,text,text,text,text,text,jsonb,text,text,text,text);
+
 create or replace function public.create_order(
   p_name        text,
   p_phone       text,
@@ -257,7 +295,10 @@ create or replace function public.create_order(
   p_payment     text,
   p_coupon      text,
   p_notes       text,
-  p_source      text default 'web'
+  p_source      text default 'web',
+  p_alt_phone   text default null,
+  p_is_gift     boolean default false,
+  p_gift_message text default ''
 )
 returns jsonb
 language plpgsql
@@ -280,6 +321,9 @@ begin
     return jsonb_build_object('ok', false, 'error', 'الاسم مطلوب');
   end if;
   if p_phone !~ '^01[0125][0-9]{8}$' then
+    return jsonb_build_object('ok', false, 'error', 'رقم موبايل غير صحيح');
+  end if;
+  if coalesce(p_alt_phone, '') <> '' and p_alt_phone !~ '^01[0125][0-9]{8}$' then
     return jsonb_build_object('ok', false, 'error', 'رقم موبايل غير صحيح');
   end if;
   if p_items is null or jsonb_array_length(p_items) = 0 then
@@ -333,7 +377,8 @@ begin
     order_number, customer_name, customer_phone, customer_email,
     governorate, city, street, building, address_notes,
     subtotal, shipping, discount, total,
-    coupon_code, payment_method, notes, source
+    coupon_code, payment_method, notes, source,
+    alt_phone, is_gift, gift_message
   ) values (
     v_number, trim(p_name), trim(p_phone), nullif(trim(coalesce(p_email,'')), ''),
     p_governorate, p_city, p_street, coalesce(p_building,''),
@@ -341,7 +386,10 @@ begin
     v_subtotal, v_shipping, v_discount,
     v_subtotal + v_shipping - v_discount,
     case when v_discount > 0 then upper(trim(p_coupon)) end,
-    coalesce(p_payment, 'cod'), coalesce(p_notes, ''), coalesce(p_source, 'web')
+    coalesce(p_payment, 'cod'), coalesce(p_notes, ''), coalesce(p_source, 'web'),
+    nullif(trim(coalesce(p_alt_phone, '')), ''), coalesce(p_is_gift, false),
+    case when coalesce(p_is_gift, false)
+         then left(coalesce(p_gift_message, ''), 300) else '' end
   )
   returning id into v_order_id;
 
@@ -439,9 +487,35 @@ revoke all on function public.validate_coupon from public, anon;
 revoke all on function public.track_order     from public, anon;
 
 grant execute on function public.create_order(
-  text,text,text,text,text,text,text,text,jsonb,text,text,text,text) to anon, authenticated;
+  text,text,text,text,text,text,text,text,jsonb,text,text,text,text,
+  text,boolean,text) to anon, authenticated;
 grant execute on function public.validate_coupon(text, numeric) to anon, authenticated;
 grant execute on function public.track_order(text, text) to anon, authenticated;
+
+-- الاشتراك في النشرة البريدية (الزائر ما يقدرش يقرا القائمة)
+create or replace function public.subscribe_newsletter(
+  p_email text,
+  p_lang  text default 'ar'
+)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if p_email is null or p_email !~* '^[^@\s]+@[^@\s]+\.[^@\s]{2,}$'
+     or length(p_email) > 200 then
+    return jsonb_build_object('ok', false);
+  end if;
+  insert into public.newsletter_subscribers (email, lang)
+  values (lower(trim(p_email)), case when p_lang = 'en' then 'en' else 'ar' end)
+  on conflict (email) do nothing;
+  return jsonb_build_object('ok', true);
+end;
+$$;
+
+revoke all on function public.subscribe_newsletter from public, anon;
+grant execute on function public.subscribe_newsletter(text, text) to anon, authenticated;
 
 -- تحديث updated_at تلقائياً
 create or replace function public.touch_updated_at()
@@ -515,7 +589,8 @@ declare
 begin
   foreach t in array array[
     'products', 'categories', 'coupons', 'reviews',
-    'shipping_rates', 'settings', 'orders', 'order_items', 'order_events'
+    'shipping_rates', 'settings', 'orders', 'order_items', 'order_events',
+    'newsletter_subscribers'
   ] loop
     execute format(
       'drop policy if exists "الأدمن يدير %1$s" on public.%1$I', t);

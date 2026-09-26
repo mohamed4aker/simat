@@ -1,11 +1,12 @@
 import { STORE } from './constants';
+import type { Locale } from '@/i18n/config';
 
 const money = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 });
 const int = new Intl.NumberFormat('en-US');
 
-/** «١٬٤٥٠ ج.م» */
-export function price(value: number): string {
-  return `${money.format(value)} ${STORE.currency}`;
+/** «3,450 ج.م» أو «3,450 EGP» حسب اللغة. */
+export function price(value: number, lang: Locale = 'ar'): string {
+  return `${money.format(value)} ${lang === 'en' ? 'EGP' : STORE.currency}`;
 }
 
 export function priceNumber(value: number): string {
@@ -50,4 +51,14 @@ export function normalizeArabic(value: string): string {
     .replace(/ى/g, 'ي')
     .replace(/[ً-ْ]/g, '')
     .trim();
+}
+
+/** التاريخ حسب لغة الصفحة. */
+export function dateFor(value: string | Date, lang: Locale): string {
+  const d = typeof value === 'string' ? new Date(value) : value;
+  return new Intl.DateTimeFormat(lang === 'ar' ? 'ar-EG' : 'en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(d);
 }

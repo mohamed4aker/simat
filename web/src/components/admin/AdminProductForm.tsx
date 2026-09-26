@@ -23,6 +23,11 @@ interface FormState {
   brand: string;
   category_id: string;
   description: string;
+  description_en: string;
+  family: string;
+  family_en: string;
+  kind: string;
+  label_style: string;
   price: string;
   old_price: string;
   size_ml: string;
@@ -33,6 +38,9 @@ interface FormState {
   top_notes: string;
   heart_notes: string;
   base_notes: string;
+  top_notes_en: string;
+  heart_notes_en: string;
+  base_notes_en: string;
   image_url: string;
   is_featured: boolean;
   is_active: boolean;
@@ -40,9 +48,11 @@ interface FormState {
 
 const EMPTY: FormState = {
   name: '', name_en: '', slug: '', brand: 'SIMAT', category_id: '',
-  description: '', price: '', old_price: '', size_ml: '100', stock: '0',
+  description: '', description_en: '', family: '', family_en: '',
+  kind: 'bottle', label_style: 'bordeaux', price: '', old_price: '', size_ml: '100', stock: '0',
   gender: 'unisex', concentration: 'edp', longevity_hours: '8',
-  top_notes: '', heart_notes: '', base_notes: '', image_url: '',
+  top_notes: '', heart_notes: '', base_notes: '',
+  top_notes_en: '', heart_notes_en: '', base_notes_en: '', image_url: '',
   is_featured: false, is_active: true,
 };
 
@@ -72,6 +82,11 @@ function rowToForm(
     brand: String(row.brand ?? 'SIMAT'),
     category_id: String(row.category_id ?? ''),
     description: String(row.description ?? ''),
+    description_en: String(row.description_en ?? ''),
+    family: String(row.family ?? ''),
+    family_en: String(row.family_en ?? ''),
+    kind: String(row.kind ?? 'bottle'),
+    label_style: String(row.label_style ?? 'bordeaux'),
     price: String(row.price ?? ''),
     old_price: row.old_price == null ? '' : String(row.old_price),
     size_ml: String(row.size_ml ?? 100),
@@ -82,6 +97,9 @@ function rowToForm(
     top_notes: ((row.top_notes as string[]) ?? []).join('، '),
     heart_notes: ((row.heart_notes as string[]) ?? []).join('، '),
     base_notes: ((row.base_notes as string[]) ?? []).join('، '),
+    top_notes_en: ((row.top_notes_en as string[]) ?? []).join(', '),
+    heart_notes_en: ((row.heart_notes_en as string[]) ?? []).join(', '),
+    base_notes_en: ((row.base_notes_en as string[]) ?? []).join(', '),
     image_url: String(row.image_url ?? ''),
     is_featured: Boolean(row.is_featured),
     is_active: row.is_active !== false,
@@ -164,6 +182,11 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
       brand: form.brand.trim() || 'SIMAT',
       category_id: form.category_id,
       description: form.description.trim(),
+      description_en: form.description_en.trim(),
+      family: form.family.trim(),
+      family_en: form.family_en.trim(),
+      kind: form.kind === 'set' ? 'set' : 'bottle',
+      label_style: form.label_style,
       price: priceValue,
       old_price: form.old_price.trim() ? Number(form.old_price) : null,
       size_ml: Number(form.size_ml) || 100,
@@ -174,6 +197,9 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
       top_notes: notesToArray(form.top_notes),
       heart_notes: notesToArray(form.heart_notes),
       base_notes: notesToArray(form.base_notes),
+      top_notes_en: notesToArray(form.top_notes_en),
+      heart_notes_en: notesToArray(form.heart_notes_en),
+      base_notes_en: notesToArray(form.base_notes_en),
       image_url: form.image_url.trim() || null,
       is_featured: form.is_featured,
       is_active: form.is_active,
@@ -245,9 +271,20 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
           </select>
         </Field>
 
-        <Field label="الوصف">
+        <Field label="الوصف (عربي)">
           <textarea value={form.description} onChange={set('description')} rows={4} className={adminInput} />
         </Field>
+        <Field label="الوصف (إنجليزي)">
+          <textarea value={form.description_en} onChange={set('description_en')} rows={4} dir="ltr" className={adminInput} />
+        </Field>
+        <div className="grid sm:grid-cols-2 gap-3">
+          <Field label="العائلة العطرية (عربي)">
+            <input value={form.family} onChange={set('family')} placeholder="زهري شرقي وعود معتق" className={adminInput} />
+          </Field>
+          <Field label="العائلة العطرية (إنجليزي)">
+            <input value={form.family_en} onChange={set('family_en')} dir="ltr" placeholder="Floral Oriental & Aged Oud" className={adminInput} />
+          </Field>
+        </div>
       </section>
 
       <section className="rounded-2xl border border-line bg-surface p-5 space-y-3">
@@ -280,7 +317,7 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
           </Field>
           <Field label="التركيز">
             <select value={form.concentration} onChange={set('concentration')} className={adminInput}>
-              <option value="parfum">Parfum</option>
+              <option value="parfum">Extrait de Parfum</option>
               <option value="edp">EDP</option>
               <option value="edt">EDT</option>
               <option value="oil">زيت</option>
@@ -300,6 +337,28 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
         <Field label="نوتات القاعدة">
           <input value={form.base_notes} onChange={set('base_notes')} placeholder="عنبر، مسك، صندل" className={adminInput} />
         </Field>
+        <p className="text-[11px] text-faint">النوتات بالإنجليزي (للنسخة الإنجليزية من الموقع — افصل بينهم بفاصلة):</p>
+        <div className="grid sm:grid-cols-3 gap-3" dir="ltr">
+          <input value={form.top_notes_en} onChange={set('top_notes_en')} placeholder="Top: Bergamot, Cardamom" className={adminInput} />
+          <input value={form.heart_notes_en} onChange={set('heart_notes_en')} placeholder="Heart: Rose, Jasmine" className={adminInput} />
+          <input value={form.base_notes_en} onChange={set('base_notes_en')} placeholder="Base: Amber, Musk" className={adminInput} />
+        </div>
+        <div className="grid sm:grid-cols-2 gap-3">
+          <Field label="نوع المنتج">
+            <select value={form.kind} onChange={set('kind')} className={adminInput}>
+              <option value="bottle">زجاجة</option>
+              <option value="set">طقم عينات</option>
+            </select>
+          </Field>
+          <Field label="لون ملصق الزجاجة (لو مفيش صورة)">
+            <select value={form.label_style} onChange={set('label_style')} className={adminInput}>
+              <option value="bordeaux">عنابي</option>
+              <option value="noir">أسود</option>
+              <option value="linen">عاجي</option>
+              <option value="velvet">مخملي وذهبي</option>
+            </select>
+          </Field>
+        </div>
       </section>
 
       <section className="rounded-2xl border border-line bg-surface p-5 space-y-3">

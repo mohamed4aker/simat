@@ -2,168 +2,97 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useState, useTransition } from 'react';
-import { Search, AlertCircle } from 'lucide-react';
-
+import { AlertCircle } from 'lucide-react';
+import { useI18n } from '@/i18n/I18nProvider';
 import { lookupOrder } from '@/lib/actions/track';
-import { buttonStyles, Card } from '@/components/ui';
-import { dateTimeAr, price } from '@/lib/format';
-import { orderStatusLabels, paymentLabels, type OrderStatus } from '@/lib/types';
+import { dateFor, price } from '@/lib/format';
+import { btn, field } from '@/components/ui/store';
 import type { TrackedOrder } from '@/lib/store';
+import type { OrderStatus } from '@/lib/types';
 
-const FLOW: OrderStatus[] = [
-  'pending', 'confirmed', 'preparing', 'shipped', 'delivered',
-];
-
-const inputClass =
-  'w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm ' +
-  'outline-none focus:border-wine transition-colors';
+const FLOW: OrderStatus[] = ['pending', 'confirmed', 'preparing', 'shipped', 'delivered'];
 
 export function TrackForm() {
+  const { lang, dict } = useI18n();
+  const t = dict.track;
   const params = useSearchParams();
   const [orderNumber, setOrderNumber] = useState(params.get('number') ?? '');
   const [phone, setPhone] = useState('');
   const [order, setOrder] = useState<TrackedOrder | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [pending, startTransition] = useTransition();
+  const [error, setError] = useState('');
+  const [pending, start] = useTransition();
 
-  function handleSubmit(e: React.FormEvent) {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
+    setError('');
     setOrder(null);
-    startTransition(async () => {
-      const result = await lookupOrder(orderNumber, phone);
-      if (!result.ok || !result.order) {
-        setError(result.error ?? 'الطلب مش موجود');
-        return;
-      }
-      setOrder(result.order);
+    start(async () => {
+      const res = await lookupOrder(orderNumber, phone, lang);
+      if (!res.ok || !res.order) setError(res.error ?? '');
+      else setOrder(res.order);
     });
-  }
+  };
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="grid sm:grid-cols-[1fr_1fr_auto] gap-3">
-        <input
-          value={orderNumber}
-          onChange={(e) => setOrderNumber(e.target.value)}
-          placeholder="رقم الطلب — SM-202601-1001"
-          className={inputClass} dir="ltr" aria-label="رقم الطلب" required
-        />
-        <input
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder="رقم الموبايل" className={inputClass} dir="ltr"
-          inputMode="tel" aria-label="رقم الموبايل" required
-        />
-        <button type="submit" disabled={pending} className={buttonStyles.primary}>
-          <Search size={17} />
-          {pending ? 'بندوّر...' : 'ابحث'}
+      <form onSubmit={submit} className="grid sm:grid-cols-[1fr_1fr_auto] gap-3">
+        <input value={orderNumber} onChange={(e) => setOrderNumber(e.target.value)} placeholder={t.numberPlaceholder} aria-label={t.number} dir="ltr" required className={`${field} text-start`} />
+        <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={t.phone} aria-label={t.phone} dir="ltr" inputMode="tel" required className={`${field} text-start`} />
+        <button type="submit" disabled={pending} className={`${btn.primary} !py-3`}>
+          {pending ? dict.common.loading : t.submit}
         </button>
       </form>
 
       {error && (
-        <p className="mt-5 flex items-start gap-2 rounded-xl bg-bad/10 px-4 py-3 text-sm text-bad">
-          <AlertCircle size={16} className="shrink-0 mt-0.5" />
-          {error}
+        <p role="alert" className="mt-5 flex gap-2 items-start text-sm text-red-700 bg-red-50 border border-red-200 px-4 py-3">
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" /> {error}
         </p>
       )}
 
       {order && (
-        <div className="mt-8 space-y-5">
-          <Card className="p-6">
-            <div className="flex items-start justify-between gap-3 flex-wrap">
-              <div>
-                <p className="text-xs text-faint">رقم الطلب</p>
-                <p className="text-lg font-extrabold" dir="ltr">
-                  {order.orderNumber}
-                </p>
-              </div>
-              <span className="rounded-full bg-wine px-3 py-1.5 text-xs font-bold text-white">
-                {orderStatusLabels[order.status]}
-              </span>
+        <div className="mt-8 bg-linen border border-linen-border p-6 space-y-6">
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <p className="text-[11px] uppercase tracking-wider text-stone-500">{t.number}</p>
+              <p className="latin text-lg text-noir" dir="ltr">{order.orderNumber}</p>
+              <p className="text-[11px] text-stone-500 mt-1">{t.placed} {dateFor(order.createdAt, lang)}</p>
             </div>
-            <p className="mt-3 text-xs text-faint">
-              اتعمل {dateTimeAr(order.createdAt)}
-            </p>
+            <span className="px-3 py-1.5 text-xs bg-bordeaux text-linen-light">{dict.orderStatus[order.status]}</span>
+          </div>
 
-            {!['cancelled', 'returned'].includes(order.status) && (
-              <ol className="mt-6 space-y-4">
-                {FLOW.map((s, i) => {
-                  const done = FLOW.indexOf(order.status) >= i;
-                  const at = order.events.find((e) => e.status === s);
-                  return (
-                    <li key={s} className="flex gap-3">
-                      <span
-                        className={`mt-0.5 grid place-items-center w-5 h-5 rounded-full border-2 text-[10px] shrink-0 ${
-                          done
-                            ? 'bg-wine border-wine text-white'
-                            : 'border-line text-transparent'
-                        }`}
-                      >
-                        ✓
-                      </span>
-                      <div>
-                        <p className={`text-sm ${done ? 'font-bold' : 'text-faint'}`}>
-                          {orderStatusLabels[s]}
-                        </p>
-                        {at && (
-                          <p className="text-[11px] text-faint">
-                            {dateTimeAr(at.createdAt)}
-                          </p>
-                        )}
-                      </div>
-                    </li>
-                  );
-                })}
-              </ol>
-            )}
-          </Card>
+          {!['cancelled', 'returned'].includes(order.status) && (
+            <ol className="grid grid-cols-5 gap-2">
+              {FLOW.map((s, i) => {
+                const done = FLOW.indexOf(order.status) >= i;
+                return (
+                  <li key={s} className="text-center">
+                    <span className={`block h-1 ${done ? 'bg-bordeaux' : 'bg-stone-300'}`} />
+                    <span className={`block mt-2 text-[10px] ${done ? 'text-noir' : 'text-stone-400'}`}>{dict.orderStatus[s]}</span>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
 
-          <Card className="p-6">
-            <h2 className="font-bold mb-3">المنتجات</h2>
-            <ul className="space-y-2">
+          <div>
+            <h2 className="text-xs uppercase tracking-wider font-serif font-bold text-noir mb-2">{t.items}</h2>
+            <ul className="divide-y divide-linen-border text-sm">
               {order.items.map((it, i) => (
-                <li key={i} className="flex justify-between gap-3 text-sm">
-                  <span className="text-muted">
-                    {it.name}{' '}
-                    <span className="text-faint">
-                      {it.sizeMl} مل × {it.quantity}
-                    </span>
-                  </span>
-                  <b>{price(it.unitPrice * it.quantity)}</b>
+                <li key={i} className="flex justify-between gap-3 py-2">
+                  <span className="text-stone-700">{it.name} <span className="latin text-stone-400">× {it.quantity}</span></span>
+                  <span className="latin">{price(it.unitPrice * it.quantity, lang)}</span>
                 </li>
               ))}
             </ul>
-            <div className="h-px bg-line my-4" />
-            <Row label="المجموع الفرعي" value={price(order.subtotal)} />
-            <Row
-              label="الشحن"
-              value={order.shipping === 0 ? 'مجاني' : price(order.shipping)}
-            />
-            {order.discount > 0 && (
-              <Row label="الخصم" value={`- ${price(order.discount)}`} />
-            )}
-            <Row label="طريقة الدفع" value={paymentLabels[order.paymentMethod]} />
-            <div className="h-px bg-line my-3" />
-            <div className="flex justify-between">
-              <b>الإجمالي</b>
-              <b className="text-wine text-lg">{price(order.total)}</b>
+            <div className="mt-3 pt-3 border-t border-linen-border space-y-1 text-xs text-stone-600">
+              <p className="flex justify-between"><span>{dict.cart.shipping}</span><span className="latin">{order.shipping === 0 ? dict.cart.free : price(order.shipping, lang)}</span></p>
+              {order.discount > 0 && <p className="flex justify-between"><span>{dict.cart.discount}</span><span className="latin">−{price(order.discount, lang)}</span></p>}
+              <p className="flex justify-between"><span>{dict.checkout.payment}</span><span>{dict.payment[order.paymentMethod]}</span></p>
+              <p className="flex justify-between text-base text-noir font-medium pt-2"><span>{dict.cart.total}</span><span className="latin text-bordeaux">{price(order.total, lang)}</span></p>
             </div>
-            <p className="mt-4 text-xs text-faint leading-6">
-              الشحن إلى: {order.governorate} — {order.city}، {order.street}
-            </p>
-          </Card>
+          </div>
         </div>
       )}
     </>
-  );
-}
-
-function Row({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex justify-between text-sm py-1">
-      <span className="text-muted">{label}</span>
-      <b>{value}</b>
-    </div>
   );
 }

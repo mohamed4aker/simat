@@ -22,9 +22,16 @@ export interface Category {
   name: string;
   nameEn: string;
   description: string;
+  descriptionEn: string;
   iconKey: string;
   sortOrder: number;
 }
+
+/** شكل ملصق الزجاجة في الرسم — بيدّي كل عطر هويته. */
+export type LabelStyle = 'bordeaux' | 'noir' | 'linen' | 'velvet';
+
+/** زجاجة كاملة ولا طقم عينات. */
+export type ProductKind = 'bottle' | 'set';
 
 export interface Product {
   id: string;
@@ -34,6 +41,12 @@ export interface Product {
   brand: string;
   categoryId: string;
   description: string;
+  descriptionEn: string;
+  /** العائلة العطرية — «زهري شرقي وعود معتق». */
+  family: string;
+  familyEn: string;
+  kind: ProductKind;
+  labelStyle: LabelStyle;
   price: number;
   oldPrice: number | null;
   sizeMl: number;
@@ -42,6 +55,9 @@ export interface Product {
   topNotes: string[];
   heartNotes: string[];
   baseNotes: string[];
+  topNotesEn: string[];
+  heartNotesEn: string[];
+  baseNotesEn: string[];
   longevityHours: number;
   stock: number;
   rating: number;
@@ -57,15 +73,19 @@ export interface CartLine {
   productId: string;
   slug: string;
   name: string;
+  nameEn: string;
   price: number;
   sizeMl: number;
   quantity: number;
   imageUrl: string | null;
+  labelStyle: LabelStyle;
+  kind: ProductKind;
 }
 
 export interface ShippingAddress {
   fullName: string;
   phone: string;
+  altPhone: string;
   governorate: string;
   city: string;
   street: string;
@@ -97,6 +117,8 @@ export interface Order {
   paymentMethod: PaymentMethod;
   status: OrderStatus;
   notes: string;
+  isGift: boolean;
+  giftMessage: string;
   createdAt: string;
 }
 

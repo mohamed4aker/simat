@@ -1,306 +1,262 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
-import Link from 'next/link';
-import { AlertCircle, BadgePercent, Banknote, CreditCard, Smartphone, Wallet } from 'lucide-react';
-
-import { useCart } from '@/components/cart/CartProvider';
-import { buttonStyles, Card } from '@/components/ui';
-import { checkCoupon, submitOrder } from '@/lib/actions/checkout';
-import { GOVERNORATES, shippingFor } from '@/lib/constants';
+import { AlertCircle, Gift, Lock } from 'lucide-react';
+import { useI18n } from '@/i18n/I18nProvider';
+import { fill } from '@/i18n';
+import { to } from '@/lib/href';
 import { price } from '@/lib/format';
+import { lineName } from '@/lib/localize';
+import {
+  AREA_SUGGESTIONS,
+  FAST_DELIVERY,
+  GOVERNORATE_EN,
+  GOVERNORATES,
+  shippingFor,
+} from '@/lib/constants';
+import { submitOrder } from '@/lib/actions/checkout';
+import { cartStore, useCart } from './CartProvider';
+import { btn, field } from '@/components/ui/store';
 import type { PaymentMethod } from '@/lib/types';
 
-const PAYMENTS: { value: PaymentMethod; label: string; icon: React.ReactNode }[] = [
-  { value: 'cod', label: 'الدفع عند الاستلام', icon: <Banknote size={18} /> },
-  { value: 'instapay', label: 'إنستا باي', icon: <Smartphone size={18} /> },
-  { value: 'wallet', label: 'محفظة إلكترونية', icon: <Wallet size={18} /> },
-  { value: 'card', label: 'بطاقة ائتمانية', icon: <CreditCard size={18} /> },
-];
+export const LAST_ORDER_KEY = 'simat.lastOrder';
 
-const inputClass =
-  'w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm ' +
-  'outline-none focus:border-wine transition-colors';
-
-export function CheckoutForm() {
+export function CheckoutForm({ demo }: { demo: boolean }) {
+  const { lang, dict } = useI18n();
+  const t = dict.checkout;
   const router = useRouter();
-  const { lines, subtotal, clear, ready } = useCart();
-  const [pending, startTransition] = useTransition();
-
+  const cart = useCart();
+  const [pending, start] = useTransition();
+  const [error, setError] = useState('');
+  const [payment, setPayment] = useState<PaymentMethod>('cod');
   const [form, setForm] = useState({
     fullName: '',
     phone: '',
+    altPhone: '',
     email: '',
-    governorate: GOVERNORATES[0],
+    governorate: 'الإسكندرية',
     city: '',
     street: '',
-    building: '',
     addressNotes: '',
-    notes: '',
   });
-  const [payment, setPayment] = useState<PaymentMethod>('cod');
-  const [couponCode, setCouponCode] = useState('');
-  const [coupon, setCoupon] = useState<{ ok: boolean; discount?: number; error?: string } | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
-  const set = (key: keyof typeof form) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-  ) => setForm((f) => ({ ...f, [key]: e.target.value }));
+  const set =
+    (key: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+      setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  const shipping = shippingFor(form.governorate, subtotal);
-  const discount = coupon?.ok ? (coupon.discount ?? 0) : 0;
-  const total = subtotal + shipping - discount;
+  const discount = cart.coupon?.discount ?? 0;
+  const shipping = shippingFor(form.governorate, cart.subtotal);
+  const total = Math.max(0, cart.subtotal - discount) + shipping;
+  const govLabel = (g: string) => (lang === 'en' ? GOVERNORATE_EN[g] ?? g : g);
+  const areas = AREA_SUGGESTIONS[form.governorate] ?? [];
 
-  function applyCoupon() {
-    startTransition(async () => {
-      const result = await checkCoupon(couponCode, subtotal);
-      setCoupon(result);
-    });
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
-
-    startTransition(async () => {
-      const result = await submitOrder({
-        ...form,
-        paymentMethod: payment,
-        couponCode: coupon?.ok ? couponCode : '',
-        items: lines.map((l) => ({
-          productId: l.productId,
-          quantity: l.quantity,
-        })),
-      });
-
-      if (!result.ok) {
-        setError(result.error ?? 'حصلت مشكلة، جرّب تاني');
-        return;
-      }
-
-      try {
-        sessionStorage.setItem(
-          'simat.lastOrder',
-          JSON.stringify({
-            orderNumber: result.orderNumber,
-            total: result.total,
-            subtotal: result.subtotal,
-            shipping: result.shipping,
-            discount: result.discount,
-            phone: form.phone,
-            name: form.fullName,
-            demo: result.demo ?? false,
-          }),
-        );
-      } catch {
-        // لو التخزين مقفول، صفحة الشكر هتعرض رقم الطلب من الرابط.
-      }
-      clear();
-      router.push(`/order-received?number=${result.orderNumber}`);
-    });
-  }
-
-  if (!ready) {
-    return <div className="h-64 animate-pulse rounded-2xl bg-sand/40" />;
-  }
-
-  if (lines.length === 0) {
+  if (cart.ready && cart.lines.length === 0) {
     return (
-      <Card className="p-10 text-center">
-        <p className="font-bold">العربة فاضية</p>
-        <Link href="/shop" className={`${buttonStyles.primary} mt-5`}>
-          تصفّح المتجر
+      <div className="py-20 text-center">
+        <h2 className="text-2xl font-serif text-noir">{t.emptyTitle}</h2>
+        <p className="mt-3 text-sm text-stone-600">{t.emptyBody}</p>
+        <Link href={to(lang, '/shop')} className={`${btn.primary} mt-8`}>
+          {dict.cart.continue}
         </Link>
-      </Card>
+      </div>
     );
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="grid lg:grid-cols-[1fr_330px] gap-8 items-start">
-      <div className="space-y-6">
-        <Card className="p-5">
-          <h2 className="font-bold mb-4">١. بياناتك</h2>
-          <div className="grid sm:grid-cols-2 gap-3">
-            <input
-              required value={form.fullName} onChange={set('fullName')}
-              placeholder="الاسم بالكامل *" className={inputClass}
-              aria-label="الاسم بالكامل"
-            />
-            <input
-              required value={form.phone} onChange={set('phone')}
-              placeholder="رقم الموبايل *  01012345678" className={inputClass}
-              dir="ltr" inputMode="tel" aria-label="رقم الموبايل"
-            />
-            <input
-              value={form.email} onChange={set('email')} type="email"
-              placeholder="البريد الإلكتروني (اختياري)"
-              className={`${inputClass} sm:col-span-2`} dir="ltr"
-              aria-label="البريد الإلكتروني"
-            />
-          </div>
-        </Card>
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    start(async () => {
+      const result = await submitOrder({
+        lang,
+        ...form,
+        building: '',
+        notes: '',
+        paymentMethod: payment,
+        couponCode: cart.coupon?.code ?? '',
+        isGift: cart.isGift,
+        giftMessage: cart.giftMessage,
+        items: cart.lines.map((l) => ({ productId: l.productId, quantity: l.quantity })),
+      });
+      if (!result.ok) {
+        setError(result.error ?? t.errors.generic);
+        return;
+      }
+      try {
+        sessionStorage.setItem(
+          LAST_ORDER_KEY,
+          JSON.stringify({
+            orderNumber: result.orderNumber,
+            total: result.total,
+            demo: Boolean(result.demo),
+            payment,
+          }),
+        );
+      } catch {
+        // مش مهم لو ما اتحفظش — رقم الطلب في الرابط.
+      }
+      cartStore.clear();
+      router.push(to(lang, `/order-received?number=${encodeURIComponent(result.orderNumber ?? '')}`));
+    });
+  };
 
-        <Card className="p-5">
-          <h2 className="font-bold mb-4">٢. عنوان الشحن</h2>
-          <div className="grid sm:grid-cols-2 gap-3">
-            <select
-              value={form.governorate} onChange={set('governorate')}
-              className={inputClass} aria-label="المحافظة"
-            >
+  const label = (text: string, required = true) => (
+    <span className="block text-[11px] uppercase tracking-wider text-stone-600 mb-1">
+      {text}
+      {required ? ' *' : <span className="normal-case text-stone-400"> ({dict.common.optional})</span>}
+    </span>
+  );
+
+  return (
+    <form onSubmit={submit} className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <div className="lg:col-span-7 space-y-5">
+        {demo && (
+          <div className="flex gap-2 items-start border border-amber-300 bg-amber-50 px-4 py-3 text-xs text-amber-900">
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+            <span>{dict.orderReceived.demo}</span>
+          </div>
+        )}
+
+        <label className="block">
+          {label(t.name)}
+          <input required minLength={3} autoComplete="name" value={form.fullName} onChange={set('fullName')} placeholder={t.namePlaceholder} className={field} />
+        </label>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <label className="block">
+            {label(t.phone)}
+            <input required type="tel" inputMode="tel" autoComplete="tel" dir="ltr" value={form.phone} onChange={set('phone')} placeholder={t.phonePlaceholder} className={`${field} text-start`} />
+          </label>
+          <label className="block">
+            {label(t.altPhone, false)}
+            <input type="tel" inputMode="tel" dir="ltr" value={form.altPhone} onChange={set('altPhone')} placeholder="012 9876 5432" className={`${field} text-start`} />
+          </label>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <label className="block">
+            {label(t.governorate)}
+            <select required value={form.governorate} onChange={set('governorate')} className={field}>
               {GOVERNORATES.map((g) => (
-                <option key={g} value={g}>{g}</option>
+                <option key={g} value={g}>{govLabel(g)}</option>
               ))}
             </select>
-            <input
-              required value={form.city} onChange={set('city')}
-              placeholder="المنطقة / المدينة *" className={inputClass}
-              aria-label="المنطقة"
-            />
-            <input
-              required value={form.street} onChange={set('street')}
-              placeholder="الشارع *" className={inputClass} aria-label="الشارع"
-            />
-            <input
-              value={form.building} onChange={set('building')}
-              placeholder="رقم العقار / الشقة" className={inputClass}
-              aria-label="رقم العقار"
-            />
-            <input
-              value={form.addressNotes} onChange={set('addressNotes')}
-              placeholder="علامة مميزة (جنب صيدلية... — الدور الثالث)"
-              className={`${inputClass} sm:col-span-2`}
-              aria-label="علامة مميزة"
-            />
-          </div>
-        </Card>
+          </label>
+          <label className="block">
+            {label(t.area)}
+            <input required list="area-list" value={form.city} onChange={set('city')} placeholder={areas[0] ? areas[0][lang] : t.areaPlaceholder} className={field} />
+            <datalist id="area-list">
+              {areas.map((a) => (
+                <option key={a.ar} value={a[lang]} />
+              ))}
+            </datalist>
+          </label>
+        </div>
 
-        <Card className="p-5">
-          <h2 className="font-bold mb-4">٣. طريقة الدفع</h2>
-          <div className="grid sm:grid-cols-2 gap-3">
-            {PAYMENTS.map((p) => (
-              <button
-                key={p.value} type="button" onClick={() => setPayment(p.value)}
-                className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-sm font-semibold transition-colors ${
-                  payment === p.value
-                    ? 'border-wine bg-wine/5 text-wine'
-                    : 'border-line bg-surface hover:border-copper'
-                }`}
-              >
-                <span className="text-copper">{p.icon}</span>
-                {p.label}
-              </button>
-            ))}
-          </div>
-          {payment !== 'cod' && (
-            <p className="mt-3 text-xs text-muted leading-6">
-              هنتواصل معاك على الموبايل بتفاصيل التحويل قبل الشحن.
-            </p>
-          )}
-        </Card>
+        <label className="block">
+          {label(t.address)}
+          <input required autoComplete="street-address" value={form.street} onChange={set('street')} placeholder={t.addressPlaceholder} className={field} />
+        </label>
 
-        <Card className="p-5">
-          <h2 className="font-bold mb-4">٤. ملاحظات (اختياري)</h2>
-          <textarea
-            value={form.notes} onChange={set('notes')} rows={3}
-            placeholder="أي تعليمات خاصة بالتوصيل أو التغليف..."
-            className={inputClass} aria-label="ملاحظات"
-          />
-        </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <label className="block">
+            {label(t.email, false)}
+            <input type="email" autoComplete="email" dir="ltr" value={form.email} onChange={set('email')} placeholder={t.emailHint} className={`${field} text-start`} />
+          </label>
+          <label className="block">
+            {label(t.notes, false)}
+            <input value={form.addressNotes} onChange={set('addressNotes')} placeholder={t.notesPlaceholder} className={field} />
+          </label>
+        </div>
+
+        <fieldset className="pt-4 border-t border-linen-border space-y-2">
+          <legend className="block text-[11px] uppercase tracking-wider text-stone-700 font-medium mb-2">{t.payment}</legend>
+          {(
+            [
+              ['cod', t.cod, t.codSub],
+              ['card', t.card, t.cardSub],
+            ] as const
+          ).map(([value, title, sub]) => (
+            <label
+              key={value}
+              className={`flex items-start gap-3 p-3.5 border cursor-pointer transition-colors ${
+                payment === value ? 'bg-linen border-bordeaux' : 'bg-white border-linen-border hover:border-bordeaux/50'
+              }`}
+            >
+              <input type="radio" name="payment" value={value} checked={payment === value} onChange={() => setPayment(value)} className="accent-bordeaux mt-0.5" />
+              <span>
+                <span className="text-sm text-noir block">{title}</span>
+                <span className="text-[11px] text-stone-500">{sub}</span>
+              </span>
+            </label>
+          ))}
+        </fieldset>
       </div>
 
-      <Card className="p-5 lg:sticky lg:top-24">
-        <h2 className="font-bold mb-4">ملخّص الطلب</h2>
-
-        <ul className="space-y-2 mb-4 max-h-52 overflow-auto">
-          {lines.map((l) => (
-            <li key={l.productId} className="flex justify-between gap-2 text-sm">
-              <span className="text-muted truncate">
-                {l.name} <span className="text-faint">×{l.quantity}</span>
+      {/* ملخص الطلب */}
+      <aside className="lg:col-span-5 lg:sticky lg:top-32 bg-linen border border-linen-border p-6 space-y-5">
+        <h2 className="text-sm uppercase tracking-wider font-serif text-noir font-bold">{t.summary}</h2>
+        <ul className="divide-y divide-linen-border text-xs">
+          {cart.lines.map((l) => (
+            <li key={l.productId} className="flex justify-between gap-3 py-2.5">
+              <span className="text-stone-700">
+                {lineName(l, lang)} <span className="latin text-stone-400">× {l.quantity}</span>
               </span>
-              <b className="shrink-0">{price(l.price * l.quantity)}</b>
+              <span className="latin text-noir shrink-0">{price(l.price * l.quantity, lang)}</span>
             </li>
           ))}
         </ul>
 
-        <div className="flex gap-2 mb-4">
-          <input
-            value={couponCode}
-            onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-            placeholder="كود الخصم"
-            className={`${inputClass} py-2.5`} dir="ltr"
-            aria-label="كود الخصم"
-          />
-          <button
-            type="button" onClick={applyCoupon} disabled={pending}
-            className="shrink-0 rounded-xl border border-wine px-4 text-sm font-bold text-wine hover:bg-wine hover:text-white transition-colors"
-          >
-            تطبيق
-          </button>
-        </div>
-        {coupon && (
-          <p
-            className={`mb-3 text-xs font-semibold flex items-center gap-1.5 ${
-              coupon.ok ? 'text-ok' : 'text-bad'
-            }`}
-          >
-            <BadgePercent size={14} />
-            {coupon.ok
-              ? `تم الخصم — وفّرت ${price(coupon.discount ?? 0)}`
-              : coupon.error}
+        {cart.isGift && (
+          <p className="flex items-center gap-2 text-[11px] text-bordeaux">
+            <Gift className="w-3.5 h-3.5" /> {t.gift}
           </p>
         )}
 
-        <div className="h-px bg-line my-3" />
-        <Row label="المجموع الفرعي" value={price(subtotal)} />
-        <Row
-          label="الشحن"
-          value={shipping === 0 ? 'مجاني' : price(shipping)}
-          highlight={shipping === 0}
-        />
-        {discount > 0 && (
-          <Row label="الخصم" value={`- ${price(discount)}`} highlight />
-        )}
-        <div className="h-px bg-line my-3" />
-        <div className="flex justify-between items-center">
-          <span className="font-bold">الإجمالي</span>
-          <b className="text-wine text-xl">{price(total)}</b>
-        </div>
+        <dl className="space-y-1.5 text-xs border-t border-linen-border pt-4">
+          <div className="flex justify-between text-stone-600">
+            <dt>{dict.cart.subtotal}</dt>
+            <dd className="latin">{price(cart.subtotal, lang)}</dd>
+          </div>
+          {discount > 0 && (
+            <div className="flex justify-between text-emerald-700">
+              <dt>{dict.cart.discount} ({cart.coupon?.code})</dt>
+              <dd className="latin">−{price(discount, lang)}</dd>
+            </div>
+          )}
+          <div className="flex justify-between text-stone-600">
+            <dt>{dict.cart.shipping} · {govLabel(form.governorate)}</dt>
+            <dd className={shipping === 0 ? 'text-emerald-700 font-medium' : 'latin'}>
+              {shipping === 0 ? dict.cart.free : price(shipping, lang)}
+            </dd>
+          </div>
+          <div className="flex justify-between text-base font-medium text-noir pt-3 border-t border-linen-border">
+            <dt>{dict.cart.total}</dt>
+            <dd className="latin text-bordeaux font-bold">{price(total, lang)}</dd>
+          </div>
+        </dl>
+
+        <p className="text-[11px] text-stone-500">
+          {fill(t.delivery, {
+            days: FAST_DELIVERY.includes(form.governorate) ? t.deliveryFast : t.deliveryStandard,
+          })}
+        </p>
 
         {error && (
-          <p className="mt-4 flex items-start gap-2 rounded-xl bg-bad/10 px-3 py-2.5 text-xs text-bad">
-            <AlertCircle size={15} className="shrink-0 mt-0.5" />
-            {error}
+          <p role="alert" className="flex gap-2 items-start text-xs text-red-700 bg-red-50 border border-red-200 p-3">
+            <AlertCircle className="w-4 h-4 shrink-0" /> {error}
           </p>
         )}
 
-        <button
-          type="submit" disabled={pending}
-          className={`${buttonStyles.primary} w-full mt-5`}
-        >
-          {pending ? 'بنسجّل الطلب...' : `تأكيد الطلب · ${price(total)}`}
+        <button type="submit" disabled={pending || !cart.ready} className={`${btn.primary} w-full`}>
+          {pending ? t.placing : t.confirm}
         </button>
-        <p className="mt-3 text-[11px] text-faint leading-5 text-center">
-          بتأكيدك للطلب أنت موافق على شروط البيع وسياسة الاستبدال.
+        <p className="flex items-center justify-center gap-1.5 text-[10px] text-stone-500">
+          <Lock className="w-3 h-3" /> {t.secure}
         </p>
-      </Card>
+      </aside>
     </form>
-  );
-}
-
-function Row({
-  label,
-  value,
-  highlight = false,
-}: {
-  label: string;
-  value: string;
-  highlight?: boolean;
-}) {
-  return (
-    <div className="flex justify-between text-sm py-1">
-      <span className="text-muted">{label}</span>
-      <b className={highlight ? 'text-ok' : ''}>{value}</b>
-    </div>
   );
 }

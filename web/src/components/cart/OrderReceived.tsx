@@ -4,129 +4,76 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useMemo, useSyncExternalStore } from 'react';
 import { CheckCircle2 } from 'lucide-react';
-
-import { buttonStyles, Card } from '@/components/ui';
-import { subscribeNoop } from '@/lib/cart-store';
-import { DELIVERY_DAYS, STORE } from '@/lib/constants';
+import { useI18n } from '@/i18n/I18nProvider';
+import { to } from '@/lib/href';
 import { price } from '@/lib/format';
+import { subscribeNoop } from '@/lib/persisted-store';
+import { whatsappLink } from '@/lib/constants';
+import { btn } from '@/components/ui/store';
+import { LAST_ORDER_KEY } from './CheckoutForm';
 
 interface LastOrder {
   orderNumber: string;
   total: number;
-  subtotal: number;
-  shipping: number;
-  discount: number;
-  phone: string;
-  name: string;
   demo: boolean;
 }
 
 export function OrderReceived() {
-  const params = useSearchParams();
-  const numberFromUrl = params.get('number') ?? '';
+  const { lang, dict } = useI18n();
+  const t = dict.orderReceived;
+  const numberFromUrl = useSearchParams().get('number') ?? '';
 
-  // بنقرا تفاصيل آخر طلب من تخزين الجلسة بعد الـ hydration.
   const raw = useSyncExternalStore(
     subscribeNoop,
     () => {
       try {
-        return sessionStorage.getItem('simat.lastOrder');
+        return sessionStorage.getItem(LAST_ORDER_KEY);
       } catch {
         return null;
       }
     },
     () => null,
   );
-
   const order = useMemo<LastOrder | null>(() => {
-    if (!raw) return null;
     try {
-      return JSON.parse(raw) as LastOrder;
+      return raw ? (JSON.parse(raw) as LastOrder) : null;
     } catch {
       return null;
     }
   }, [raw]);
 
-  const orderNumber = order?.orderNumber ?? numberFromUrl;
+  const number = order?.orderNumber ?? numberFromUrl;
 
   return (
-    <div className="text-center">
-      <span className="inline-grid place-items-center w-24 h-24 rounded-full bg-ok/10 text-ok">
-        <CheckCircle2 size={54} />
-      </span>
+    <div className="text-center bg-linen border border-linen-border p-8 sm:p-12">
+      <CheckCircle2 className="w-12 h-12 text-bordeaux mx-auto" strokeWidth={1.2} />
+      <span className="mt-4 block text-xs uppercase tracking-[0.25em] text-bordeaux font-serif font-bold">{t.eyebrow}</span>
+      <h1 className="mt-2 text-3xl font-serif text-noir">{t.title}</h1>
+      <p className="mt-3 text-sm text-stone-600 max-w-md mx-auto">{t.body}</p>
 
-      <h1 className="mt-6 text-3xl font-extrabold">تم استلام طلبك 🎉</h1>
-      <p className="mt-3 text-muted leading-8">
-        شكراً {order?.name ? order.name : 'لثقتك في سِمة'}. هنتواصل معاك على
-        الموبايل لتأكيد الطلب قبل الشحن.
-      </p>
-
-      {order?.demo && (
-        <p className="mt-4 rounded-xl border border-warn/40 bg-warn/10 px-4 py-3 text-sm">
-          ده طلب تجريبي — قاعدة البيانات لسه مش متوصّلة، فالطلب ما اتسجّلش.
-        </p>
+      {number && (
+        <dl className="mt-8 inline-grid grid-cols-2 gap-x-10 gap-y-1 text-start bg-white border border-linen-border px-6 py-4">
+          <dt className="text-[11px] uppercase tracking-wider text-stone-500">{t.number}</dt>
+          <dt className="text-[11px] uppercase tracking-wider text-stone-500">{order ? t.total : ''}</dt>
+          <dd className="latin text-lg text-noir font-medium" dir="ltr">{number}</dd>
+          <dd className="latin text-lg text-bordeaux font-medium">{order ? price(order.total, lang) : ''}</dd>
+        </dl>
       )}
 
-      <Card className="mt-8 p-6 text-right">
-        <Row label="رقم الطلب" value={orderNumber || '—'} bold />
-        {order && (
-          <>
-            <Row label="المجموع الفرعي" value={price(order.subtotal)} />
-            <Row
-              label="الشحن"
-              value={order.shipping === 0 ? 'مجاني' : price(order.shipping)}
-            />
-            {order.discount > 0 && (
-              <Row label="الخصم" value={`- ${price(order.discount)}`} />
-            )}
-            <div className="h-px bg-line my-3" />
-            <Row label="الإجمالي" value={price(order.total)} bold />
-          </>
-        )}
-        <p className="mt-4 text-xs text-faint leading-6">
-          التوصيل المتوقع خلال {DELIVERY_DAYS.min}–{DELIVERY_DAYS.max} أيام عمل.
-          <br />
-          احتفظ برقم الطلب عشان تقدر تتابعه في أي وقت.
-        </p>
-      </Card>
+      {order?.demo && <p className="mt-6 text-xs text-amber-800">{t.demo}</p>}
 
-      <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
-        <Link
-          href={`/track?number=${encodeURIComponent(orderNumber)}`}
-          className={buttonStyles.primary}
-        >
-          تتبّع الطلب
-        </Link>
-        <Link href="/shop" className={buttonStyles.outline}>
-          أكمل التسوّق
-        </Link>
+      <div className="mt-10 flex flex-wrap gap-3 justify-center">
+        <Link href={to(lang, '/track')} className={btn.primary}>{t.track}</Link>
+        <Link href={to(lang, '/shop')} className={btn.outline}>{t.continue}</Link>
       </div>
-
-      <p className="mt-8 text-sm text-muted">
-        أي استفسار؟ اتصل بينا على{' '}
-        <a href={`tel:${STORE.phone}`} dir="ltr" className="font-bold text-wine">
-          {STORE.phone}
-        </a>
-      </p>
-    </div>
-  );
-}
-
-function Row({
-  label,
-  value,
-  bold = false,
-}: {
-  label: string;
-  value: string;
-  bold?: boolean;
-}) {
-  return (
-    <div className="flex justify-between items-center py-1.5">
-      <span className={bold ? 'font-bold' : 'text-muted text-sm'}>{label}</span>
-      <b className={bold ? 'text-wine text-lg' : 'text-sm'} dir="auto">
-        {value}
-      </b>
+      <a
+        href={whatsappLink(number ? `${t.number}: ${number}` : '')}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 inline-block text-xs text-bordeaux hover:underline"
+      >
+        {dict.mega.about.cardCta}
+      </a>
     </div>
   );
 }

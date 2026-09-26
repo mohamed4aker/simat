@@ -2,19 +2,39 @@
 
 /* ═══════════════════════════════════════════════════════════
    هوية سِمة — SIMAT
-   الألوان مأخوذة حرفياً من دليل الهوية.
+   ألوان وخطوط الواجهة مأخوذة من الـ Prototype، وألوان لوحة
+   التحكم (wine / ivory / copper …) فضلت زي ما هي.
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
-  --color-wine: #6b1f2a;        /* العنابي العميق — الأساسي */
+  /* ── الواجهة ── */
+  --color-linen: #f7f4ee;
+  --color-linen-light: #faf8f5;
+  --color-linen-dark: #ece6dc;
+  --color-linen-border: #e2dace;
+  --color-bordeaux: #58111a;
+  --color-bordeaux-light: #721924;
+  --color-bordeaux-dark: #3e0a11;
+  --color-bordeaux-deep: #240509;
+  --color-velvet: #400b13;
+  --color-noir: #131211;
+  --color-noir-soft: #1e1c1a;
+  --color-noir-muted: #625e5a;
+  --color-travertine: #e6dfc5;
+  --color-gold: #c5a880;
+  --color-gold-light: #e2ceb1;
+  --color-gold-dark: #9a7d54;
+
+  /* ── لوحة التحكم ── */
+  --color-wine: #6b1f2a;
   --color-wine-dark: #4e1620;
   --color-wine-light: #8e3542;
-  --color-ivory: #f2ebe1;       /* العاجي الدافئ — الخلفية */
+  --color-ivory: #f2ebe1;
   --color-surface: #fbf7f2;
-  --color-charcoal: #1c1a17;    /* الفحمي */
-  --color-copper: #b87333;      /* النحاسي — التمييز */
+  --color-charcoal: #1c1a17;
+  --color-copper: #b87333;
   --color-copper-light: #d79a5e;
-  --color-sand: #d9cfc3;        /* الرملي — الثانوي */
+  --color-sand: #d9cfc3;
   --color-line: #e3d9cd;
   --color-muted: #6e665c;
   --color-faint: #9a9188;
@@ -22,48 +42,111 @@
   --color-warn: #c98a16;
   --color-bad: #b3261e;
 
-  --font-sans: var(--font-cairo), system-ui, sans-serif;
+  --font-sans: var(--font-montserrat, var(--font-cairo)), system-ui, sans-serif;
+  --font-serif: var(--font-cormorant, var(--font-playfair)), Georgia, serif;
   --font-display: var(--font-playfair), Georgia, serif;
+
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* في العربي الخطين بيبقوا «نوتو كوفي» — والحروف اللاتينية
+   (زي SIMAT) بتاخد الخط الإنجليزي تلقائياً لأنه أول واحد. */
+[dir="rtl"] {
+  --font-sans: var(--font-kufi, var(--font-cairo)), system-ui, sans-serif;
+  --font-serif: var(--font-kufi, var(--font-cairo)), Georgia, serif;
+}
+
+/* المسافات بين الحروف بتقطّع الحروف العربية المتصلة،
+   فبنلغيها في العربي — إلا للكلمات اللاتينية المقصودة (.latin). */
+[dir="rtl"] *:not(.latin, .latin *) {
+  letter-spacing: normal;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
 }
 
 body {
-  background: var(--color-ivory);
-  color: var(--color-charcoal);
-  font-family: var(--font-sans);
+  background: var(--color-linen-light);
+  color: var(--color-noir);
   -webkit-font-smoothing: antialiased;
-}
-
-/* شريط التمرير بلون الهوية */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-ivory);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-sand);
-  border-radius: 8px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-copper);
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-wine);
-  color: #fff;
+  background: var(--color-bordeaux);
+  color: var(--color-linen-light);
 }
 
-/* نمط القطرات المتكررة من دليل الهوية */
-.simat-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23b87333' stroke-opacity='0.16' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M14 14c0 7-9 10-9 16 0 5 4 9 9 9s9-4 9-9c0-6-9-9-9-16z'/%3E%3Cpath d='M42 28c0 7-9 10-9 16 0 5 4 9 9 9s9-4 9-9c0-6-9-9-9-16z'/%3E%3C/g%3E%3C/svg%3E");
+/* ── تفاصيل الـ Prototype ─────────────────────────────────── */
+
+.glass-reflection {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
 }
 
-/* ظهور تدريجي للأقسام */
+.dropdown-shadow {
+  box-shadow:
+    0 30px 60px -12px rgba(19, 18, 17, 0.15),
+    0 0 1px 1px rgba(19, 18, 17, 0.05);
+}
+
+.simat-pattern-wrap {
+  background-color: #f4efea;
+  background-image:
+    radial-gradient(#58111a 0.9px, transparent 0.9px),
+    radial-gradient(#58111a 0.9px, #f4efea 0.9px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* الكارت بيقلب لوش الضمان لما الماوس يعدّي عليه */
+.flip-primary,
+.flip-secondary {
+  transition:
+    opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.flip-secondary {
+  opacity: 0;
+}
+@media (hover: hover) {
+  .flip-card:hover .flip-primary {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  .flip-card:hover .flip-secondary {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+/* الأسئلة الشائعة — فتح وقفل ناعم */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .chevron {
+  transform: rotate(180deg);
+}
+
+/* إخفاء شريط التمرير في القوائم الأفقية */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ظهور تدريجي */
 @keyframes rise {
   from {
     opacity: 0;
@@ -78,11 +161,17 @@ body {
   animation: rise 0.5s ease-out both;
 }
 
-/* إخفاء شريط التمرير في القوائم الأفقية */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+/* نمط القطرات المتكررة (لوحة التحكم) */
+.simat-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23b87333' stroke-opacity='0.16' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M14 14c0 7-9 10-9 16 0 5 4 9 9 9s9-4 9-9c0-6-9-9-9-16z'/%3E%3Cpath d='M42 28c0 7-9 10-9 16 0 5 4 9 9 9s9-4 9-9c0-6-9-9-9-16z'/%3E%3C/g%3E%3C/svg%3E");
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -13,7 +13,9 @@ import type {
   Concentration,
   Coupon,
   Gender,
+  LabelStyle,
   Product,
+  ProductKind,
   Review,
 } from './types';
 
@@ -32,6 +34,11 @@ function toProduct(r: Row): Product {
     brand: String(r.brand ?? 'SIMAT'),
     categoryId: String(r.category_id ?? ''),
     description: String(r.description ?? ''),
+    descriptionEn: String(r.description_en ?? ''),
+    family: String(r.family ?? ''),
+    familyEn: String(r.family_en ?? ''),
+    kind: (r.kind ?? 'bottle') as ProductKind,
+    labelStyle: (r.label_style ?? 'bordeaux') as LabelStyle,
     price: Number(r.price),
     oldPrice: r.old_price === null ? null : Number(r.old_price),
     sizeMl: Number(r.size_ml ?? 100),
@@ -40,6 +47,9 @@ function toProduct(r: Row): Product {
     topNotes: (r.top_notes as string[]) ?? [],
     heartNotes: (r.heart_notes as string[]) ?? [],
     baseNotes: (r.base_notes as string[]) ?? [],
+    topNotesEn: (r.top_notes_en as string[]) ?? [],
+    heartNotesEn: (r.heart_notes_en as string[]) ?? [],
+    baseNotesEn: (r.base_notes_en as string[]) ?? [],
     longevityHours: Number(r.longevity_hours ?? 8),
     stock: Number(r.stock ?? 0),
     rating: Number(r.rating ?? 0),
@@ -59,6 +69,7 @@ function toCategory(r: Row): Category {
     name: String(r.name),
     nameEn: String(r.name_en ?? ''),
     description: String(r.description ?? ''),
+    descriptionEn: String(r.description_en ?? ''),
     iconKey: String(r.icon_key ?? 'bottle'),
     sortOrder: Number(r.sort_order ?? 0),
   };
@@ -98,12 +109,23 @@ export interface ProductQuery {
   category?: string;      // slug
   gender?: Gender;
   concentration?: Concentration;
+  kind?: ProductKind;
+  /** عائلة عطرية: oud | rose | leather | musk — بتدور في النوتات. */
+  family?: string;
   minPrice?: number;
   maxPrice?: number;
   onlyOffers?: boolean;
   inStock?: boolean;
-  sort?: 'newest' | 'price-asc' | 'price-desc' | 'rating' | 'best-selling';
+  sort?: 'featured' | 'newest' | 'price-asc' | 'price-desc' | 'rating' | 'best-selling';
 }
+
+/** كلمات بندور عليها في النوتات الإنجليزي لكل عائلة عطرية. */
+const FAMILY_KEYWORDS: Record<string, string[]> = {
+  oud: ['agarwood', 'oud', 'wood', 'cedar'],
+  rose: ['rose', 'jasmine', 'blossom', 'floral'],
+  leather: ['leather', 'smoke', 'smoky', 'frankincense', 'birch'],
+  musk: ['musk'],
+};
 
 async function allProducts(): Promise<Product[]> {
   const db = supabase();
@@ -124,8 +146,10 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
     const needle = normalizeArabic(query.search);
     list = list.filter((p) =>
       normalizeArabic(
-        [p.name, p.nameEn, p.brand, p.description,
-         ...p.topNotes, ...p.heartNotes, ...p.baseNotes].join(' '),
+        [p.name, p.nameEn, p.brand, p.description, p.descriptionEn,
+         p.family, p.familyEn,
+         ...p.topNotes, ...p.heartNotes, ...p.baseNotes,
+         ...p.topNotesEn, ...p.heartNotesEn, ...p.baseNotesEn].join(' '),
       ).includes(needle),
     );
   }
@@ -136,6 +160,16 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
     else return [];
   }
   if (query.gender) list = list.filter((p) => p.gender === query.gender);
+  if (query.kind) list = list.filter((p) => p.kind === query.kind);
+  if (query.family && FAMILY_KEYWORDS[query.family]) {
+    const words = FAMILY_KEYWORDS[query.family];
+    list = list.filter((p) => {
+      const text = [...p.topNotesEn, ...p.heartNotesEn, ...p.baseNotesEn, p.familyEn]
+        .join(' ')
+        .toLowerCase();
+      return words.some((w) => text.includes(w));
+    });
+  }
   if (query.concentration) {
     list = list.filter((p) => p.concentration === query.concentration);
   }
@@ -163,8 +197,17 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
     case 'best-selling':
       list.sort((a, b) => b.soldCount - a.soldCount);
       break;
-    default:
+    case 'newest':
       list.sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
+      break;
+    default:
+      // المميز: الزجاجات المميزة الأول، وبعدها الأكثر مبيعاً.
+      list.sort(
+        (a, b) =>
+          Number(b.isFeatured) - Number(a.isFeatured) ||
+          Number(a.kind === 'set') - Number(b.kind === 'set') ||
+          b.soldCount - a.soldCount,
+      );
   }
   return list;
 }
@@ -223,13 +266,14 @@ export async function getOffers(limit = 8): Promise<Product[]> {
 
 export async function getRelated(product: Product, limit = 4): Promise<Product[]> {
   const list = await allProducts();
+  // زجاجات تانية: اللي من نفس النوع (رجالي/حريمي/للجنسين) الأول.
   return list
-    .filter(
-      (p) =>
-        p.id !== product.id &&
-        (p.categoryId === product.categoryId || p.gender === product.gender),
+    .filter((p) => p.id !== product.id && p.kind === 'bottle')
+    .sort(
+      (a, b) =>
+        Number(b.gender === product.gender) - Number(a.gender === product.gender) ||
+        b.soldCount - a.soldCount,
     )
-    .sort((a, b) => b.rating - a.rating)
     .slice(0, limit);
 }
 
@@ -309,6 +353,8 @@ export interface PlaceOrderInput {
   paymentMethod: PaymentMethod;
   couponCode?: string;
   notes?: string;
+  isGift?: boolean;
+  giftMessage?: string;
 }
 
 export interface PlaceOrderResult {
@@ -374,6 +420,9 @@ export async function placeOrder(
     p_coupon: input.couponCode ?? null,
     p_notes: input.notes ?? '',
     p_source: 'web',
+    p_alt_phone: input.address.altPhone || null,
+    p_is_gift: input.isGift ?? false,
+    p_gift_message: input.giftMessage ?? '',
   });
 
   if (error) {
@@ -461,4 +510,20 @@ export async function trackOrder(
       })),
     },
   };
+}
+
+// ── النشرة البريدية ───────────────────────────────────────────
+
+export async function subscribeNewsletter(
+  email: string,
+  lang: string,
+): Promise<{ ok: boolean; demo?: boolean }> {
+  const db = supabase();
+  if (!db) return { ok: true, demo: true };
+  const { data, error } = await db.rpc('subscribe_newsletter', {
+    p_email: email,
+    p_lang: lang,
+  });
+  if (error) return { ok: false };
+  return { ok: Boolean((data as Record<string, unknown>)?.ok) };
 }
