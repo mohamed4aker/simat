@@ -9,7 +9,8 @@
     "lint": "eslint",
     "gen:seed": "node --experimental-strip-types scripts/gen-seed-sql.ts",
     "typecheck": "tsc --noEmit",
-    "build:standalone": "BUILD_STANDALONE=1 next build"
+    "build:standalone": "BUILD_STANDALONE=1 next build",
+    "package:cpanel": "bash scripts/package-cpanel.sh"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
