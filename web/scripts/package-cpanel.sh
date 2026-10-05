@@ -26,6 +26,10 @@ cp -r .next/standalone/. "$OUT/app/"
 cp -r .next/static "$OUT/app/.next/static"
 [ -d public ] && cp -r public "$OUT/app/public"
 
+# سيرفرات cPanel (CloudLinux) لينكس عادي (glibc) — نسخ sharp التانية
+# (musl / wasm) ملهاش لازمة وبتكبّر الملف.
+rm -rf "$OUT/app/node_modules/@img/"*linuxmusl* "$OUT/app/node_modules/@img/sharp-wasm32"
+
 # ملف التشغيل اللي بنحطه في «Application startup file»
 cat > "$OUT/server.js" <<'JS'
 // نقطة تشغيل الموقع على cPanel — بتشغّل نسخة Next.js الجاهزة.
@@ -41,5 +45,5 @@ cat > "$OUT/package.json" <<'JSON'
 }
 JSON
 
-(cd "$OUT" && zip -qr ../simat-cpanel.zip .)
+(cd "$OUT" && zip -qr -9 ../simat-cpanel.zip .)
 echo "✓ dist/simat-cpanel.zip ($(du -h dist/simat-cpanel.zip | cut -f1))"
