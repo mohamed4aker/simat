@@ -163,6 +163,20 @@ alter table public.products
   add column if not exists heart_notes_en text[] default '{}',
   add column if not exists base_notes_en  text[] default '{}';
 
+-- ── ١-ج. محتوى صفحة المنتج + الأحجام (شيت المنتجات) ─────────────
+alter table public.products
+  add column if not exists secondary_line       text   default '',
+  add column if not exists tagline_en           text   default '',
+  add column if not exists short_description_en text   default '',
+  add column if not exists scent_character_en   text   default '',
+  add column if not exists accords_en           text[] default '{}',
+  add column if not exists wear_profile_en      text   default '',
+  add column if not exists occasion_en          text   default '',
+  add column if not exists related              text[] default '{}',
+  -- [{"size_ml":40,"price":450},{"size_ml":60,"price":600},...]
+  add column if not exists variants             jsonb  default '[]'::jsonb,
+  add column if not exists image_hover_url      text;
+
 alter table public.orders
   add column if not exists alt_phone    text,
   add column if not exists is_gift      boolean default false,
@@ -278,6 +292,28 @@ $$;
 -- الأسعار والشحن والخصم كلهم بيتحسبوا هنا من قاعدة البيانات،
 -- فمهما اتبعت من المتصفح مش هيأثر على الحساب.
 
+-- سعر المنتج حسب الحجم. لو المنتج مالوش أحجام بيرجع سعره العادي،
+-- ولو الحجم المطلوب مش موجود بيرجع null.
+create or replace function public.variant_price(
+  prod public.products,
+  p_size int
+)
+returns numeric
+language sql
+stable
+as $$
+  select case
+    when p_size is null or jsonb_array_length(coalesce(prod.variants, '[]'::jsonb)) = 0
+      then case when p_size is null or p_size = prod.size_ml
+                     or jsonb_array_length(coalesce(prod.variants, '[]'::jsonb)) = 0
+                then prod.price end
+    else (select (v->>'price')::numeric
+            from jsonb_array_elements(prod.variants) v
+           where (v->>'size_ml')::int = p_size
+           limit 1)
+  end;
+$$;
+
 -- النسخة القديمة من الدالة (قبل خانات الهدية والرقم البديل).
 drop function if exists public.create_order(
   text,text,text,text,text,text,text,text,jsonb,text,text,text,text);
@@ -316,6 +352,8 @@ declare
   v_order_id    uuid;
   v_number      text;
   coupon_result jsonb;
+  v_size        int;
+  v_unit        numeric;
 begin
   if p_name is null or length(trim(p_name)) < 3 then
     return jsonb_build_object('ok', false, 'error', 'الاسم مطلوب');
@@ -346,7 +384,12 @@ begin
         'error', 'الكمية المطلوبة من «' || prod.name || '» مش متوفرة');
     end if;
 
-    v_subtotal := v_subtotal + (prod.price * qty);
+    v_unit := public.variant_price(prod, nullif(item->>'size_ml', '')::int);
+    if v_unit is null then
+      return jsonb_build_object('ok', false, 'error', 'الحجم المطلوب مش متاح');
+    end if;
+
+    v_subtotal := v_subtotal + (v_unit * qty);
   end loop;
 
   -- الشحن
@@ -397,10 +440,13 @@ begin
   for item in select * from jsonb_array_elements(p_items) loop
     qty := greatest(1, (item->>'quantity')::int);
     select * into prod from public.products where id = item->>'product_id';
+    v_size := coalesce(nullif(item->>'size_ml', '')::int, prod.size_ml);
+    v_unit := public.variant_price(prod, nullif(item->>'size_ml', '')::int);
 
     insert into public.order_items
       (order_id, product_id, name, unit_price, size_ml, quantity)
-    values (v_order_id, prod.id, prod.name, prod.price, prod.size_ml, qty);
+    values (v_order_id, prod.id, coalesce(nullif(prod.name_en, ''), prod.name),
+            v_unit, v_size, qty);
 
     update public.products
        set stock = greatest(0, stock - qty),

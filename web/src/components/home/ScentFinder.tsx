@@ -3,21 +3,26 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useI18n } from '@/i18n/I18nProvider';
-import { fill } from '@/i18n';
+import { fill } from '@/i18n/fill';
 import { to } from '@/lib/href';
 import { price } from '@/lib/format';
-import { productText } from '@/lib/localize';
+import { displayName, productText, subLine } from '@/lib/localize';
+import { defaultVariant } from '@/lib/pricing';
 import { useBag } from '@/components/product/useBag';
 import { Eyebrow, btn } from '@/components/ui/store';
 import type { Product } from '@/lib/types';
 
-/** نفس منطق الترشيح اللي في الـ Prototype. */
+/** بيرشّح عطر من الكتالوج حسب الإجابات (الطابع + النوتة المفضلة). */
 function recommend(answers: string[]): string {
   const [profile, , note] = answers;
-  if (profile === 'fresh' || note === 'musk') return 'simat-ivoire';
-  if (profile === 'fruit') return 'royal-velvet';
-  if (profile === 'warm' && note === 'oud') return 'simat-noir';
-  return 'simat-bordeaux';
+  if (note === 'musk') return 'sanctum';
+  if (profile === 'fresh') return 'flow';
+  if (profile === 'fruit') return 'cloud';
+  if (profile === 'warm' && note === 'oud') return 'regal';
+  if (profile === 'warm') return 'soma';
+  if (profile === 'rose') return 'imprint';
+  if (note === 'amber') return 'imperium';
+  return 'nocturne';
 }
 
 export function ScentFinder({ products }: { products: Product[] }) {
@@ -76,12 +81,13 @@ export function ScentFinder({ products }: { products: Product[] }) {
             result && (
               <div className="rise max-w-md mx-auto p-6 bg-white border border-bordeaux space-y-4">
                 <span className="text-[10px] uppercase tracking-wider text-bordeaux font-serif font-bold block">{t.resultLabel}</span>
-                <h3 className="text-2xl font-serif text-noir">{productText(result, lang).name}</h3>
+                <h3 className="text-2xl font-serif text-noir">{displayName(result, lang, dict.concentration)}</h3>
+                <p className="text-[11px] text-stone-500">{subLine(result, lang, dict.genderTag, dict.product.inspiredBy)}</p>
                 <p className="text-xs text-stone-600 leading-relaxed">{productText(result, lang).description}</p>
                 <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-                  <span className="latin text-sm font-serif font-medium text-noir">{price(result.price, lang)}</span>
+                  <span className="latin text-sm font-serif font-medium text-noir">{price(defaultVariant(result).price, lang)}</span>
                   <button type="button" onClick={() => bag.add(result)} className={`${btn.primary} !px-5 !py-2.5`}>
-                    {dict.common.addToBag}
+                    {dict.common.addToCart}
                   </button>
                   <Link href={to(lang, `/product/${result.slug}`)} className="text-[11px] uppercase tracking-wider text-bordeaux hover:underline">
                     {t.viewProduct}

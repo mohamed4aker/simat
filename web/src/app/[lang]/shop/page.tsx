@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/shop'>): P
 
 const GENDERS: Gender[] = ['women', 'men', 'unisex'];
 const CONCENTRATIONS: Concentration[] = ['parfum', 'edp'];
-const FAMILIES = ['oud', 'rose', 'leather', 'musk'] as const;
-const PRICES = [1000, 3500, 4500];
+const FAMILIES = ['amber', 'woody', 'floral', 'fresh', 'gourmand'] as const;
+const PRICES = [500, 700, 1000];
 
 export default async function ShopPage({ params, searchParams }: PageProps<'/[lang]/shop'>) {
   const { lang } = await params;
@@ -125,10 +125,6 @@ export default async function ShopPage({ params, searchParams }: PageProps<'/[la
             </summary>
             <div className="space-y-6 pt-5">
               {group(t.gender, GENDERS.map((g) => option('gender', g, dict.gender[g])))}
-              {group(
-                t.concentration,
-                CONCENTRATIONS.map((c) => option('concentration', c, dict.concentration[c])),
-              )}
               {group(t.family, FAMILIES.map((f) => option('family', f, t.families[f])))}
               {group(
                 dict.nav.collections,

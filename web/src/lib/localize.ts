@@ -35,7 +35,31 @@ export function categoryName(c: Category, lang: Locale) {
   return pick(c.name, c.nameEn, lang);
 }
 
-/** اسم العطر من غير كلمة «SIMAT/سِمة» — للملصق الصغير على الزجاجة. */
+/** اسم العطر من غير كلمة «SIMAT» — «NOCTURNE». */
 export function shortName(p: Pick<Product, 'nameEn'>): string {
   return p.nameEn.replace(/^SIMAT\s+/i, '').split(' (')[0];
+}
+
+/** «NOCTURNE — Eau de Parfum» — اسم الكارت وعنوان صفحة المنتج. */
+export function displayName(
+  p: Product,
+  lang: Locale,
+  concentration: Record<string, string>,
+): string {
+  if (p.kind === 'set') return productName(p, lang);
+  return `${shortName(p)} — ${concentration[p.concentration]}`;
+}
+
+/** «FOR HER · Inspired by Black Opium» — السطر الصغير تحت الاسم. */
+export function subLine(
+  p: Product,
+  lang: Locale,
+  genderTag: Record<string, string>,
+  inspiredBy: string,
+): string {
+  if (p.kind === 'set') return p.secondaryLine;
+  const match = p.secondaryLine.match(/^Inspired by\s+(.+)$/i);
+  const inspiration =
+    lang === 'ar' && match ? inspiredBy.replace('{name}', match[1]) : p.secondaryLine;
+  return [genderTag[p.gender], inspiration].filter(Boolean).join(' · ');
 }

@@ -28,6 +28,18 @@ interface FormState {
   family_en: string;
   kind: string;
   label_style: string;
+  secondary_line: string;
+  tagline_en: string;
+  short_description_en: string;
+  scent_character_en: string;
+  accords_en: string;
+  wear_profile_en: string;
+  occasion_en: string;
+  related: string;
+  price_40: string;
+  price_60: string;
+  price_100: string;
+  image_hover_url: string;
   price: string;
   old_price: string;
   size_ml: string;
@@ -49,7 +61,10 @@ interface FormState {
 const EMPTY: FormState = {
   name: '', name_en: '', slug: '', brand: 'SIMAT', category_id: '',
   description: '', description_en: '', family: '', family_en: '',
-  kind: 'bottle', label_style: 'bordeaux', price: '', old_price: '', size_ml: '100', stock: '0',
+  kind: 'bottle', label_style: 'bordeaux', secondary_line: '', tagline_en: '',
+  short_description_en: '', scent_character_en: '', accords_en: '', wear_profile_en: '',
+  occasion_en: '', related: '', price_40: '450', price_60: '600', price_100: '850',
+  image_hover_url: '', price: '', old_price: '', size_ml: '100', stock: '0',
   gender: 'unisex', concentration: 'edp', longevity_hours: '8',
   top_notes: '', heart_notes: '', base_notes: '',
   top_notes_en: '', heart_notes_en: '', base_notes_en: '', image_url: '',
@@ -64,6 +79,13 @@ function toSlug(value: string): string {
     .trim()
     .replace(/\s+/g, '-');
   return latin || `p-${Date.now().toString(36)}`;
+}
+
+/** سعر حجم معيّن من عمود variants. */
+function variantPrice(row: Record<string, unknown>, size: number): string {
+  const list = (row.variants as { size_ml: number; price: number }[] | null) ?? [];
+  const found = list.find((v) => Number(v.size_ml) === size);
+  return found ? String(found.price) : '';
 }
 
 const notesToArray = (v: string) =>
@@ -87,6 +109,18 @@ function rowToForm(
     family_en: String(row.family_en ?? ''),
     kind: String(row.kind ?? 'bottle'),
     label_style: String(row.label_style ?? 'bordeaux'),
+    secondary_line: String(row.secondary_line ?? ''),
+    tagline_en: String(row.tagline_en ?? ''),
+    short_description_en: String(row.short_description_en ?? ''),
+    scent_character_en: String(row.scent_character_en ?? ''),
+    accords_en: ((row.accords_en as string[]) ?? []).join(', '),
+    wear_profile_en: String(row.wear_profile_en ?? ''),
+    occasion_en: String(row.occasion_en ?? ''),
+    related: ((row.related as string[]) ?? []).join(', '),
+    price_40: variantPrice(row, 40),
+    price_60: variantPrice(row, 60),
+    price_100: variantPrice(row, 100),
+    image_hover_url: String(row.image_hover_url ?? ''),
     price: String(row.price ?? ''),
     old_price: row.old_price == null ? '' : String(row.old_price),
     size_ml: String(row.size_ml ?? 100),
@@ -165,7 +199,11 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
     if (!form) return;
     setError(null);
 
-    const priceValue = Number(form.price);
+    const variants = ([40, 60, 100] as const)
+      .map((size) => ({ size_ml: size, price: Number(form[`price_${size}`]) }))
+      .filter((v) => Number.isFinite(v.price) && v.price > 0);
+    const defaultVariant = variants.find((v) => v.size_ml === 60) ?? variants[0];
+    const priceValue = defaultVariant ? defaultVariant.price : Number(form.price);
     if (!form.name.trim()) return setError('اكتب اسم المنتج');
     if (!Number.isFinite(priceValue) || priceValue <= 0) {
       return setError('السعر لازم يكون رقم أكبر من صفر');
@@ -187,9 +225,19 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
       family_en: form.family_en.trim(),
       kind: form.kind === 'set' ? 'set' : 'bottle',
       label_style: form.label_style,
+      secondary_line: form.secondary_line.trim(),
+      tagline_en: form.tagline_en.trim(),
+      short_description_en: form.short_description_en.trim(),
+      scent_character_en: form.scent_character_en.trim(),
+      accords_en: notesToArray(form.accords_en),
+      wear_profile_en: form.wear_profile_en.trim(),
+      occasion_en: form.occasion_en.trim(),
+      related: notesToArray(form.related),
+      variants,
+      image_hover_url: form.image_hover_url.trim() || null,
       price: priceValue,
       old_price: form.old_price.trim() ? Number(form.old_price) : null,
-      size_ml: Number(form.size_ml) || 100,
+      size_ml: defaultVariant ? defaultVariant.size_ml : Number(form.size_ml) || 100,
       stock: Number(form.stock) || 0,
       gender: form.gender,
       concentration: form.concentration,
@@ -288,19 +336,58 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
       </section>
 
       <section className="rounded-2xl border border-line bg-surface p-5 space-y-3">
-        <h2 className="font-bold mb-1">السعر والمخزون</h2>
-        <div className="grid sm:grid-cols-2 gap-3">
-          <Field label="السعر (ج.م) *">
-            <input value={form.price} onChange={set('price')} inputMode="decimal" className={adminInput} required />
+        <h2 className="font-bold mb-1">محتوى صفحة المنتج</h2>
+        <Field label="Secondary Line — السطر الصغير تحت الاسم">
+          <input value={form.secondary_line} onChange={set('secondary_line')} dir="ltr" placeholder="Inspired by Black Opium" className={adminInput} />
+        </Field>
+        <div className="grid sm:grid-cols-2 gap-3" dir="ltr">
+          <Field label="Tagline">
+            <input value={form.tagline_en} onChange={set('tagline_en')} placeholder="Awaken the night." className={adminInput} />
           </Field>
-          <Field label="السعر قبل الخصم (اختياري)">
-            <input value={form.old_price} onChange={set('old_price')} inputMode="decimal" className={adminInput} />
+          <Field label="Short Description">
+            <input value={form.short_description_en} onChange={set('short_description_en')} className={adminInput} />
+          </Field>
+          <Field label="Character — Scent Character">
+            <input value={form.scent_character_en} onChange={set('scent_character_en')} placeholder="Seductive, Energetic, Bold" className={adminInput} />
+          </Field>
+          <Field label="Best for — Occasion">
+            <input value={form.occasion_en} onChange={set('occasion_en')} placeholder="Evening wear, Night out" className={adminInput} />
+          </Field>
+          <Field label="Main Accords">
+            <input value={form.accords_en} onChange={set('accords_en')} placeholder="Vanilla, Coffee, Sweet" className={adminInput} />
+          </Field>
+          <Field label="Layer It With (slugs)">
+            <input value={form.related} onChange={set('related')} placeholder="duality, alter, velvet-ego" className={adminInput} />
+          </Field>
+        </div>
+        <Field label="Wear Profile — The Scent">
+          <textarea value={form.wear_profile_en} onChange={set('wear_profile_en')} rows={2} dir="ltr" className={adminInput} />
+        </Field>
+      </section>
+
+      <section className="rounded-2xl border border-line bg-surface p-5 space-y-3">
+        <h2 className="font-bold mb-1">الأحجام والأسعار والمخزون</h2>
+        <p className="text-[11px] text-faint">
+          سيب سعر الحجم فاضي لو الحجم ده مش متاح. حجم 60 مل هو اللي بيبقى مختار
+          افتراضياً في صفحة المنتج.
+        </p>
+        <div className="grid grid-cols-3 gap-3">
+          <Field label="40 مل (ج.م)">
+            <input value={form.price_40} onChange={set('price_40')} inputMode="decimal" className={adminInput} />
+          </Field>
+          <Field label="60 مل (ج.م)">
+            <input value={form.price_60} onChange={set('price_60')} inputMode="decimal" className={adminInput} />
+          </Field>
+          <Field label="100 مل (ج.م)">
+            <input value={form.price_100} onChange={set('price_100')} inputMode="decimal" className={adminInput} />
+          </Field>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-3">
+          <Field label="السعر (لو المنتج حجم واحد بس)">
+            <input value={form.price} onChange={set('price')} inputMode="decimal" className={adminInput} />
           </Field>
           <Field label="الكمية في المخزن">
             <input value={form.stock} onChange={set('stock')} inputMode="numeric" className={adminInput} />
-          </Field>
-          <Field label="الحجم (مل)">
-            <input value={form.size_ml} onChange={set('size_ml')} inputMode="numeric" className={adminInput} />
           </Field>
         </div>
       </section>
@@ -376,6 +463,12 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
             <Field label="رابط الصورة (اختياري)">
               <input
                 value={form.image_url} onChange={set('image_url')} dir="ltr"
+                placeholder="https://..." className={adminInput}
+              />
+            </Field>
+            <Field label="صورة الهوفر — الزجاجة وسط المكونات (اختياري)">
+              <input
+                value={form.image_hover_url} onChange={set('image_hover_url')} dir="ltr"
                 placeholder="https://..." className={adminInput}
               />
             </Field>

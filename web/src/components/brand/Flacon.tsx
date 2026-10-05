@@ -2,7 +2,7 @@
  * زجاجة سِمة مرسومة بالـ CSS زي الـ Prototype بالظبط: غطا أسود،
  * زجاج شفاف، وملصق بلون العطر. لو المنتج ليه صورة حقيقية بنعرضها.
  */
-import Image from 'next/image';
+import { ProductImage } from '@/components/product/ProductImage';
 import type { LabelStyle, ProductKind } from '@/lib/types';
 import { Drop, Swoosh } from './Wordmark';
 
@@ -37,15 +37,7 @@ export function Flacon({
   kind?: ProductKind;
 }) {
   if (imageUrl) {
-    return (
-      <Image
-        src={imageUrl}
-        alt={alt}
-        fill
-        sizes="(max-width: 768px) 100vw, 33vw"
-        className="object-cover"
-      />
-    );
+    return <ProductImage src={imageUrl} alt={alt} />;
   }
   if (kind === 'set') return <Coffret size={size} />;
 
@@ -78,7 +70,7 @@ export function Flacon({
 /** علبة طقم العينات: 5 أنابيب صغيرة. */
 export function Coffret({
   size = 'md',
-  vials = ['Bordeaux', 'Noir', 'Ivoire', 'Royal', 'Dehn Oud'],
+  vials = ['Nocturne', 'Imprint', 'Clarity', 'Instinct', 'Soma'],
 }: {
   size?: keyof typeof SIZES;
   vials?: string[];

@@ -21,7 +21,7 @@ export interface CheckoutPayload {
   couponCode: string;
   isGift: boolean;
   giftMessage: string;
-  items: { productId: string; quantity: number }[];
+  items: { productId: string; quantity: number; sizeMl?: number }[];
 }
 
 const PHONE = /^01[0125][0-9]{8}$/;

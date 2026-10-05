@@ -6,6 +6,7 @@
  * الباك إند بعدين، الملف ده بس هو اللي بيتغيّر.
  */
 import { normalizeArabic } from './format';
+import { priceFor } from './pricing';
 import * as seed from './seed';
 import { supabase, isLive } from './supabase';
 import type {
@@ -39,6 +40,18 @@ function toProduct(r: Row): Product {
     familyEn: String(r.family_en ?? ''),
     kind: (r.kind ?? 'bottle') as ProductKind,
     labelStyle: (r.label_style ?? 'bordeaux') as LabelStyle,
+    secondaryLine: String(r.secondary_line ?? ''),
+    tagline: String(r.tagline_en ?? ''),
+    shortDescription: String(r.short_description_en ?? ''),
+    scentCharacter: String(r.scent_character_en ?? ''),
+    accords: (r.accords_en as string[]) ?? [],
+    wearProfile: String(r.wear_profile_en ?? ''),
+    occasion: String(r.occasion_en ?? ''),
+    related: (r.related as string[]) ?? [],
+    variants: ((r.variants as { size_ml: number; price: number }[]) ?? []).map((v) => ({
+      sizeMl: Number(v.size_ml),
+      price: Number(v.price),
+    })),
     price: Number(r.price),
     oldPrice: r.old_price === null ? null : Number(r.old_price),
     sizeMl: Number(r.size_ml ?? 100),
@@ -58,6 +71,7 @@ function toProduct(r: Row): Product {
     isFeatured: Boolean(r.is_featured),
     isActive: r.is_active !== false,
     imageUrl: (r.image_url as string | null) ?? null,
+    hoverImageUrl: (r.image_hover_url as string | null) ?? null,
     createdAt: String(r.created_at ?? new Date().toISOString()),
   };
 }
@@ -110,7 +124,7 @@ export interface ProductQuery {
   gender?: Gender;
   concentration?: Concentration;
   kind?: ProductKind;
-  /** عائلة عطرية: oud | rose | leather | musk — بتدور في النوتات. */
+  /** عائلة عطرية: amber | woody | floral | fresh | gourmand */
   family?: string;
   minPrice?: number;
   maxPrice?: number;
@@ -120,11 +134,12 @@ export interface ProductQuery {
 }
 
 /** كلمات بندور عليها في النوتات الإنجليزي لكل عائلة عطرية. */
-const FAMILY_KEYWORDS: Record<string, string[]> = {
-  oud: ['agarwood', 'oud', 'wood', 'cedar'],
-  rose: ['rose', 'jasmine', 'blossom', 'floral'],
-  leather: ['leather', 'smoke', 'smoky', 'frankincense', 'birch'],
-  musk: ['musk'],
+export const FAMILY_KEYWORDS: Record<string, string[]> = {
+  amber: ['amber', 'vanilla'],
+  woody: ['wood', 'oud'],
+  floral: ['floral'],
+  fresh: ['aquatic', 'aromatic', 'fresh', 'citrus'],
+  gourmand: ['gourmand', 'sweet'],
 };
 
 async function allProducts(): Promise<Product[]> {
@@ -147,7 +162,8 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
     list = list.filter((p) =>
       normalizeArabic(
         [p.name, p.nameEn, p.brand, p.description, p.descriptionEn,
-         p.family, p.familyEn,
+         p.family, p.familyEn, p.secondaryLine, p.scentCharacter, p.occasion,
+         ...p.accords,
          ...p.topNotes, ...p.heartNotes, ...p.baseNotes,
          ...p.topNotesEn, ...p.heartNotesEn, ...p.baseNotesEn].join(' '),
       ).includes(needle),
@@ -164,9 +180,7 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
   if (query.family && FAMILY_KEYWORDS[query.family]) {
     const words = FAMILY_KEYWORDS[query.family];
     list = list.filter((p) => {
-      const text = [...p.topNotesEn, ...p.heartNotesEn, ...p.baseNotesEn, p.familyEn]
-        .join(' ')
-        .toLowerCase();
+      const text = [p.familyEn, ...p.accords].join(' ').toLowerCase();
       return words.some((w) => text.includes(w));
     });
   }
@@ -210,6 +224,14 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
       );
   }
   return list;
+}
+
+export async function getProductsBySlugs(slugs: string[]): Promise<Product[]> {
+  if (slugs.length === 0) return [];
+  const list = await allProducts();
+  return slugs
+    .map((s) => list.find((p) => p.slug === s))
+    .filter((p): p is Product => Boolean(p));
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -349,7 +371,7 @@ import type { OrderStatus, PaymentMethod, ShippingAddress } from './types';
 export interface PlaceOrderInput {
   address: ShippingAddress;
   email?: string;
-  items: { productId: string; quantity: number }[];
+  items: { productId: string; quantity: number; sizeMl?: number }[];
   paymentMethod: PaymentMethod;
   couponCode?: string;
   notes?: string;
@@ -384,7 +406,7 @@ export async function placeOrder(
     );
     const subtotal = input.items.reduce((sum, i) => {
       const p = products.find((x) => x.id === i.productId);
-      return sum + (p ? p.price * i.quantity : 0);
+      return sum + (p ? priceFor(p, i.sizeMl) * i.quantity : 0);
     }, 0);
     const { shippingFor } = await import('./constants');
     const shipping = shippingFor(input.address.governorate, subtotal);
@@ -415,6 +437,7 @@ export async function placeOrder(
     p_items: input.items.map((i) => ({
       product_id: i.productId,
       quantity: i.quantity,
+      size_ml: i.sizeMl ?? null,
     })),
     p_payment: input.paymentMethod,
     p_coupon: input.couponCode ?? null,

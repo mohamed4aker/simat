@@ -136,6 +136,9 @@ details > summary::-webkit-details-marker {
 details[open] .chevron {
   transform: rotate(180deg);
 }
+details[open] > summary .plus-icon {
+  transform: rotate(45deg);
+}
 
 /* إخفاء شريط التمرير في القوائم الأفقية */
 .no-scrollbar::-webkit-scrollbar {

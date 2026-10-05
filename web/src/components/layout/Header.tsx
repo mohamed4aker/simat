@@ -19,9 +19,7 @@ export function Header({ products }: { products: Product[] }) {
   const wishlist = useWishlist();
   const hydrated = useHydrated();
   const featured =
-    products.find((p) => p.slug === 'simat-bordeaux') ??
-    products.find((p) => p.isFeatured) ??
-    null;
+    [...products].filter((p) => p.isFeatured).sort((a, b) => b.soldCount - a.soldCount)[0] ?? null;
 
   return (
     <>
@@ -76,7 +74,7 @@ export function Header({ products }: { products: Product[] }) {
                 type="button"
                 onClick={() => uiStore.open('cart')}
                 className="relative p-1 hover:text-bordeaux transition-colors flex items-center"
-                aria-label={dict.nav.bag}
+                aria-label={dict.nav.cart}
               >
                 <ShoppingBag className="w-5 h-5" strokeWidth={1.3} />
                 <span className="latin ms-1 bg-bordeaux text-linen-light text-[10px] min-w-4 h-4 px-1 rounded-full flex items-center justify-center font-medium">

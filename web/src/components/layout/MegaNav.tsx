@@ -202,11 +202,11 @@ function ShopPanel({ featured }: { featured: Product | null }) {
         </ul>
       </div>
       <div>
-        <ColumnTitle>{t.byConcentration}</ColumnTitle>
+        <ColumnTitle>{t.byFamily}</ColumnTitle>
         <ul className="space-y-3">
-          <MenuLink href={to(lang, '/shop?concentration=parfum')}>{t.extrait}</MenuLink>
-          <MenuLink href={to(lang, '/shop?concentration=edp')}>{t.edp}</MenuLink>
-          <MenuLink href={to(lang, '#layering')}>{t.pairing}</MenuLink>
+          {(['amber', 'woody', 'floral', 'fresh', 'gourmand'] as const).map((f) => (
+            <MenuLink key={f} href={to(lang, `/shop?family=${f}`)}>{dict.shop.families[f]}</MenuLink>
+          ))}
         </ul>
       </div>
       {featured && text && (
@@ -228,8 +228,8 @@ function ShopPanel({ featured }: { featured: Product | null }) {
             <span className="text-[9px] uppercase tracking-wider text-bordeaux font-serif block mb-1 font-bold">
               {t.featuredLabel}
             </span>
-            <h5 className="text-sm font-serif text-noir font-bold">{text.name}</h5>
-            <p className="text-[11px] text-stone-600 mt-1 line-clamp-2">{text.top.join('، ')}</p>
+            <h5 className="text-sm font-serif text-noir font-bold">{shortName(featured)}</h5>
+            <p className="text-[11px] text-stone-600 mt-1 line-clamp-2">{featured.secondaryLine}</p>
             <span className="mt-3 inline-block text-[10px] uppercase tracking-wider text-bordeaux group-hover/card:underline font-medium">
               {t.featuredCta}
             </span>
@@ -282,8 +282,8 @@ function CollectionsPanel() {
       sub: t.signatureSub,
       art: (
         <div className="flex items-end gap-2 scale-[0.6]">
-          <Flacon labelStyle="bordeaux" name="Bordeaux" concentration="Extrait" size="sm" />
-          <Flacon labelStyle="linen" name="Ivoire" concentration="EDP" size="sm" />
+          <Flacon labelStyle="bordeaux" name="Nocturne" concentration="EDP" size="sm" />
+          <Flacon labelStyle="linen" name="Imprint" concentration="EDP" size="sm" />
         </div>
       ),
       tone: 'from-[#f2ece1] to-[#e5ddd0]',
@@ -301,8 +301,8 @@ function CollectionsPanel() {
       sub: t.duosSub,
       art: (
         <div className="flex items-end -space-x-4 scale-[0.6]">
-          <Flacon labelStyle="noir" name="Noir" concentration="Extrait" size="sm" />
-          <Flacon labelStyle="velvet" name="Royal" concentration="Extrait" size="sm" />
+          <Flacon labelStyle="noir" name="Clarity" concentration="EDP" size="sm" />
+          <Flacon labelStyle="velvet" name="Soma" concentration="EDP" size="sm" />
         </div>
       ),
       tone: 'from-[#efe9df] to-[#e2d8c9]',

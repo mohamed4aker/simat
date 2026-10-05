@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { fill, getDictionary, hasLocale } from '@/i18n';
 import { to } from '@/lib/href';
 import { price, priceNumber } from '@/lib/format';
-import { productText, shortName } from '@/lib/localize';
+import { displayName, productText, shortName, subLine } from '@/lib/localize';
+import { defaultVariant } from '@/lib/pricing';
 import { STORE } from '@/lib/constants';
 import { getProducts } from '@/lib/store';
 import { Coffret, Flacon } from '@/components/brand/Flacon';
@@ -29,10 +30,10 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
 
   const products = await getProducts();
   const bottles = products.filter((p) => p.kind === 'bottle');
-  const signature = products.find((p) => p.slug === 'simat-bordeaux') ?? bottles[0];
+  const bestSellers = [...bottles].sort((a, b) => b.soldCount - a.soldCount);
+  const signature = bestSellers[0];
   const discoverySet = products.find((p) => p.kind === 'set');
   const signatureText = signature ? productText(signature, lang) : null;
-  const bestSellers = [...bottles].sort((a, b) => b.soldCount - a.soldCount).slice(0, 4);
 
   const categories = [
     { key: 'women', href: '/shop?gender=women', image: 'photo-1518709268805-4e9042af9f23' },
@@ -78,7 +79,7 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
               <div className="relative w-full max-w-md aspect-[4/5] bg-gradient-to-b from-[#f5efe6] via-[#ece5d9] to-[#dfd6c7] border border-linen-border shadow-2xl p-8 flex flex-col items-center justify-between">
                 <div className="w-full flex items-center justify-between text-[11px] tracking-wider text-stone-600 font-serif">
                   <span>{dict.hero.cardAtelier}</span>
-                  <span className="text-bordeaux font-medium"><bdi className="latin">100 ML</bdi> · {dict.concentrationShort[signature.concentration]}</span>
+                  <span className="text-bordeaux font-medium"><bdi className="latin">{defaultVariant(signature).sizeMl} ML</bdi> · {dict.concentrationShort[signature.concentration]}</span>
                 </div>
                 <Link href={to(lang, `/product/${signature.slug}`)} className="my-auto hover:scale-105 transition-transform duration-500" aria-label={signatureText.name}>
                   <Flacon
@@ -90,7 +91,7 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
                 </Link>
                 <div className="w-full pt-4 border-t border-stone-300/80 flex items-center justify-between gap-4 text-xs">
                   <div className="min-w-0">
-                    <h3 className="font-serif text-sm text-noir">{signatureText.name}</h3>
+                    <h3 className="font-serif text-sm text-noir">{displayName(signature, lang, dict.concentration)}</h3>
                     <p className="text-[11px] text-stone-600 truncate">{signatureText.top.slice(0, 3).join(' · ')}</p>
                   </div>
                   <NotesButton product={signature} className="text-[11px] uppercase tracking-wider text-bordeaux hover:underline font-medium whitespace-nowrap">
@@ -135,8 +136,8 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
               <div className="absolute bottom-6 inset-x-6 flex items-end justify-between gap-4 text-white">
                 <div className="min-w-0">
                   <span className="text-[10px] uppercase tracking-wider text-gold font-serif">{dict.quality.cardLabel}</span>
-                  <h4 className="text-xl font-serif">{signatureText.name}</h4>
-                  <p className="text-[11px] text-stone-300 mt-0.5">{signatureText.top.slice(0, 2).concat(signatureText.heart.slice(0, 1)).join('، ')}</p>
+                  <h4 className="text-xl font-serif">{displayName(signature, lang, dict.concentration)}</h4>
+                  <p className="text-[11px] text-stone-300 mt-0.5">{subLine(signature, lang, dict.genderTag, dict.product.inspiredBy)}</p>
                 </div>
                 <Link href={to(lang, `/product/${signature.slug}`)} className="shrink-0 px-4 py-2 bg-bordeaux text-linen-light text-[10px] uppercase tracking-wider font-medium hover:bg-bordeaux-dark transition-colors">
                   {dict.quality.cardCta}

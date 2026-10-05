@@ -6,18 +6,19 @@ import { ProductCard } from '@/components/product/ProductCard';
 import { Eyebrow } from '@/components/ui/store';
 import type { Product } from '@/lib/types';
 
-type Tab = 'all' | 'parfum' | 'edp';
+type Tab = 'all' | 'women' | 'men' | 'unisex';
 
 export function BestSellers({ products }: { products: Product[] }) {
   const { dict } = useI18n();
   const t = dict.bestsellers;
   const [tab, setTab] = useState<Tab>('all');
-  const list = tab === 'all' ? products : products.filter((p) => p.concentration === tab);
+  const list = tab === 'all' ? products.slice(0, 8) : products.filter((p) => p.gender === tab).slice(0, 8);
 
   const tabs: [Tab, string][] = [
     ['all', t.tabAll],
-    ['parfum', t.tabExtrait],
-    ['edp', t.tabEdp],
+    ['women', t.tabHer],
+    ['men', t.tabHim],
+    ['unisex', t.tabUnisex],
   ];
 
   return (
@@ -27,7 +28,7 @@ export function BestSellers({ products }: { products: Product[] }) {
           <Eyebrow className="mb-1">{t.eyebrow}</Eyebrow>
           <h2 className="text-3xl sm:text-4xl font-serif text-noir">{t.title}</h2>
         </div>
-        <div role="tablist" className="flex items-center gap-4 text-xs uppercase tracking-wider">
+        <div role="tablist" className="flex flex-wrap items-center gap-4 text-xs uppercase tracking-wider">
           {tabs.map(([key, label]) => (
             <button
               key={key}

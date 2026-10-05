@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { useState, useTransition } from 'react';
 import { Minus, Plus, X } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
-import { fill } from '@/i18n';
+import { fill } from '@/i18n/fill';
 import { to } from '@/lib/href';
 import { price, priceNumber } from '@/lib/format';
 import { lineName } from '@/lib/localize';
 import { FREE_SHIPPING_THRESHOLD } from '@/lib/constants';
 import { checkCoupon } from '@/lib/actions/checkout';
 import { cartStore, useCart, useUi, uiStore } from './CartProvider';
+import { lineKey } from '@/lib/cart-store';
 import { useLockScroll } from '@/components/ui/Modal';
 import { Flacon } from '@/components/brand/Flacon';
 import { btn, field } from '@/components/ui/store';
@@ -87,7 +88,7 @@ export function CartDrawer() {
 
               <ul className="space-y-4">
                 {cart.lines.map((line) => (
-                  <li key={line.productId} className="flex gap-4 border-b border-linen-border pb-4">
+                  <li key={lineKey(line)} className="flex gap-4 border-b border-linen-border pb-4">
                     <Link
                       href={to(lang, `/product/${line.slug}`)}
                       onClick={() => uiStore.close()}
@@ -104,12 +105,12 @@ export function CartDrawer() {
                             {lineName(line, lang)}
                           </h4>
                           <p className="text-[10px] text-stone-500 mt-0.5">
-                            {line.kind === 'set' ? '5 × 2 ' + dict.common.ml : `${line.sizeMl} ${dict.common.ml}`}
+                            <bdi>{line.kind === 'set' ? `5 × 2 ${dict.common.ml}` : `${line.sizeMl} ${dict.common.ml}`}</bdi>
                           </p>
                         </div>
                         <button
                           type="button"
-                          onClick={() => cartStore.remove(line.productId)}
+                          onClick={() => cartStore.remove(lineKey(line))}
                           className="text-stone-400 hover:text-bordeaux"
                           aria-label={dict.common.remove}
                         >
@@ -119,11 +120,11 @@ export function CartDrawer() {
                       <div className="flex justify-between items-center text-xs pt-2">
                         <span className="latin text-bordeaux font-medium">{price(line.price * line.quantity, lang)}</span>
                         <div className="flex items-center border border-linen-border bg-white px-2 py-1 gap-3">
-                          <button type="button" onClick={() => cartStore.setQuantity(line.productId, line.quantity - 1)} className="text-stone-600 hover:text-bordeaux" aria-label={t.decrease}>
+                          <button type="button" onClick={() => cartStore.setQuantity(lineKey(line), line.quantity - 1)} className="text-stone-600 hover:text-bordeaux" aria-label={t.decrease}>
                             <Minus className="w-3 h-3" />
                           </button>
                           <span className="latin text-xs font-medium w-3 text-center">{line.quantity}</span>
-                          <button type="button" onClick={() => cartStore.setQuantity(line.productId, line.quantity + 1)} className="text-stone-600 hover:text-bordeaux" aria-label={t.increase}>
+                          <button type="button" onClick={() => cartStore.setQuantity(lineKey(line), line.quantity + 1)} className="text-stone-600 hover:text-bordeaux" aria-label={t.increase}>
                             <Plus className="w-3 h-3" />
                           </button>
                         </div>

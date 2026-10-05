@@ -10,7 +10,7 @@ import { SHIPPING_RATES, FREE_SHIPPING_THRESHOLD } from '../src/lib/constants.ts
 
 const q = (v: string | null) =>
   v === null ? 'null' : `'${v.replace(/'/g, "''")}'`;
-const arr = (v: string[]) =>
+const arr = (v: readonly string[]) =>
   `array[${v.map((e) => q(e)).join(',')}]::text[]`;
 const num = (v: number | null) => (v === null ? 'null' : String(v));
 const bool = (v: boolean) => (v ? 'true' : 'false');
@@ -58,7 +58,9 @@ lines.push(
 lines.push('', '-- المنتجات', 'insert into public.products');
 lines.push(
   '  (id, slug, name, name_en, brand, category_id, description, description_en,',
-  '   family, family_en, kind, label_style, price,',
+  '   family, family_en, kind, label_style, secondary_line, tagline_en,',
+  '   short_description_en, scent_character_en, accords_en, wear_profile_en,',
+  '   occasion_en, related, variants, image_hover_url, price,',
   '   old_price, size_ml, gender, concentration, top_notes, heart_notes,',
   '   base_notes, top_notes_en, heart_notes_en, base_notes_en,',
   '   longevity_hours, stock, rating, rating_count, sold_count,',
@@ -71,6 +73,11 @@ lines.push(
         `  (${q(p.id)}, ${q(p.slug)}, ${q(p.name)}, ${q(p.nameEn)}, ${q(p.brand)},\n` +
         `   ${q(p.categoryId)}, ${q(p.description)}, ${q(p.descriptionEn)},\n` +
         `   ${q(p.family)}, ${q(p.familyEn)}, ${q(p.kind)}, ${q(p.labelStyle)},\n` +
+        `   ${q(p.secondaryLine)}, ${q(p.tagline)}, ${q(p.shortDescription)},\n` +
+        `   ${q(p.scentCharacter)}, ${arr(p.accords)}, ${q(p.wearProfile)},\n` +
+        `   ${q(p.occasion)}, ${arr(p.related)},\n` +
+        `   ${q(JSON.stringify(p.variants.map((v) => ({ size_ml: v.sizeMl, price: v.price }))))}::jsonb,\n` +
+        `   ${q(p.hoverImageUrl)},\n` +
         `   ${p.price}, ${num(p.oldPrice)},\n` +
         `   ${p.sizeMl}, ${q(p.gender)}, ${q(p.concentration)},\n` +
         `   ${arr(p.topNotes)}, ${arr(p.heartNotes)}, ${arr(p.baseNotes)},\n` +
@@ -87,6 +94,11 @@ lines.push(
   '  description = excluded.description, description_en = excluded.description_en,',
   '  family = excluded.family, family_en = excluded.family_en,',
   '  kind = excluded.kind, label_style = excluded.label_style,',
+  '  secondary_line = excluded.secondary_line, tagline_en = excluded.tagline_en,',
+  '  short_description_en = excluded.short_description_en,',
+  '  scent_character_en = excluded.scent_character_en, accords_en = excluded.accords_en,',
+  '  wear_profile_en = excluded.wear_profile_en, occasion_en = excluded.occasion_en,',
+  '  related = excluded.related, variants = excluded.variants,',
   '  top_notes_en = excluded.top_notes_en, heart_notes_en = excluded.heart_notes_en,',
   '  base_notes_en = excluded.base_notes_en, price = excluded.price,',
   '  old_price = excluded.old_price, size_ml = excluded.size_ml,',
@@ -94,7 +106,8 @@ lines.push(
   '  top_notes = excluded.top_notes, heart_notes = excluded.heart_notes,',
   '  base_notes = excluded.base_notes, longevity_hours = excluded.longevity_hours,',
   '  is_featured = excluded.is_featured, is_active = excluded.is_active,',
-  '  image_url = excluded.image_url;',
+  '  image_url = coalesce(excluded.image_url, products.image_url),',
+  '  image_hover_url = coalesce(excluded.image_hover_url, products.image_hover_url);',
 );
 
 lines.push('', '-- الكوبونات', 'insert into public.coupons');
@@ -117,7 +130,8 @@ lines.push(
   '-- المنتجات اللي الأدمن ضافها بنفسه مش بتتأثر.',
   "update public.products set is_active = false where id in (",
   "  'p_001','p_002','p_003','p_004','p_005','p_006','p_007','p_008','p_009','p_010',",
-  "  'p_011','p_012','p_013','p_014','p_015','p_016','p_017','p_018','p_019','p_020');",
+  "  'p_011','p_012','p_013','p_014','p_015','p_016','p_017','p_018','p_019','p_020',",
+  "  'simat-bordeaux','simat-noir','simat-ivoire','royal-velvet');",
   "update public.categories set is_active = false where id in (",
   "  'cat_oriental','cat_french','cat_oud','cat_niche','cat_body','cat_gift');",
 );

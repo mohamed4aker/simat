@@ -2,7 +2,7 @@
 
 import { Gift } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
-import { fill } from '@/i18n';
+import { fill } from '@/i18n/fill';
 import { FREE_SHIPPING_THRESHOLD } from '@/lib/constants';
 import { priceNumber } from '@/lib/format';
 

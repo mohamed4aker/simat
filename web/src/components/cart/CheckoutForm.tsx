@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { AlertCircle, Gift, Lock } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
-import { fill } from '@/i18n';
+import { fill } from '@/i18n/fill';
 import { to } from '@/lib/href';
 import { price } from '@/lib/format';
 import { lineName } from '@/lib/localize';
@@ -78,7 +78,7 @@ export function CheckoutForm({ demo }: { demo: boolean }) {
         couponCode: cart.coupon?.code ?? '',
         isGift: cart.isGift,
         giftMessage: cart.giftMessage,
-        items: cart.lines.map((l) => ({ productId: l.productId, quantity: l.quantity })),
+        items: cart.lines.map((l) => ({ productId: l.productId, quantity: l.quantity, sizeMl: l.sizeMl })),
       });
       if (!result.ok) {
         setError(result.error ?? t.errors.generic);
@@ -200,9 +200,12 @@ export function CheckoutForm({ demo }: { demo: boolean }) {
         <h2 className="text-sm uppercase tracking-wider font-serif text-noir font-bold">{t.summary}</h2>
         <ul className="divide-y divide-linen-border text-xs">
           {cart.lines.map((l) => (
-            <li key={l.productId} className="flex justify-between gap-3 py-2.5">
+            <li key={`${l.productId}:${l.sizeMl}`} className="flex justify-between gap-3 py-2.5">
               <span className="text-stone-700">
-                {lineName(l, lang)} <span className="latin text-stone-400">× {l.quantity}</span>
+                {lineName(l, lang)}{' '}
+                <span className="latin text-stone-400">
+                  {l.kind === 'bottle' ? `${l.sizeMl} ml ` : ''}× {l.quantity}
+                </span>
               </span>
               <span className="latin text-noir shrink-0">{price(l.price * l.quantity, lang)}</span>
             </li>

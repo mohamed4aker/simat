@@ -11,7 +11,8 @@ const exact: Record<string, string> = {
   'مش قادرين نتحقق من الكود دلوقتي': 'We could not check the code right now',
   'الاسم مطلوب': 'Please enter your full name',
   'رقم موبايل غير صحيح': 'Invalid mobile number',
-  'العربة فاضية': 'Your bag is empty',
+  'العربة فاضية': 'Your cart is empty',
+  'الحجم المطلوب مش متاح': 'The selected size is not available',
   'منتج مش موجود أو موقوف': 'One of the products is no longer available',
   'حصلت مشكلة وإحنا بنسجّل الطلب، جرب تاني':
     'Something went wrong while placing your order. Please try again.',

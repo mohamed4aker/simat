@@ -2,14 +2,19 @@
  * عربة التسوق + كود الخصم + خيار الهدية — كلهم محفوظين في المتصفح.
  */
 import { createPersistedStore } from './persisted-store';
+import { defaultVariant, priceFor } from './pricing';
 import type { CartLine, Product } from './types';
+
+/** كل سطر في السلة = منتج + حجم. */
+export const lineKey = (l: Pick<CartLine, 'productId' | 'sizeMl'>) =>
+  `${l.productId}:${l.sizeMl}`;
 
 export { subscribeNoop } from './persisted-store';
 
 const EMPTY: CartLine[] = [];
 
 export const linesStore = createPersistedStore<CartLine[]>(
-  'simat.cart.v2',
+  'simat.cart.v3',
   EMPTY,
   (v): v is CartLine[] =>
     Array.isArray(v) && v.every((l) => l && typeof l.productId === 'string'),
@@ -38,14 +43,16 @@ function commit(next: CartLine[]) {
 }
 
 export const cartStore = {
-  add(product: Product, quantity = 1) {
+  add(product: Product, quantity = 1, sizeMl?: number) {
     const lines = linesStore.get();
+    const size = sizeMl ?? defaultVariant(product).sizeMl;
+    const key = lineKey({ productId: product.id, sizeMl: size });
     const max = product.stock > 0 ? product.stock : 99;
-    const found = lines.find((l) => l.productId === product.id);
+    const found = lines.find((l) => lineKey(l) === key);
     if (found) {
       commit(
         lines.map((l) =>
-          l.productId === product.id
+          lineKey(l) === key
             ? { ...l, quantity: Math.min(l.quantity + quantity, max) }
             : l,
         ),
@@ -59,8 +66,8 @@ export const cartStore = {
         slug: product.slug,
         name: product.name,
         nameEn: product.nameEn,
-        price: product.price,
-        sizeMl: product.sizeMl,
+        price: priceFor(product, size),
+        sizeMl: size,
         quantity: Math.min(quantity, max),
         imageUrl: product.imageUrl,
         labelStyle: product.labelStyle,
@@ -69,17 +76,17 @@ export const cartStore = {
     ]);
   },
 
-  setQuantity(productId: string, quantity: number) {
+  setQuantity(key: string, quantity: number) {
     const lines = linesStore.get();
     commit(
       quantity <= 0
-        ? lines.filter((l) => l.productId !== productId)
-        : lines.map((l) => (l.productId === productId ? { ...l, quantity } : l)),
+        ? lines.filter((l) => lineKey(l) !== key)
+        : lines.map((l) => (lineKey(l) === key ? { ...l, quantity } : l)),
     );
   },
 
-  remove(productId: string) {
-    commit(linesStore.get().filter((l) => l.productId !== productId));
+  remove(key: string) {
+    commit(linesStore.get().filter((l) => lineKey(l) !== key));
   },
 
   clear() {

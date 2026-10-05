@@ -8,9 +8,9 @@ import type { Product } from '@/lib/types';
 export function useBag() {
   const { dict } = useI18n();
   return {
-    add(product: Product | Product[], quantity = 1) {
+    add(product: Product | Product[], quantity = 1, sizeMl?: number) {
       const list = Array.isArray(product) ? product : [product];
-      list.forEach((p) => cartStore.add(p, quantity));
+      list.forEach((p) => cartStore.add(p, quantity, sizeMl));
       uiStore.open('cart');
     },
     toggleSaved(product: Product) {

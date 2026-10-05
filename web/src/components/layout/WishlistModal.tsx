@@ -47,7 +47,7 @@ export function WishlistModal({ products }: { products: Product[] }) {
                 }}
                 className="text-[11px] uppercase tracking-wider text-bordeaux hover:underline"
               >
-                + {dict.common.addToBag}
+                + {dict.common.addToCart}
               </button>
               <button
                 type="button"

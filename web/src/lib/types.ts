@@ -33,6 +33,12 @@ export type LabelStyle = 'bordeaux' | 'noir' | 'linen' | 'velvet';
 /** زجاجة كاملة ولا طقم عينات. */
 export type ProductKind = 'bottle' | 'set';
 
+/** حجم من أحجام الزجاجة وسعره. */
+export interface Variant {
+  sizeMl: number;
+  price: number;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -47,6 +53,22 @@ export interface Product {
   familyEn: string;
   kind: ProductKind;
   labelStyle: LabelStyle;
+  /** «Inspired by Black Opium» */
+  secondaryLine: string;
+  tagline: string;
+  shortDescription: string;
+  /** «Seductive, Energetic, Bold» */
+  scentCharacter: string;
+  accords: string[];
+  /** شخصية وسلوك العطر (عمود The Scent) */
+  wearProfile: string;
+  /** أوقات ومناسبات الاستخدام */
+  occasion: string;
+  /** slugs لعطور تتركب معاه (Layer It With) */
+  related: string[];
+  /** الأحجام وأسعارها — فاضية = حجم واحد بسعر price */
+  variants: Variant[];
+  /** السعر بيساوي سعر الحجم الافتراضي */
   price: number;
   oldPrice: number | null;
   sizeMl: number;
@@ -66,6 +88,8 @@ export interface Product {
   isFeatured: boolean;
   isActive: boolean;
   imageUrl: string | null;
+  /** الصورة اللي بتظهر لما الماوس يقف على الكارت (وسط المكونات) */
+  hoverImageUrl: string | null;
   createdAt: string;
 }
 

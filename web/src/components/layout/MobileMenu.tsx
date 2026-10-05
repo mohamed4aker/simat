@@ -25,8 +25,10 @@ export function MobileMenu() {
         [t.shop.men, '/shop?gender=men'],
         [t.shop.unisex, '/shop?gender=unisex'],
         [t.shop.bestSellers, '/shop?sort=best-selling'],
-        [t.shop.extrait, '/shop?concentration=parfum'],
-        [t.shop.edp, '/shop?concentration=edp'],
+        [dict.shop.families.amber, '/shop?family=amber'],
+        [dict.shop.families.woody, '/shop?family=woody'],
+        [dict.shop.families.floral, '/shop?family=floral'],
+        [dict.shop.families.fresh, '/shop?family=fresh'],
       ],
     },
     {

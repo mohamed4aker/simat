@@ -6,27 +6,33 @@ import { Heart } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
 import { price } from '@/lib/format';
-import { productText, shortName } from '@/lib/localize';
+import { displayName, shortName, subLine } from '@/lib/localize';
+import { defaultVariant } from '@/lib/pricing';
 import { useHydrated, useWishlist } from '@/components/cart/CartProvider';
 import { Flacon } from '@/components/brand/Flacon';
 import { NotesModal } from './NotesModal';
+import { ProductImage } from './ProductImage';
 import { useBag } from './useBag';
 import type { Product } from '@/lib/types';
 
 /**
- * كارت المنتج: الزجاجة بتقلب لكارت «ضمان العينة» لما الماوس يعدّي،
- * وزرار سريع لمكونات العطر.
+ * كارت المنتج:
+ *   الاسم   «NOCTURNE — Eau de Parfum»
+ *   سطر صغير «FOR HER · Inspired by Black Opium»
+ *   السعر
+ * الصورة الأساسية للزجاجة، ولما الماوس يقف عليها بتتبدل لصورة
+ * الزجاجة وسط المكونات الطبيعية.
  */
 export function ProductCard({ product }: { product: Product }) {
   const { lang, dict } = useI18n();
-  const text = productText(product, lang);
   const bag = useBag();
   const wishlist = useWishlist();
   const hydrated = useHydrated();
   const saved = hydrated && wishlist.includes(product.id);
   const [notesOpen, setNotesOpen] = useState(false);
   const href = to(lang, `/product/${product.slug}`);
-  const t = dict.bestsellers;
+  const title = displayName(product, lang, dict.concentration);
+  const variant = defaultVariant(product);
 
   return (
     <article className="flip-card group relative bg-linen-light border border-linen-border p-4 flex flex-col justify-between hover:border-bordeaux/40 hover:shadow-xl transition-all duration-300">
@@ -41,29 +47,28 @@ export function ProductCard({ product }: { product: Product }) {
       </button>
 
       <div className="relative w-full aspect-[3/4] overflow-hidden bg-[#ece6dc] mb-4 border border-linen-border/70">
-        <Link href={href} aria-label={text.name} className="absolute inset-0">
+        <Link href={href} aria-label={title} className="absolute inset-0">
+          {/* الصورة الأساسية: الزجاجة لوحدها */}
           <div className="flip-primary absolute inset-0 flex items-center justify-center bg-gradient-to-b from-[#f2ece1] to-[#e5ddd0]">
-            <Flacon
-              labelStyle={product.labelStyle}
-              name={shortName(product)}
-              concentration={dict.concentrationShort[product.concentration]}
-              imageUrl={product.imageUrl}
-              alt={text.name}
-              kind={product.kind}
-            />
+            {product.imageUrl ? (
+              <ProductImage src={product.imageUrl} alt={title} />
+            ) : (
+              <Flacon
+                labelStyle={product.labelStyle}
+                name={shortName(product)}
+                concentration={dict.concentrationShort[product.concentration]}
+                kind={product.kind}
+              />
+            )}
           </div>
-          <div
-            className={`flip-secondary absolute inset-0 flex items-center justify-center p-6 text-center ${
-              product.labelStyle === 'noir' ? 'simat-pattern-wrap' : 'bg-noir'
-            }`}
-          >
-            <div className="bg-linen-light p-4 border border-linen-border shadow-2xl max-w-[200px]">
-              <span className="text-[9px] uppercase tracking-wider text-bordeaux font-serif block mb-1 font-bold">
-                {t.cardGuaranteeLabel}
-              </span>
-              <p className="text-xs font-serif text-noir font-medium">{t.cardGuaranteeTitle}</p>
-              <span className="text-[10px] text-stone-500 block mt-1">{t.cardGuaranteeSub}</span>
-            </div>
+
+          {/* عند الوقوف بالماوس: الزجاجة وسط المكونات */}
+          <div className="flip-secondary absolute inset-0">
+            {product.hoverImageUrl ? (
+              <ProductImage src={product.hoverImageUrl} alt={title} />
+            ) : (
+              <IngredientsFace product={product} />
+            )}
           </div>
         </Link>
         {product.kind === 'bottle' && (
@@ -78,20 +83,26 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div>
-        <span className="text-[10px] text-bordeaux font-serif block font-bold">{text.family}</span>
-        <h3 className="text-base font-serif text-noir font-bold">
-          <Link href={href} className="hover:text-bordeaux transition-colors">{text.name}</Link>
+        <h3 className="text-[15px] font-serif text-noir font-bold leading-snug">
+          <Link href={href} className="hover:text-bordeaux transition-colors">{title}</Link>
         </h3>
-        <p className="text-[11px] text-stone-500 mt-0.5 line-clamp-1">{text.description}</p>
-        <div className="flex items-center justify-between mt-4 pt-3 border-t border-linen-border">
-          <span className="latin text-sm text-noir tracking-wider font-medium">{price(product.price, lang)}</span>
+        <p className="mt-1 text-[11px] text-stone-500 tracking-wide">
+          {subLine(product, lang, dict.genderTag, dict.product.inspiredBy)}
+        </p>
+        <div className="flex items-center justify-between mt-4 pt-3 border-t border-linen-border gap-2">
+          <span className="latin text-sm text-noir tracking-wider font-medium">
+            {price(variant.price, lang)}
+            {product.kind === 'bottle' && (
+              <span className="ms-1.5 text-[10px] text-stone-400 font-normal">· <bdi dir="ltr">{variant.sizeMl} ml</bdi></span>
+            )}
+          </span>
           <button
             type="button"
             onClick={() => bag.add(product)}
             disabled={product.stock <= 0}
-            className="text-[11px] uppercase tracking-wider text-bordeaux hover:underline font-medium disabled:text-stone-400 disabled:no-underline"
+            className="text-[11px] uppercase tracking-wider text-bordeaux hover:underline font-medium disabled:text-stone-400 disabled:no-underline whitespace-nowrap"
           >
-            {product.stock > 0 ? `+ ${dict.common.addToBag}` : dict.common.outOfStock}
+            {product.stock > 0 ? `+ ${dict.common.addToCart}` : dict.common.outOfStock}
           </button>
         </div>
       </div>
@@ -100,5 +111,29 @@ export function ProductCard({ product }: { product: Product }) {
         <NotesModal product={product} open={notesOpen} onClose={() => setNotesOpen(false)} />
       )}
     </article>
+  );
+}
+
+/**
+ * لحد ما توصل صور «الزجاجة وسط المكونات»: لوحة بالطابع والمكونات
+ * الأساسية للعطر بنفس الإحساس.
+ */
+function IngredientsFace({ product }: { product: Product }) {
+  const notes = [...product.topNotesEn, ...product.heartNotesEn].slice(0, 5);
+  return (
+    <div className="absolute inset-0 bg-noir flex flex-col items-center justify-center gap-4 p-6 text-center overflow-hidden">
+      <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_20%,#c5a880_0,transparent_45%),radial-gradient(circle_at_75%_80%,#721924_0,transparent_50%)]" />
+      <span className="relative latin text-[10px] uppercase tracking-[0.25em] text-gold">{product.familyEn}</span>
+      <div className="relative flex flex-wrap justify-center gap-1.5 max-w-[220px]">
+        {notes.map((n) => (
+          <span key={n} className="latin px-2.5 py-1 text-[10px] text-linen-light/90 border border-white/20 rounded-full">
+            {n}
+          </span>
+        ))}
+      </div>
+      {product.accords.length > 0 && (
+        <span className="relative latin text-[10px] text-stone-400">{product.accords.join(' · ')}</span>
+      )}
+    </div>
   );
 }
