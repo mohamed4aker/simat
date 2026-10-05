@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
+import 'providers/app_providers.dart';
 
 class SimatApp extends ConsumerWidget {
   const SimatApp({super.key});
@@ -11,6 +12,8 @@ class SimatApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    // تحديث المنتجات من الموقع في الخلفية.
+    ref.watch(catalogSyncProvider);
 
     return MaterialApp.router(
       title: 'SIMAT — سِمة',

@@ -94,6 +94,15 @@ enum Concentration {
         Concentration.mist => 'بادي ميست',
       };
 
+  /// «Eau de Parfum» — بيظهر في اسم المنتج زي الموقع.
+  String get labelEn => switch (this) {
+        Concentration.parfum => 'Extrait de Parfum',
+        Concentration.edp => 'Eau de Parfum',
+        Concentration.edt => 'Eau de Toilette',
+        Concentration.oil => 'Perfume Oil',
+        Concentration.mist => 'Body Mist',
+      };
+
   String get shortAr => switch (this) {
         Concentration.parfum => 'Parfum',
         Concentration.edp => 'EDP',

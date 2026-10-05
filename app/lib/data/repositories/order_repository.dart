@@ -40,15 +40,18 @@ class OrderRepository {
     double discount = 0,
     String? couponCode,
     String notes = '',
+    String? orderNumber,
+    double? subtotal,
   }) async {
     final now = DateTime.now();
-    final subtotal = items.fold<double>(0, (sum, e) => sum + e.total);
+    final itemsTotal = subtotal ?? items.fold<double>(0, (sum, e) => sum + e.total);
     final orders = _store.orders();
 
     final sequence = orders.length + 1001;
     final order = Order(
       id: 'o_${_uuid.v4().substring(0, 8)}',
-      orderNumber:
+      // رقم الطلب الحقيقي من السيرفر (نفس الرقم اللي بيوصل على واتساب).
+      orderNumber: orderNumber ??
           'SM-${now.year}${now.month.toString().padLeft(2, '0')}-$sequence',
       userId: user.id,
       customerName: address.fullName.isEmpty ? user.name : address.fullName,
@@ -57,7 +60,7 @@ class OrderRepository {
       address: address,
       paymentMethod: paymentMethod,
       status: OrderStatus.pending,
-      subtotal: subtotal,
+      subtotal: itemsTotal,
       shipping: shipping,
       discount: discount,
       couponCode: couponCode,

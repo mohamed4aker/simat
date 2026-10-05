@@ -113,7 +113,7 @@ void main() {
   testWidgets('01 home', (t) => shoot(t, '01-home', const HomeScreen()));
   testWidgets('02 catalog', (t) => shoot(t, '02-catalog', const CatalogScreen()));
   testWidgets('03 product',
-      (t) => shoot(t, '03-product', const ProductScreen(productId: 'p_001')));
+      (t) => shoot(t, '03-product', const ProductScreen(productId: 'nocturne')));
   testWidgets('04 cart',
       (t) => shoot(t, '04-cart', const CartScreen(), withCart: true));
   testWidgets('05 orders', (t) => shoot(t, '05-orders', const OrdersScreen()));

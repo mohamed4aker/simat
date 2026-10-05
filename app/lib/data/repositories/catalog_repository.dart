@@ -145,6 +145,11 @@ class CatalogRepository {
           p.nameEn,
           p.brand,
           p.description,
+          p.descriptionEn,
+          p.secondaryLine,
+          p.familyEn,
+          p.scentCharacter,
+          ...p.accords,
           ...p.allNotes,
         ].join(' '));
         return haystack.contains(needle);
@@ -179,9 +184,9 @@ class CatalogRepository {
       case ProductSort.newest:
         list.sort((a, b) => b.createdAt.compareTo(a.createdAt));
       case ProductSort.priceLow:
-        list.sort((a, b) => a.price.compareTo(b.price));
+        list.sort((a, b) => a.defaultVariant.price.compareTo(b.defaultVariant.price));
       case ProductSort.priceHigh:
-        list.sort((a, b) => b.price.compareTo(a.price));
+        list.sort((a, b) => b.defaultVariant.price.compareTo(a.defaultVariant.price));
       case ProductSort.topRated:
         list.sort((a, b) => b.rating.compareTo(a.rating));
       case ProductSort.bestSelling:
@@ -194,7 +199,7 @@ class CatalogRepository {
     final list = _store.products()
         .where((p) => p.isActive && p.isFeatured)
         .toList()
-      ..sort((a, b) => b.rating.compareTo(a.rating));
+      ..sort((a, b) => b.soldCount.compareTo(a.soldCount));
     return list;
   }
 
@@ -221,12 +226,19 @@ class CatalogRepository {
   Future<List<Product>> related(Product product, {int limit = 6}) async {
     final list = _store.products()
         .where((p) =>
-            p.isActive &&
-            p.id != product.id &&
-            (p.categoryId == product.categoryId || p.gender == product.gender))
+            p.isActive && p.id != product.id && !p.isSet && p.gender == product.gender)
         .toList()
-      ..sort((a, b) => b.rating.compareTo(a.rating));
+      ..sort((a, b) => b.soldCount.compareTo(a.soldCount));
     return list.take(limit).toList();
+  }
+
+  /// العطور المقترحة للتركيب مع المنتج (Layer It With).
+  Future<List<Product>> layerWith(Product product) async {
+    final list = _store.products();
+    return [
+      for (final slug in product.related)
+        ...list.where((p) => p.slug == slug && p.isActive),
+    ];
   }
 
   Future<List<Product>> lowStock({int threshold = 5}) async {

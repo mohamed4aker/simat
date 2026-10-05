@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/models.dart';
@@ -27,6 +28,13 @@ class LocalStore {
   static const String _kSeedVersion = 'simat.seed.version';
   static const int seedVersion = 2;
 
+  /// نسخة كتالوج الشيت (58 عطر). زوّدها لما الملف المدمج يتغيّر.
+  static const String _kCatalogVersion = 'simat.catalog.version';
+  static const int catalogVersion = 1;
+
+  /// كتالوج الموقع المدمج جوه الأبلكيشن (npm run export:app).
+  static const String catalogAsset = 'assets/data/catalog.json';
+
   static const String kProducts = 'simat.products';
   static const String kCategories = 'simat.categories';
   static const String kUsers = 'simat.users';
@@ -42,7 +50,37 @@ class LocalStore {
     final store = LocalStore._(prefs);
     _instance = store;
     await store._seedIfNeeded();
+    await store._loadBundledCatalog();
     return store;
+  }
+
+  /// بيحط عطور سِمة (من ملف الكتالوج المدمج) مكان الكتالوج القديم،
+  /// من غير ما يلمس الحسابات أو الطلبات.
+  Future<void> _loadBundledCatalog() async {
+    final current = _prefs.getInt(_kCatalogVersion) ?? 0;
+    if (current >= catalogVersion) return;
+    try {
+      final raw = await rootBundle.loadString(catalogAsset);
+      await saveCatalogJson(jsonDecode(raw) as Map<String, dynamic>);
+      // نفس أكواد الخصم اللي على الموقع.
+      await writeList(kCoupons, SeedData.coupons().map((e) => e.toJson()));
+      await _prefs.setInt(_kCatalogVersion, catalogVersion);
+    } catch (_) {
+      // لو الملف مش موجود نكمّل بالكتالوج اللي متخزّن.
+    }
+  }
+
+  /// بيحفظ كتالوج بنفس شكل GET /api/products ({products, categories}).
+  Future<void> saveCatalogJson(Map<String, dynamic> data) async {
+    final products = (data['products'] as List? ?? const [])
+        .map((e) => Product.fromJson(e as Map<String, dynamic>))
+        .toList();
+    final categories = (data['categories'] as List? ?? const [])
+        .map((e) => Category.fromJson(e as Map<String, dynamic>))
+        .toList();
+    if (products.isEmpty) return;
+    await saveProducts(products);
+    if (categories.isNotEmpty) await saveCategories(categories);
   }
 
   Future<void> _seedIfNeeded() async {
@@ -63,7 +101,9 @@ class LocalStore {
     await _prefs.remove(kCart);
     await _prefs.remove(kSession);
     await _prefs.setInt(_kSeedVersion, 0);
+    await _prefs.setInt(_kCatalogVersion, 0);
     await _seedIfNeeded();
+    await _loadBundledCatalog();
   }
 
   // ───────────────── قراءة/كتابة عامة ─────────────────

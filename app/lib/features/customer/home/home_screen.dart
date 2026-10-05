@@ -441,7 +441,7 @@ class _ProductSection extends ConsumerWidget {
                           ..hideCurrentSnackBar()
                           ..showSnackBar(
                             SnackBar(
-                              content: Text('تمت إضافة ${product.name} للعربة'),
+                              content: Text('تمت إضافة ${product.name} للسلة'),
                               duration: const Duration(seconds: 2),
                             ),
                           );

@@ -47,7 +47,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       if (!mounted) return;
       final user = ref.read(authControllerProvider);
       if (user != null && user.isAdmin) {
-        context.go('/admin');
+        // إدارة المتجر بقت من لوحة تحكم الموقع (من صفحة «حسابي»).
+        context.go('/profile');
       } else {
         // لو كان جاي من مسار إداري وهو مش أدمن، نرجّعه للمتجر.
         final target = widget.redirect;

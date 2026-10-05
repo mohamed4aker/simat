@@ -85,7 +85,7 @@ class CatalogScreen extends ConsumerWidget {
                           ..showSnackBar(
                             SnackBar(
                               content:
-                                  Text('تمت إضافة ${product.name} للعربة'),
+                                  Text('تمت إضافة ${product.name} للسلة'),
                               duration: const Duration(seconds: 2),
                             ),
                           );

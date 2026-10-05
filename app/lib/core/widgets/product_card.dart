@@ -48,39 +48,36 @@ class ProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    // «NOCTURNE — Eau de Parfum»
                     Text(
-                      product.name,
+                      product.displayName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
+                      textDirection: TextDirection.ltr,
+                      textAlign: TextAlign.right,
                       style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
+                        fontFamily: 'PlayfairDisplay',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13.5,
                       ),
                     ),
                     const SizedBox(height: 2),
+                    // «حريمي · مستوحى من Black Opium»
                     Text(
-                      '${product.concentration.shortAr} · ${product.sizeMl} مل',
+                      product.subLine,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        fontSize: 11.5,
+                        fontSize: 11,
                         color: AppColors.textMuted,
                       ),
                     ),
-                    if (!compact) ...[
-                      const SizedBox(height: 5),
-                      RatingStars(
-                        rating: product.rating,
-                        count: product.ratingCount,
-                        size: 13,
-                      ),
-                    ],
                     const SizedBox(height: 7),
                     Row(
                       children: [
                         Expanded(
                           child: PriceText(
-                            price: product.price,
+                            price: product.defaultVariant.price,
                             oldPrice: product.oldPrice,
                             size: 15,
                           ),
@@ -229,17 +226,21 @@ class ProductRow extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  product.name,
+                  product.displayName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
+                  textDirection: TextDirection.ltr,
+                  textAlign: TextAlign.right,
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
-                    fontSize: 14.5,
+                    fontSize: 14,
                   ),
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  '${product.gender.labelAr} · ${product.sizeMl} مل',
+                  product.subLine,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 12,
                     color: AppColors.textMuted,
@@ -247,7 +248,7 @@ class ProductRow extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 PriceText(
-                  price: product.price,
+                  price: product.defaultVariant.price,
                   oldPrice: product.oldPrice,
                   size: 14.5,
                 ),

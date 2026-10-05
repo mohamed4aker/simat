@@ -60,7 +60,7 @@ class CustomerShell extends ConsumerWidget {
                   backgroundColor: AppColors.primary,
                   child: const Icon(Icons.shopping_bag_rounded),
                 ),
-                label: 'العربة',
+                label: 'السلة',
               ),
               const NavigationDestination(
                 icon: Icon(Icons.favorite_border_rounded),

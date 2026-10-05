@@ -7,6 +7,7 @@ import '../data/repositories/coupon_repository.dart';
 import '../data/repositories/order_repository.dart';
 import '../data/repositories/reports_repository.dart';
 import '../data/sources/local_store.dart';
+import '../data/sources/simat_api.dart';
 
 /// يتحقن من `main()` بعد تهيئة التخزين.
 final localStoreProvider = Provider<LocalStore>(
@@ -37,6 +38,18 @@ final orderRepositoryProvider = Provider<OrderRepository>(
 final couponRepositoryProvider = Provider<CouponRepository>(
   (ref) => CouponRepository(ref.watch(localStoreProvider)),
 );
+
+final simatApiProvider = Provider<SimatApi>((ref) => SimatApi());
+
+/// بيحدّث المنتجات من الموقع مرة أول ما الأبلكيشن يفتح (ولما نسحب
+/// للتحديث)، فأي منتج يتضاف أو يتعدّل من لوحة التحكم يظهر هنا.
+final catalogSyncProvider = FutureProvider<bool>((ref) async {
+  final data = await ref.read(simatApiProvider).fetchCatalog();
+  if (data == null) return false;
+  await ref.read(localStoreProvider).saveCatalogJson(data);
+  ref.read(dataRevisionProvider.notifier).state++;
+  return true;
+});
 
 final reportsRepositoryProvider = Provider<ReportsRepository>(
   (ref) => ReportsRepository(ref.watch(localStoreProvider)),
@@ -147,10 +160,11 @@ class CartController extends StateNotifier<List<CartItem>> {
 
   Future<void> _persist() => _store.saveCart(state);
 
-  void add(Product product, {int quantity = 1}) {
-    final index = state.indexWhere((e) => e.productId == product.id);
+  void add(Product product, {int quantity = 1, int? sizeMl}) {
+    final line = CartItem.fromProduct(product, quantity: quantity, sizeMl: sizeMl);
+    final index = state.indexWhere((e) => e.key == line.key);
     if (index == -1) {
-      state = [...state, CartItem.fromProduct(product, quantity: quantity)];
+      state = [...state, line];
     } else {
       final next = [...state];
       final item = next[index];
@@ -161,20 +175,18 @@ class CartController extends StateNotifier<List<CartItem>> {
     _persist();
   }
 
-  void setQuantity(String productId, int quantity) {
-    if (quantity <= 0) return remove(productId);
+  /// [key] = productId:sizeMl (CartItem.key)
+  void setQuantity(String key, int quantity) {
+    if (quantity <= 0) return remove(key);
     state = [
       for (final item in state)
-        if (item.productId == productId)
-          item.copyWith(quantity: quantity)
-        else
-          item,
+        if (item.key == key) item.copyWith(quantity: quantity) else item,
     ];
     _persist();
   }
 
-  void remove(String productId) {
-    state = state.where((e) => e.productId != productId).toList();
+  void remove(String key) {
+    state = state.where((e) => e.key != key).toList();
     _persist();
   }
 
@@ -249,6 +261,14 @@ final productByIdProvider =
     FutureProvider.family<Product?, String>((ref, id) {
   ref.watch(dataRevisionProvider);
   return ref.watch(catalogRepositoryProvider).productById(id);
+});
+
+final layerWithProvider =
+    FutureProvider.family<List<Product>, String>((ref, id) async {
+  ref.watch(dataRevisionProvider);
+  final repo = ref.watch(catalogRepositoryProvider);
+  final product = await repo.productById(id);
+  return product == null ? const [] : repo.layerWith(product);
 });
 
 final productReviewsProvider =

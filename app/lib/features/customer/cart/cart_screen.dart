@@ -9,7 +9,7 @@ import '../../../core/widgets/common.dart';
 import '../../../core/widgets/product_artwork.dart';
 import '../../../providers/app_providers.dart';
 
-/// عربة التسوق.
+/// سلة المشتريات.
 class CartScreen extends ConsumerWidget {
   const CartScreen({super.key});
 
@@ -21,11 +21,11 @@ class CartScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('عربة التسوق'),
+        title: const Text('سلة المشتريات'),
         actions: [
           if (items.isNotEmpty)
             IconButton(
-              tooltip: 'إفراغ العربة',
+              tooltip: 'تفضية السلة',
               onPressed: () => _confirmClear(context, ref),
               icon: const Icon(Icons.delete_sweep_outlined),
             ),
@@ -34,7 +34,7 @@ class CartScreen extends ConsumerWidget {
       body: items.isEmpty
           ? EmptyState(
               icon: Icons.shopping_bag_outlined,
-              title: 'العربة فاضية',
+              title: 'السلة فاضية',
               message: 'ابدأ تتصفّح المتجر وضيف العطور اللي عجبتك',
               actionLabel: 'تصفّح المتجر',
               onAction: () => context.go('/catalog'),
@@ -74,7 +74,7 @@ class CartScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final item = items[index];
                       return Dismissible(
-                        key: ValueKey(item.productId),
+                        key: ValueKey(item.key),
                         direction: DismissDirection.endToStart,
                         background: Container(
                           alignment: Alignment.centerLeft,
@@ -90,7 +90,7 @@ class CartScreen extends ConsumerWidget {
                         ),
                         onDismissed: (_) => ref
                             .read(cartControllerProvider.notifier)
-                            .remove(item.productId),
+                            .remove(item.key),
                         child: AppCard(
                           padding: const EdgeInsets.all(10),
                           onTap: () =>
@@ -136,7 +136,7 @@ class CartScreen extends ConsumerWidget {
                                               .read(cartControllerProvider
                                                   .notifier)
                                               .setQuantity(
-                                                  item.productId, value),
+                                                  item.key, value),
                                         ),
                                         const Spacer(),
                                         Text(
@@ -206,8 +206,8 @@ class CartScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('تفضية العربة'),
-        content: const Text('متأكد إنك عايز تمسح كل المنتجات من العربة؟'),
+        title: const Text('تفضية السلة'),
+        content: const Text('متأكد إنك عايز تمسح كل المنتجات من السلة؟'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),

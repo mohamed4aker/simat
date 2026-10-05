@@ -5,6 +5,9 @@ analyzer:
     - build/**
     # أداة تصوير الشاشات — بتستخدم واجهات مخصّصة للاختبارات.
     - tool/**
+    - android/**
+    - ios/**
+    - web/**
   errors:
     avoid_print: warning
 

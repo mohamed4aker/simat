@@ -20,15 +20,25 @@ class CartItem {
     this.imagePath,
   });
 
-  factory CartItem.fromProduct(Product product, {int quantity = 1}) => CartItem(
-        productId: product.id,
-        name: product.name,
-        brand: product.brand,
-        unitPrice: product.price,
-        sizeMl: product.sizeMl,
-        quantity: quantity,
-        imagePath: product.imagePath,
-      );
+  factory CartItem.fromProduct(
+    Product product, {
+    int quantity = 1,
+    int? sizeMl,
+  }) {
+    final size = sizeMl ?? product.defaultVariant.sizeMl;
+    return CartItem(
+      productId: product.id,
+      name: product.displayName,
+      brand: product.brand,
+      unitPrice: product.priceFor(size),
+      sizeMl: size,
+      quantity: quantity,
+      imagePath: product.imagePath,
+    );
+  }
+
+  /// كل سطر في العربة = منتج + حجم.
+  String get key => '$productId:$sizeMl';
 
   double get total => unitPrice * quantity;
 

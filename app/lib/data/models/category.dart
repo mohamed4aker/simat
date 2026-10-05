@@ -54,7 +54,7 @@ class Category {
         nameEn: json['nameEn'] as String? ?? '',
         description: json['description'] as String? ?? '',
         iconKey: json['iconKey'] as String? ?? 'bottle',
-        sortOrder: json['sortOrder'] as int? ?? 0,
+        sortOrder: (json['sortOrder'] as num?)?.toInt() ?? 0,
         isActive: json['isActive'] as bool? ?? true,
       );
 }

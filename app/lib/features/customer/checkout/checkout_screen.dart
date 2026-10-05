@@ -71,13 +71,32 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
 
     setState(() => _placing = true);
     try {
+      // الطلب بيتسجل على السيرفر (نفس طلبات الموقع ولوحة التحكم)،
+      // والسيرفر هو اللي بيحسب السعر والشحن والخصم وبيبعت رسالة الواتساب.
+      final remote = await ref.read(simatApiProvider).placeOrder(
+            items: items,
+            address: address,
+            paymentMethod: _payment,
+            couponCode: _couponResult?.coupon?.code,
+            notes: _notesController.text.trim(),
+          );
+      if (!remote.ok) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(remote.error ?? 'مش قادرين نكمّل الطلب')),
+        );
+        return;
+      }
+
       final order = await ref.read(orderRepositoryProvider).place(
             user: user,
             items: items,
             address: address,
             paymentMethod: _payment,
-            shipping: shipping,
-            discount: discount,
+            shipping: remote.shipping,
+            discount: remote.discount,
+            subtotal: remote.subtotal,
+            orderNumber: remote.orderNumber,
             couponCode: _couponResult?.coupon?.code,
             notes: _notesController.text.trim(),
           );
@@ -121,7 +140,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
         appBar: AppBar(title: const Text('إتمام الطلب')),
         body: EmptyState(
           icon: Icons.shopping_bag_outlined,
-          title: 'العربة فاضية',
+          title: 'السلة فاضية',
           actionLabel: 'تصفّح المتجر',
           onAction: () => context.go('/catalog'),
         ),
@@ -195,7 +214,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
           const SizedBox(height: 18),
           _StepTitle(number: '٢', title: 'طريقة الدفع'),
           const SizedBox(height: 10),
-          for (final method in PaymentMethod.values)
+          for (final method in const [PaymentMethod.cashOnDelivery, PaymentMethod.card])
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: AppCard(

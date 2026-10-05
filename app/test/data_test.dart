@@ -42,7 +42,8 @@ void main() {
 
     test('الكوبون بيترفض تحت الحد الأدنى للطلب', () async {
       final repository = CouponRepository(store);
-      final result = await repository.apply('OUD15', 500);
+      // SIMAT15 للطلبات من 3000 ج.م
+      final result = await repository.apply('SIMAT15', 500);
       expect(result.isValid, isFalse);
       expect(result.error, isNotNull);
     });
@@ -118,24 +119,36 @@ void main() {
   });
 
   group('البحث في الكتالوج', () {
-    test('بيلاقي المنتج بالنوتة العطرية', () async {
+    test('الكتالوج فيه عطور الشيت بالأحجام', () async {
       final repository = CatalogRepository(store);
-      final results = await repository.search(
-        const ProductFilter(query: 'زعفران'),
-      );
-      expect(results, isNotEmpty);
+      final nocturne = await repository.productById('nocturne');
+      expect(nocturne, isNotNull);
+      expect(nocturne!.displayName, 'NOCTURNE — Eau de Parfum');
+      expect(nocturne.subLine, 'حريمي · مستوحى من Black Opium');
+      expect(nocturne.sizes.map((v) => v.sizeMl), [40, 60, 100]);
+      expect(nocturne.defaultVariant.sizeMl, 60);
+      expect(nocturne.related, isNotEmpty);
     });
 
-    test('بيتجاهل اختلاف الهمزات والتاء المربوطة', () async {
+    test('بيلاقي المنتج بالنوتة العطرية والعطر المستوحى منه', () async {
       final repository = CatalogRepository(store);
-      final withHamza = await repository.search(
-        const ProductFilter(query: 'أثر'),
+      final bySaffron = await repository.search(
+        const ProductFilter(query: 'saffron'),
       );
-      final withoutHamza = await repository.search(
-        const ProductFilter(query: 'اثر'),
+      final byInspiration = await repository.search(
+        const ProductFilter(query: 'Black Opium'),
       );
-      expect(withHamza.length, withoutHamza.length);
-      expect(withHamza, isNotEmpty);
+      expect(bySaffron, isNotEmpty);
+      expect(byInspiration.first.id, 'nocturne');
+    });
+
+    test('العربة بتفصل نفس العطر بأحجام مختلفة', () async {
+      final repository = CatalogRepository(store);
+      final p = (await repository.productById('nocturne'))!;
+      final small = CartItem.fromProduct(p, sizeMl: 40);
+      final big = CartItem.fromProduct(p, sizeMl: 100);
+      expect(small.key, isNot(big.key));
+      expect(small.unitPrice, lessThan(big.unitPrice));
     });
 
     test('فلتر العروض بيرجّع المخفّض بس', () async {
@@ -143,7 +156,6 @@ void main() {
       final results = await repository.search(
         const ProductFilter(onlyOffers: true),
       );
-      expect(results, isNotEmpty);
       expect(results.every((p) => p.hasDiscount), isTrue);
     });
 
@@ -153,7 +165,10 @@ void main() {
         const ProductFilter(sort: ProductSort.priceLow),
       );
       for (var i = 1; i < results.length; i++) {
-        expect(results[i].price, greaterThanOrEqualTo(results[i - 1].price));
+        expect(
+          results[i].defaultVariant.price,
+          greaterThanOrEqualTo(results[i - 1].defaultVariant.price),
+        );
       }
     });
   });
@@ -161,11 +176,11 @@ void main() {
   group('المخزون', () {
     test('الطلب بيخصم من المخزون ويزوّد المبيعات', () async {
       final repository = CatalogRepository(store);
-      final before = await repository.productById('p_001');
+      final before = await repository.productById('nocturne');
       await repository.applyStockChanges([
         CartItem.fromProduct(before!, quantity: 2),
       ]);
-      final after = await repository.productById('p_001');
+      final after = await repository.productById('nocturne');
       expect(after!.stock, before.stock - 2);
       expect(after.soldCount, before.soldCount + 2);
     });

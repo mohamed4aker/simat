@@ -10,8 +10,18 @@ class AppConstants {
   /// حد الشحن المجاني.
   static const double freeShippingThreshold = 1500;
 
+  /// عنوان الموقع — الأبلكيشن بياخد منه المنتجات وبيبعتله الطلبات.
+  /// بيتغيّر وقت البناء:  flutter build apk --dart-define=SIMAT_API=https://...
+  static const String apiBaseUrl = String.fromEnvironment(
+    'SIMAT_API',
+    defaultValue: 'https://simat-ruby.vercel.app',
+  );
+
+  /// لوحة تحكم المتجر (على الموقع).
+  static String get adminUrl => '$apiBaseUrl/admin';
+
   /// رقم خدمة العملاء / واتساب.
-  static const String supportPhone = '01000000000';
+  static const String supportPhone = '01273162855';
   static const String supportEmail = 'care@simat.store';
   static const String instagram = '@simat.perfumes';
 

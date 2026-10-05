@@ -75,7 +75,7 @@ class FavoritesScreen extends ConsumerWidget {
                                       ..hideCurrentSnackBar()
                                       ..showSnackBar(
                                         const SnackBar(
-                                          content: Text('تمت الإضافة للعربة'),
+                                          content: Text('تمت الإضافة للسلة'),
                                         ),
                                       );
                                   }

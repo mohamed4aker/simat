@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_colors.dart';
@@ -150,9 +152,12 @@ class ProfileScreen extends ConsumerWidget {
             _MenuTile(
               icon: Icons.dashboard_customize_outlined,
               title: 'لوحة تحكم المتجر',
-              subtitle: 'التقارير، المنتجات، والطلبات',
+              subtitle: 'بتفتح لوحة التحكم على الموقع — نفس منتجات وطلبات الموقع والأبلكيشن',
               highlighted: true,
-              onTap: () => context.go('/admin'),
+              onTap: () => launchUrl(
+                Uri.parse(AppConstants.adminUrl),
+                mode: LaunchMode.externalApplication,
+              ),
             ),
             const SizedBox(height: 12),
           ],

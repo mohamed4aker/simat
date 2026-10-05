@@ -633,34 +633,33 @@ class SeedData {
   // ───────────────────────── الكوبونات ─────────────────────────
 
   static List<Coupon> coupons() => [
+        // نفس أكواد الموقع (السيرفر بيتحقق منها تاني وقت الطلب).
         Coupon(
           code: 'SIMAT10',
           type: DiscountType.percent,
           value: 10,
-          minOrder: 800,
-          maxDiscount: 400,
-          expiresAt: _now.add(const Duration(days: 90)),
-          usageLimit: 500,
-          usedCount: 128,
-        ),
-        Coupon(
-          code: 'WELCOME50',
-          type: DiscountType.fixed,
-          value: 50,
-          minOrder: 300,
-          expiresAt: _now.add(const Duration(days: 180)),
+          minOrder: 0,
+          expiresAt: _now.add(const Duration(days: 365)),
           usageLimit: 0,
-          usedCount: 340,
+          usedCount: 0,
         ),
         Coupon(
-          code: 'OUD15',
+          code: 'ALEXANDRIA',
+          type: DiscountType.percent,
+          value: 10,
+          minOrder: 0,
+          expiresAt: _now.add(const Duration(days: 365)),
+          usageLimit: 0,
+          usedCount: 0,
+        ),
+        Coupon(
+          code: 'SIMAT15',
           type: DiscountType.percent,
           value: 15,
-          minOrder: 2000,
-          maxDiscount: 700,
-          expiresAt: _now.add(const Duration(days: 30)),
-          usageLimit: 100,
-          usedCount: 22,
+          minOrder: 3000,
+          expiresAt: _now.add(const Duration(days: 365)),
+          usageLimit: 0,
+          usedCount: 0,
         ),
       ];
 
