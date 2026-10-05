@@ -377,6 +377,7 @@ export interface PlaceOrderInput {
   notes?: string;
   isGift?: boolean;
   giftMessage?: string;
+  source?: 'web' | 'app';
 }
 
 export interface PlaceOrderResult {
@@ -442,7 +443,7 @@ export async function placeOrder(
     p_payment: input.paymentMethod,
     p_coupon: input.couponCode ?? null,
     p_notes: input.notes ?? '',
-    p_source: 'web',
+    p_source: input.source ?? 'web',
     p_alt_phone: input.address.altPhone || null,
     p_is_gift: input.isGift ?? false,
     p_gift_message: input.giftMessage ?? '',

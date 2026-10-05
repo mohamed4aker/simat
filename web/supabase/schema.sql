@@ -563,6 +563,58 @@ $$;
 revoke all on function public.subscribe_newsletter from public, anon;
 grant execute on function public.subscribe_newsletter(text, text) to anon, authenticated;
 
+-- رد العميل على رسالة واتساب (تأكيد / إلغاء). بيتنادى من السيرفر بس
+-- (webhook الموقع بصلاحية service_role) — الزائر ما يقدرش يناديه.
+create or replace function public.whatsapp_order_reply(
+  p_number text,
+  p_phone  text,
+  p_action text
+)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  o public.orders%rowtype;
+  v_status text;
+begin
+  select * into o from public.orders
+   where upper(order_number) = upper(trim(p_number));
+  if not found then
+    return jsonb_build_object('ok', false, 'error', 'not_found');
+  end if;
+
+  -- لازم الرد يكون من نفس رقم العميل اللي عمل الطلب.
+  if right(regexp_replace(o.customer_phone, '\D', '', 'g'), 10)
+     <> right(regexp_replace(coalesce(p_phone, ''), '\D', '', 'g'), 10) then
+    return jsonb_build_object('ok', false, 'error', 'phone_mismatch');
+  end if;
+
+  -- بنغيّر الحالة بس لو الطلب لسه «قيد المراجعة».
+  if o.status <> 'pending' then
+    return jsonb_build_object('ok', true, 'changed', false, 'status', o.status);
+  end if;
+
+  v_status := case when p_action = 'confirm' then 'confirmed' else 'cancelled' end;
+  update public.orders set status = v_status where id = o.id;
+  insert into public.order_events (order_id, status, note)
+  values (o.id, v_status,
+          case when v_status = 'confirmed' then 'العميل أكد الطلب من واتساب'
+               else 'العميل لغى الطلب من واتساب' end);
+
+  return jsonb_build_object('ok', true, 'changed', true, 'status', v_status);
+end;
+$$;
+
+revoke all on function public.whatsapp_order_reply(text, text, text) from public, anon, authenticated;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'service_role') then
+    grant execute on function public.whatsapp_order_reply(text, text, text) to service_role;
+  end if;
+end $$;
+
 -- تحديث updated_at تلقائياً
 create or replace function public.touch_updated_at()
 returns trigger language plpgsql as $$
