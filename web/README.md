@@ -46,6 +46,30 @@
 بالعربي والإنجليزي بتتعدّل من لوحة التحكم (أو من `src/lib/seed.ts` في
 وضع العرض). أرقام التواصل في `src/lib/constants.ts` (`STORE`).
 
+### تحديث العطور من شيت المنتجات
+
+الكتالوج (58 عطر) جاي من `docs/data/SIMAT_English_PDP_Content_System.xlsx`.
+لو الشيت اتعدّل:
+
+```bash
+pip install openpyxl
+python3 scripts/import-catalog.py ../docs/data/SIMAT_English_PDP_Content_System.xlsx
+npm run gen:seed      # supabase/seed.sql
+npm run export:app    # نسخة الكتالوج المدمجة في الأبلكيشن
+```
+
+- **الأسعار** مؤقتة (40 مل 450 · 60 مل 600 · 100 مل 850) في
+  `src/lib/pricing.ts` — أو عدّلها لكل عطر من لوحة التحكم.
+- **FOR HER / FOR HIM:** الشيت مفيهوش عمود Category، فاتحدد من العطر المستوحى
+  منه في `GENDER` جوه `scripts/import-catalog.py` — راجعه.
+- **الصور:** من لوحة التحكم ← المنتج ← «رابط الصورة» و«صورة الهوفر».
+
+### الأبلكيشن والموقع شايفين نفس البيانات
+
+- `GET /api/products` — الأبلكيشن بياخد منه المنتجات.
+- `POST /api/orders` — الأبلكيشن بيبعتله الطلبات (نفس حساب السعر ورسالة الواتساب).
+- رسالة الواتساب بعد الطلب: `docs/واتساب-تأكيد-الطلبات.md`.
+
 ### تحديث قاعدة بيانات موجودة
 
 لو قاعدة البيانات كانت متظبّطة قبل النسخة ثنائية اللغة: شغّل
