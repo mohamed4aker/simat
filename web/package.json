@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "gen:seed": "node --experimental-strip-types scripts/gen-seed-sql.ts",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "build:standalone": "BUILD_STANDALONE=1 next build",
     "package:cpanel": "bash scripts/package-cpanel.sh",
     "export:app": "node --experimental-strip-types scripts/export-app-catalog.ts"
