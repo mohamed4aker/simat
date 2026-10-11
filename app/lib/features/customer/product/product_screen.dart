@@ -180,15 +180,15 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
 
                       // المواصفات السريعة
                       if (!product.isSet) ...[
-                        _Spec(label: 'العائلة', value: product.familyEn),
-                        _Spec(label: 'الطابع', value: product.scentCharacter),
-                        _Spec(label: 'مناسب لـ', value: product.occasion),
+                        _Spec(label: 'العائلة', value: product.familyText),
+                        _Spec(label: 'الطابع', value: product.scentCharacterText),
+                        _Spec(label: 'مناسب لـ', value: product.occasionText),
                         const SizedBox(height: 14),
                       ],
 
                       // السعر
                       Text(
-                        Fmt.price(unitPrice),
+                        product.hasPrice ? Fmt.price(unitPrice) : 'السعر قريباً',
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
@@ -243,8 +243,10 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                           const SizedBox(width: 12),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: product.inStock ? () => _add(product) : null,
-                              child: Text(product.inStock ? 'أضف للسلة' : 'نفد المخزون'),
+                              onPressed: product.canBuy ? () => _add(product) : null,
+                              child: Text(product.canBuy
+                                  ? 'أضف للسلة'
+                                  : (product.hasPrice ? 'نفد المخزون' : 'قريباً')),
                             ),
                           ),
                         ],
@@ -254,7 +256,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: product.inStock
+                          onPressed: product.canBuy
                               ? () => _add(product, buyNow: true)
                               : null,
                           style: ElevatedButton.styleFrom(
@@ -309,13 +311,13 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                               _NoteRow('الافتتاحية', product.topNotes),
                               _NoteRow('قلب العطر', product.heartNotes),
                               _NoteRow('القاعدة', product.baseNotes),
-                              if (product.accords.isNotEmpty) ...[
+                              if (product.accordsText.isNotEmpty) ...[
                                 const SizedBox(height: 6),
                                 Wrap(
                                   spacing: 6,
                                   runSpacing: 6,
                                   children: [
-                                    for (final a in product.accords)
+                                    for (final a in product.accordsText)
                                       Chip(
                                         label: Text(a),
                                         visualDensity: VisualDensity.compact,
@@ -326,10 +328,10 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                             ],
                           ),
                         ),
-                      if (product.wearProfile.isNotEmpty)
+                      if (product.wearProfileText.isNotEmpty)
                         _Section(
                           title: 'Wear Profile · شخصية العطر',
-                          child: _NotesLine(product.wearProfile),
+                          child: _NotesLine(product.wearProfileText),
                         ),
                       if (product.related.isNotEmpty)
                         _Section(
@@ -341,8 +343,8 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (product.tagline.isNotEmpty)
-                              _NotesLine(product.tagline, bold: true),
+                            if (product.taglineText.isNotEmpty)
+                              _NotesLine(product.taglineText, bold: true),
                             _NotesLine(product.bestDescription),
                           ],
                         ),
@@ -361,7 +363,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
             product: product,
             price: unitPrice,
             size: size,
-            onAdd: product.inStock ? () => _add(product) : null,
+            onAdd: product.canBuy ? () => _add(product) : null,
           ),
         );
       },
@@ -706,7 +708,11 @@ class _BuyBar extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      product.isSet ? Fmt.price(price) : '${Fmt.price(price)} · $size مل',
+                      !product.hasPrice
+                          ? 'السعر قريباً'
+                          : product.isSet
+                              ? Fmt.price(price)
+                              : '${Fmt.price(price)} · $size مل',
                       style: const TextStyle(
                         color: AppColors.primary,
                         fontSize: 12.5,
@@ -722,7 +728,9 @@ class _BuyBar extends StatelessWidget {
                 // الثيم بيخلي الزرار بعرض الشاشة — هنا جنب الاسم والسعر.
                 style: ElevatedButton.styleFrom(minimumSize: const Size(140, 48)),
                 icon: const Icon(Icons.shopping_bag_outlined, size: 18),
-                label: Text(onAdd == null ? 'نفد المخزون' : 'أضف للسلة'),
+                label: Text(onAdd != null
+                    ? 'أضف للسلة'
+                    : (product.hasPrice ? 'نفد المخزون' : 'قريباً')),
               ),
             ],
           ),

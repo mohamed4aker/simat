@@ -20,6 +20,12 @@ export function productText(p: Product, lang: Locale) {
     top: pickList(p.topNotes, p.topNotesEn, lang),
     heart: pickList(p.heartNotes, p.heartNotesEn, lang),
     base: pickList(p.baseNotes, p.baseNotesEn, lang),
+    tagline: pick(p.taglineAr, p.tagline, lang),
+    shortDescription: pick(p.shortDescriptionAr, p.shortDescription, lang),
+    scentCharacter: pick(p.scentCharacterAr, p.scentCharacter, lang),
+    accords: pickList(p.accordsAr, p.accords, lang),
+    wearProfile: pick(p.wearProfileAr, p.wearProfile, lang),
+    occasion: pick(p.occasionAr, p.occasion, lang),
   };
 }
 

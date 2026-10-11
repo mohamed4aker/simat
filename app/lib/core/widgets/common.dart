@@ -112,6 +112,19 @@ class PriceText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // منتج لسه ملهوش سعر.
+    if (price <= 0) {
+      return Text(
+        'السعر قريباً',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          fontSize: size * 0.8,
+          fontWeight: FontWeight.w700,
+          color: AppColors.textMuted,
+        ),
+      );
+    }
     return Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.end,

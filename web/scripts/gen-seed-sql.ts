@@ -60,7 +60,8 @@ lines.push(
   '  (id, slug, name, name_en, brand, category_id, description, description_en,',
   '   family, family_en, kind, label_style, secondary_line, tagline_en,',
   '   short_description_en, scent_character_en, accords_en, wear_profile_en,',
-  '   occasion_en, related, variants, image_hover_url, price,',
+  '   occasion_en, tagline_ar, short_description_ar, scent_character_ar,',
+  '   accords_ar, wear_profile_ar, occasion_ar, related, variants, image_hover_url, price,',
   '   old_price, size_ml, gender, concentration, top_notes, heart_notes,',
   '   base_notes, top_notes_en, heart_notes_en, base_notes_en,',
   '   longevity_hours, stock, rating, rating_count, sold_count,',
@@ -75,7 +76,9 @@ lines.push(
         `   ${q(p.family)}, ${q(p.familyEn)}, ${q(p.kind)}, ${q(p.labelStyle)},\n` +
         `   ${q(p.secondaryLine)}, ${q(p.tagline)}, ${q(p.shortDescription)},\n` +
         `   ${q(p.scentCharacter)}, ${arr(p.accords)}, ${q(p.wearProfile)},\n` +
-        `   ${q(p.occasion)}, ${arr(p.related)},\n` +
+        `   ${q(p.occasion)}, ${q(p.taglineAr)}, ${q(p.shortDescriptionAr)},\n` +
+        `   ${q(p.scentCharacterAr)}, ${arr(p.accordsAr)}, ${q(p.wearProfileAr)}, ${q(p.occasionAr)},\n` +
+        `   ${arr(p.related)},\n` +
         `   ${q(JSON.stringify(p.variants.map((v) => ({ size_ml: v.sizeMl, price: v.price }))))}::jsonb,\n` +
         `   ${q(p.hoverImageUrl)},\n` +
         `   ${p.price}, ${num(p.oldPrice)},\n` +
@@ -98,6 +101,9 @@ lines.push(
   '  short_description_en = excluded.short_description_en,',
   '  scent_character_en = excluded.scent_character_en, accords_en = excluded.accords_en,',
   '  wear_profile_en = excluded.wear_profile_en, occasion_en = excluded.occasion_en,',
+  '  tagline_ar = excluded.tagline_ar, short_description_ar = excluded.short_description_ar,',
+  '  scent_character_ar = excluded.scent_character_ar, accords_ar = excluded.accords_ar,',
+  '  wear_profile_ar = excluded.wear_profile_ar, occasion_ar = excluded.occasion_ar,',
   '  related = excluded.related, variants = excluded.variants,',
   '  top_notes_en = excluded.top_notes_en, heart_notes_en = excluded.heart_notes_en,',
   '  base_notes_en = excluded.base_notes_en, price = excluded.price,',
@@ -132,6 +138,8 @@ lines.push(
   "  'p_001','p_002','p_003','p_004','p_005','p_006','p_007','p_008','p_009','p_010',",
   "  'p_011','p_012','p_013','p_014','p_015','p_016','p_017','p_018','p_019','p_020',",
   "  'simat-bordeaux','simat-noir','simat-ivoire','royal-velvet');",
+  '-- عطور اتشالت من الكتالوج بطلب العميل.',
+  "update public.products set is_active = false where id in ('ground','apex','sanctum');",
   "update public.categories set is_active = false where id in (",
   "  'cat_oriental','cat_french','cat_oud','cat_niche','cat_body','cat_gift');",
 );

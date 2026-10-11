@@ -35,6 +35,12 @@ interface FormState {
   accords_en: string;
   wear_profile_en: string;
   occasion_en: string;
+  tagline_ar: string;
+  short_description_ar: string;
+  scent_character_ar: string;
+  accords_ar: string;
+  wear_profile_ar: string;
+  occasion_ar: string;
   related: string;
   price_40: string;
   price_60: string;
@@ -63,7 +69,8 @@ const EMPTY: FormState = {
   description: '', description_en: '', family: '', family_en: '',
   kind: 'bottle', label_style: 'bordeaux', secondary_line: '', tagline_en: '',
   short_description_en: '', scent_character_en: '', accords_en: '', wear_profile_en: '',
-  occasion_en: '', related: '', price_40: '450', price_60: '600', price_100: '850',
+  occasion_en: '', tagline_ar: '', short_description_ar: '', scent_character_ar: '',
+  accords_ar: '', wear_profile_ar: '', occasion_ar: '', related: '', price_40: '450', price_60: '700', price_100: '900',
   image_hover_url: '', price: '', old_price: '', size_ml: '100', stock: '0',
   gender: 'unisex', concentration: 'edp', longevity_hours: '8',
   top_notes: '', heart_notes: '', base_notes: '',
@@ -116,6 +123,12 @@ function rowToForm(
     accords_en: ((row.accords_en as string[]) ?? []).join(', '),
     wear_profile_en: String(row.wear_profile_en ?? ''),
     occasion_en: String(row.occasion_en ?? ''),
+    tagline_ar: String(row.tagline_ar ?? ''),
+    short_description_ar: String(row.short_description_ar ?? ''),
+    scent_character_ar: String(row.scent_character_ar ?? ''),
+    accords_ar: ((row.accords_ar as string[]) ?? []).join('، '),
+    wear_profile_ar: String(row.wear_profile_ar ?? ''),
+    occasion_ar: String(row.occasion_ar ?? ''),
     related: ((row.related as string[]) ?? []).join(', '),
     price_40: variantPrice(row, 40),
     price_60: variantPrice(row, 60),
@@ -232,6 +245,12 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
       accords_en: notesToArray(form.accords_en),
       wear_profile_en: form.wear_profile_en.trim(),
       occasion_en: form.occasion_en.trim(),
+      tagline_ar: form.tagline_ar.trim(),
+      short_description_ar: form.short_description_ar.trim(),
+      scent_character_ar: form.scent_character_ar.trim(),
+      accords_ar: notesToArray(form.accords_ar),
+      wear_profile_ar: form.wear_profile_ar.trim(),
+      occasion_ar: form.occasion_ar.trim(),
       related: notesToArray(form.related),
       variants,
       image_hover_url: form.image_hover_url.trim() || null,
@@ -362,6 +381,33 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
         </div>
         <Field label="Wear Profile — The Scent">
           <textarea value={form.wear_profile_en} onChange={set('wear_profile_en')} rows={2} dir="ltr" className={adminInput} />
+        </Field>
+      </section>
+
+      <section className="rounded-2xl border border-line bg-surface p-5 space-y-3">
+        <h2 className="font-bold mb-1">محتوى صفحة المنتج (عربي)</h2>
+        <p className="text-[11px] text-faint">
+          بيظهر في نسخة الموقع العربي والأبلكيشن. لو خانة فاضية بيظهر الإنجليزي مكانها.
+        </p>
+        <div className="grid sm:grid-cols-2 gap-3">
+          <Field label="الجملة المميزة (Tagline)">
+            <input value={form.tagline_ar} onChange={set('tagline_ar')} placeholder="حضور مسائي هادئ وجريء." className={adminInput} />
+          </Field>
+          <Field label="وصف قصير">
+            <input value={form.short_description_ar} onChange={set('short_description_ar')} className={adminInput} />
+          </Field>
+          <Field label="الطابع (Character)">
+            <input value={form.scent_character_ar} onChange={set('scent_character_ar')} placeholder="دافئ، حاسم، وجريء" className={adminInput} />
+          </Field>
+          <Field label="مناسب لـ (Best for)">
+            <input value={form.occasion_ar} onChange={set('occasion_ar')} placeholder="السهرات والأوقات المسائية" className={adminInput} />
+          </Field>
+          <Field label="الطابع الأساسي (Main Accords) — افصل بفاصلة">
+            <input value={form.accords_ar} onChange={set('accords_ar')} placeholder="فانيلا، قهوة، أزهار بيضاء" className={adminInput} />
+          </Field>
+        </div>
+        <Field label="شخصية العطر (The Scent)">
+          <textarea value={form.wear_profile_ar} onChange={set('wear_profile_ar')} rows={2} className={adminInput} />
         </Field>
       </section>
 

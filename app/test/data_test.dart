@@ -130,6 +130,29 @@ void main() {
       expect(nocturne.related, isNotEmpty);
     });
 
+    test('أسعار العميل والعطور المشالة والمحتوى العربي', () async {
+      final repository = CatalogRepository(store);
+      final all = await repository.allProducts(includeInactive: true);
+      expect(all.where((p) => p.kind == 'bottle').length, 55);
+      for (final id in ['ground', 'apex', 'sanctum']) {
+        expect(await repository.productById(id), isNull);
+      }
+
+      final anima = (await repository.productById('anima'))!;
+      expect(anima.sizes.map((v) => v.price), [450, 700, 900]);
+      expect(anima.secondaryLine, 'Inspired by Coco Mademoiselle');
+      expect(anima.taglineText, isNot(anima.tagline));
+      expect(anima.familyText, 'تشيبر زهري');
+      expect(anima.topNotes, isNotEmpty);
+
+      final legacy = (await repository.productById('legacy'))!;
+      expect(legacy.sizes.map((v) => v.price), [499, 749, 999]);
+
+      final set = (await repository.productById('discovery-set'))!;
+      expect(set.hasPrice, isFalse);
+      expect(set.canBuy, isFalse);
+    });
+
     test('بيلاقي المنتج بالنوتة العطرية والعطر المستوحى منه', () async {
       final repository = CatalogRepository(store);
       final bySaffron = await repository.search(

@@ -32,7 +32,8 @@ export async function generateMetadata({
   if (!product) return {};
   const dict = getDictionary(lang);
   const title = displayName(product, lang, dict.concentration);
-  const description = (product.shortDescription || productText(product, lang).description).slice(0, 155);
+  const text = productText(product, lang);
+  const description = (text.shortDescription || text.description).slice(0, 155);
   return {
     title,
     description,
@@ -90,9 +91,9 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
   const joiner = lang === 'ar' ? '، ' : ', ';
 
   const specs = [
-    [t.specScent, product.familyEn],
-    [t.specCharacter, product.scentCharacter],
-    [t.specBestFor, product.occasion],
+    [t.specScent, text.family],
+    [t.specCharacter, text.scentCharacter],
+    [t.specBestFor, text.occasion],
   ].filter(([, v]) => v);
 
   const noteRows = [
@@ -105,11 +106,11 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: title,
-    description: product.shortDescription || text.description,
+    description: text.shortDescription || text.description,
     sku: product.id,
     brand: { '@type': 'Brand', name: 'SIMAT' },
     image: product.imageUrl ?? undefined,
-    offers: variantsOf(product).map((v) => ({
+    offers: variantsOf(product).filter((v) => v.price > 0).map((v) => ({
       '@type': 'Offer',
       url: `${SITE_URL}/${lang}/product/${product.slug}`,
       priceCurrency: 'EGP',
@@ -209,12 +210,12 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
                         <p className="text-noir font-serif mt-0.5">{notes.join(joiner)}</p>
                       </div>
                     ))}
-                  {product.accords.length > 0 && (
+                  {text.accords.length > 0 && (
                     <div>
                       <span className="text-[11px] uppercase tracking-wider text-bordeaux font-medium block mb-1.5">{t.mainAccords}</span>
                       <div className="flex flex-wrap gap-1.5">
-                        {product.accords.map((a) => (
-                          <span key={a} className="latin px-2.5 py-1 text-[11px] bg-linen border border-linen-border">{a}</span>
+                        {text.accords.map((a) => (
+                          <span key={a} className="px-2.5 py-1 text-[11px] bg-linen border border-linen-border">{a}</span>
                         ))}
                       </div>
                     </div>
@@ -223,9 +224,9 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
               </Accordion>
             )}
 
-            {product.wearProfile && (
+            {text.wearProfile && (
               <Accordion title={t.accWear}>
-                <p>{product.wearProfile}</p>
+                <p>{text.wearProfile}</p>
               </Accordion>
             )}
 
@@ -254,7 +255,7 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
             )}
 
             <Accordion title={t.accDescription}>
-              {product.tagline && <p className="font-serif text-lg text-noir mb-2">{product.tagline}</p>}
+              {text.tagline && <p className="font-serif text-lg text-noir mb-2">{text.tagline}</p>}
               <p>{text.description}</p>
             </Accordion>
           </div>

@@ -7,14 +7,24 @@ export const catalogRows = [
     "nameEn": "SIMAT NOCTURNE",
     "secondaryLine": "Inspired by Black Opium",
     "tagline": "Awaken the night.",
+    "taglineAr": "حضور مسائي هادئ وجريء.",
     "shortDescription": "A highly addictive, seductive amber vanilla fragrance.",
+    "shortDescriptionAr": "",
     "descriptionEn": "SIMAT NOCTURNE is a captivating blend of adrenaline-rich coffee and sweet vanilla, creating a bold and mesmerizing scent for the modern woman.",
+    "description": "",
     "scentCharacter": "Seductive, Energetic, Bold",
+    "scentCharacterAr": "دافئ، حاسم، وجريء",
     "familyEn": "Amber Vanilla",
+    "family": "عنبري فانيلا",
     "accords": [
       "Vanilla",
       "Coffee",
       "Sweet"
+    ],
+    "accordsAr": [
+      "فانيلا",
+      "قهوة",
+      "أزهار بيضاء"
     ],
     "topNotesEn": [
       "Pear",
@@ -31,12 +41,43 @@ export const catalogRows = [
       "Patchouli",
       "Cedar"
     ],
+    "topNotes": [
+      "كمثرى",
+      "فلفل وردي",
+      "زهر البرتقال"
+    ],
+    "heartNotes": [
+      "قهوة مركزة",
+      "ياسمين",
+      "لوز مر"
+    ],
+    "baseNotes": [
+      "فانيلا",
+      "باتشولي",
+      "خشب الأرز"
+    ],
     "wearProfile": "An intoxicating gourmand floral that commands attention.",
+    "wearProfileAr": "",
     "occasion": "Evening wear, Night out",
+    "occasionAr": "السهرات والأوقات المسائية والأجواء الباردة",
     "related": [
       "duality",
       "alter",
       "velvet-ego"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "bordeaux",
@@ -48,40 +89,77 @@ export const catalogRows = [
     "slug": "anima",
     "sheetId": 2,
     "nameEn": "SIMAT ANIMA",
-    "secondaryLine": "Inspired by Coco Chanel",
-    "tagline": "Timeless elegance redefined.",
-    "shortDescription": "A classic, warm spicy amber fragrance that exudes sophistication.",
-    "descriptionEn": "SIMAT ANIMA captures the essence of classic luxury with a complex blend of warm spices, rich amber, and delicate florals.",
-    "scentCharacter": "Elegant, Classic, Sophisticated",
-    "familyEn": "Amber Spicy",
+    "secondaryLine": "Inspired by Coco Mademoiselle",
+    "tagline": "Fresh, radiant elegance.",
+    "taglineAr": "أنوثة مشرقة بنعومة تشيبر زهرية مبهجة.",
+    "shortDescription": "A radiant, fresh chypre floral fragrance full of joy.",
+    "shortDescriptionAr": "توليفة تشيبر زهرية ناعمة ومبهجة تجمع بين انتعاش الحمضيات ورقة الزهور والمسك.",
+    "descriptionEn": "SIMAT ANIMA is a vibrant expression of modern elegance, blending sparkling citrus and tender rose with soft jasmine and clean white musk.",
+    "description": "يجسد ANIMA الأناقة العصرية بروح مبهجة وناعمة؛ تفتتح الرائحة بانتعاش نقي من شرائح البرتقال واليوسفي، لتلتقي بقلب زهري مفعم بالحيوية من بتلات الورد الرقيقة والياسمين الأبيض، وتستقر على قاعدة ناعمة ونظيفة من الباتشولي الأخضر والمسك الأبيض.",
+    "scentCharacter": "Radiant, Joyful, Chic",
+    "scentCharacterAr": "مشرق، مبهج، أنيق",
+    "familyEn": "Chypre Floral",
+    "family": "تشيبر زهري",
     "accords": [
-      "Amber",
-      "Woody",
-      "Warm Spicy"
+      "Citrus",
+      "White Floral",
+      "Rose"
+    ],
+    "accordsAr": [
+      "حمضيات مشرقة",
+      "أزهار بيضاء",
+      "ورد",
+      "مسك ناعم"
     ],
     "topNotesEn": [
-      "Coriander",
+      "Orange",
       "Mandarin Orange"
     ],
     "heartNotesEn": [
-      "Mimosa",
-      "Cloves",
-      "Orange Blossom"
+      "Rose",
+      "Jasmine"
     ],
     "baseNotesEn": [
-      "Labdanum",
-      "Amber",
-      "Sandalwood"
+      "Patchouli",
+      "White Musk"
     ],
-    "wearProfile": "A rich and opulent scent that lingers beautifully.",
-    "occasion": "Formal events, Signature scent",
+    "topNotes": [
+      "شرائح برتقال",
+      "يوسفي"
+    ],
+    "heartNotes": [
+      "بتلات ورد ناعمة",
+      "ياسمين أبيض"
+    ],
+    "baseNotes": [
+      "ورق باتشولي أخضر",
+      "مسك أبيض"
+    ],
+    "wearProfile": "A sparkling and graceful floral chypre that feels fresh and uplifting.",
+    "wearProfileAr": "عطر تشيبر زهري ناعم ومشرق يمنح إحساساً بالانتعاش والبهجة الأنيقة.",
+    "occasion": "Daytime, Everyday, Chic gatherings",
+    "occasionAr": "الإطلالات النهارية، الاستخدام اليومي، والمناسبات الراقية",
     "related": [
       "velvet-ego",
       "libera",
       "aura"
     ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
+    ],
     "gender": "women",
-    "labelStyle": "bordeaux",
+    "labelStyle": "linen",
     "isFeatured": false,
     "soldCount": 58
   },
@@ -92,13 +170,23 @@ export const catalogRows = [
     "nameEn": "SIMAT VELVET EGO",
     "secondaryLine": "Inspired by Roberto Cavalli",
     "tagline": "Embrace your boldest self.",
+    "taglineAr": "أنوثة مشرقة بحضور لافت.",
     "shortDescription": "An opulent white floral and amber fragrance.",
+    "shortDescriptionAr": "توليفة زهرية بيضاء مغلفة بدفء العنبر ولمسات الفلفل الوردي.",
     "descriptionEn": "SIMAT VELVET EGO is a statement of pure glamour. Radiant pink pepper and African orange flower melt into a warm, sensual vanilla base.",
+    "description": "يتميز VELVET EGO بطابعه الحيوي والناعم في آنٍ واحد؛ حيث تمنحه نفحات الفلفل الوردي في البداية انطباعاً دافئاً وجذاباً، سرعان ما يمتزج مع زهر البرتقال الأفريقي ليعطي إحساساً بالنقاء والإشراق. وتستقر الرائحة بهدوء على قاعدة مخملية من الفانيلا وراتنج البنزوين، لتترك خلفك هالة دافئة وثابتة تدوم طوال اليوم.",
     "scentCharacter": "Sensual, Glamorous, Radiant",
+    "scentCharacterAr": "مشرق، دافئ، لافت",
     "familyEn": "Amber Floral",
+    "family": "عنبري زهري",
     "accords": [
       "White Floral",
       "Amber"
+    ],
+    "accordsAr": [
+      "أزهار بيضاء",
+      "عنبر",
+      "لمسات بلسمية ناعمة."
     ],
     "topNotesEn": [
       "Pink Pepper"
@@ -110,12 +198,38 @@ export const catalogRows = [
       "Vanilla",
       "Benzoin"
     ],
+    "topNotes": [
+      "فلفل وردي."
+    ],
+    "heartNotes": [
+      "زهر البرتقال الأفريقي."
+    ],
+    "baseNotes": [
+      "فانيلا",
+      "راتنج البنزوين."
+    ],
     "wearProfile": "A radiant floral that leaves a golden trail.",
+    "wearProfileAr": "عطر زهري دافئ ينساب بنعومة مخملية دون أن يفقد حضوره.",
     "occasion": "Special occasions, Evening",
+    "occasionAr": "المناسبات المميزة والخروجات المسائية الأنيقة",
     "related": [
       "anima",
       "nocturne",
       "duality"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "bordeaux",
@@ -127,37 +241,67 @@ export const catalogRows = [
     "slug": "alter",
     "sheetId": 4,
     "nameEn": "SIMAT ALTER",
-    "secondaryLine": "Inspired by Scandal",
-    "tagline": "Break the rules.",
-    "shortDescription": "A sweet, honeyed chypre floral that is delightfully provocative.",
-    "descriptionEn": "SIMAT ALTER is a playful yet powerful fragrance. Delicious honey and vibrant blood orange create an irresistible and daring signature.",
-    "scentCharacter": "Playful, Provocative, Sweet",
-    "familyEn": "Chypre Floral",
+    "secondaryLine": "Inspired by Scandal A Paris",
+    "tagline": "Airy honey and luminous florals.",
+    "taglineAr": "حلاوة عسلية ناعمة بنقاء الكمثرى والياسمين.",
+    "shortDescription": "A luminous, airy honey-floral fragrance with a delicate sweet touch.",
+    "shortDescriptionAr": "توليفة زهرية عسلية خفيفة تجمع بين قرمشة الكمثرى الصافية ونقاء الياسمين الأبيض وسلسال العسل الذهبي.",
+    "descriptionEn": "SIMAT ALTER embodies playful yet refined femininity. Crisp juicy pear meets radiant white jasmine, softly drizzled with pure golden honey for an airy, elegant sweetness.",
+    "description": "يقدم ALTER تجربة عسلية خفيفة ومشرقة تبتعد عن الكثافة الثقيلة؛ تبدأ بنفحات مقرمشة ومنعشة من الكمثرى الناضجة، لتتفتح مع قلب نقي من أزهار الياسمين الأبيض الناصع، وتستقر برقة على لمسات دافئة من عسل النحل الذهبي الصافي والناعم.",
+    "scentCharacter": "Luminous, Sweet, Playful",
+    "scentCharacterAr": "مشرق، ناعم، جذاب",
+    "familyEn": "Floral Fruity Gourmand",
+    "family": "زهري فاكهي جورماند خفيف",
     "accords": [
       "Honey",
-      "Sweet",
-      "White Floral"
+      "White Floral",
+      "Fruity"
+    ],
+    "accordsAr": [
+      "عسل ذهبي خفيف",
+      "أزهار بيضاء",
+      "فاكهي ناعم"
     ],
     "topNotesEn": [
-      "Blood Orange",
-      "Mandarin Orange"
+      "Pear"
     ],
     "heartNotesEn": [
-      "Honey",
-      "Gardenia",
-      "Orange Blossom"
+      "Jasmine"
     ],
     "baseNotesEn": [
-      "Beeswax",
-      "Caramel",
-      "Patchouli"
+      "Honey"
     ],
-    "wearProfile": "A delicious and daring honey-floral blend.",
-    "occasion": "Date night, Parties",
+    "topNotes": [
+      "شرائح كمثرى ناضجة"
+    ],
+    "heartNotes": [
+      "ياسمين أبيض ناصع"
+    ],
+    "baseNotes": [
+      "عسل نحل ذهبي صافي"
+    ],
+    "wearProfile": "A crisp, delicate honey-floral scent that glows with warmth.",
+    "wearProfileAr": "عطر زهري عسلي رقيق ومضيء يمنح حضوراً دافئاً وجذاباً.",
+    "occasion": "Daytime, Spring/Summer, Dates",
+    "occasionAr": "أوقات النهار، اللقاءات اللطيفة، والأيام المشمسة",
     "related": [
       "euphoria",
       "reverie",
       "memoria"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -171,14 +315,25 @@ export const catalogRows = [
     "nameEn": "SIMAT EUPHORIA",
     "secondaryLine": "Inspired by La Vie Est Belle",
     "tagline": "Life is beautiful.",
+    "taglineAr": "بهجة نهارية بنعومة البودرة والزهور.",
     "shortDescription": "A joyful floral fruity gourmand with a sweet vanilla trail.",
+    "shortDescriptionAr": "عطر زهري فاكهي مبهج يرتكز على السوسن ولمسات الشوكولاتة والكراميل.",
     "descriptionEn": "SIMAT EUPHORIA is a celebration of happiness. Sparkling iris and sweet praline combine to create a radiant, universally loved fragrance.",
+    "description": "يمنحك EUPHORIA شعوراً بالراحة والتألق من الرشة الأولى؛ تفتتح الرائحة بمزيج ناعم من الكمثرى والكشمش الأسود، تلتقي بسلاسة مع قلب بودري أنيق من زهور السوسن والياسمين وزهر البرتقال. تستقر التوليفة في نهايتها على طبقة مكرملة هادئة تجمع بين الفانيلا وشوكولاتة البرالين والباتشولي، ليمنحك ثباتاً نهارياً ناعماً يناسب يومك بالكامل.",
     "scentCharacter": "Joyful, Radiant, Feminine",
+    "scentCharacterAr": "مبهج، ناعم، يومي",
     "familyEn": "Floral Fruity Gourmand",
+    "family": "زهري فاكهي جورماند",
     "accords": [
       "Sweet",
       "Vanilla",
       "Fruity"
+    ],
+    "accordsAr": [
+      "بودري",
+      "فانيلا",
+      "أزهار بيضاء",
+      "فواكه حلوة."
     ],
     "topNotesEn": [
       "Black Currant",
@@ -194,12 +349,42 @@ export const catalogRows = [
       "Vanilla",
       "Patchouli"
     ],
+    "topNotes": [
+      "كشمش أسود",
+      "كمثرى."
+    ],
+    "heartNotes": [
+      "سوسن (إيريس)",
+      "ياسمين",
+      "زهر البرتقال."
+    ],
+    "baseNotes": [
+      "شوكولاتة البرالين",
+      "فانيلا",
+      "باتشولي."
+    ],
     "wearProfile": "A sweet, luminous scent that brings joy.",
+    "wearProfileAr": "رائحة زهرية سكرية بودرية تعطي إحساساً بالأناقة والبهجة النظيفة.",
     "occasion": "Everyday wear, Daytime",
+    "occasionAr": "الاستخدام اليومي، أوقات العمل، والصباحات المشرقة",
     "related": [
       "alter",
       "memoria",
       "cloud"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -213,14 +398,24 @@ export const catalogRows = [
     "nameEn": "SIMAT REVERIE",
     "secondaryLine": "Inspired by Strawberry Pound Cake",
     "tagline": "Indulge in sweet dreams.",
+    "taglineAr": "استمتع بأحلام سكرية.",
     "shortDescription": "A comforting, sweet gourmand fragrance.",
+    "shortDescriptionAr": "عطر جورماند ناعم يبعث على الراحة.",
     "descriptionEn": "SIMAT REVERIE is a delicious treat for the senses, blending fresh strawberries with golden shortcake and whipped cream.",
+    "description": "يمثل عطر REVERIE متعة للحواس، حيث يمزج بين الفراولة الطازجة وكعكة الغريبة الذهبية مع الكريمة المخفوقة.",
     "scentCharacter": "Sweet, Comforting",
+    "scentCharacterAr": "سكري، مريح",
     "familyEn": "Gourmand",
+    "family": "جورماند ناعم",
     "accords": [
       "Sweet",
       "Strawberry",
       "Vanilla"
+    ],
+    "accordsAr": [
+      "لمسات سكرية متوازنة",
+      "فراولة",
+      "فانيلا"
     ],
     "topNotesEn": [
       "Fresh Strawberries"
@@ -232,12 +427,38 @@ export const catalogRows = [
       "Whipped Cream",
       "Vanilla"
     ],
+    "topNotes": [
+      "فراولة طازجة"
+    ],
+    "heartNotes": [
+      "كعكة الغريبة الذهبية"
+    ],
+    "baseNotes": [
+      "كريمة مخفوقة",
+      "فانيلا"
+    ],
     "wearProfile": "A mouth-watering dessert-like fragrance.",
+    "wearProfileAr": "رائحة شهية تشبه الحلوى.",
     "occasion": "Casual wear",
+    "occasionAr": "الاستخدام اليومي",
     "related": [
       "euphoria",
       "cloud",
       "spark"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -251,14 +472,24 @@ export const catalogRows = [
     "nameEn": "SIMAT PULSE",
     "secondaryLine": "Inspired by Very Sexy Now",
     "tagline": "Feel the heat.",
+    "taglineAr": "إحساس بالدفء الاستوائي.",
     "shortDescription": "A vibrant, tropical floral fruity fragrance.",
+    "shortDescriptionAr": "عطر زهري فاكهي استوائي ينبض بالحيوية.",
     "descriptionEn": "SIMAT PULSE transports you to a sun-drenched beach with its exotic blend of guava, coconut, and warm sand notes.",
+    "description": "ينقلك عطر PULSE إلى شاطئ مشمس بمزيجه الاستوائي من الجوافة وجوز الهند ونفحات الرمال الدافئة.",
     "scentCharacter": "Tropical, Vibrant",
+    "scentCharacterAr": "استوائي، حيوي",
     "familyEn": "Floral Fruity",
+    "family": "زهري فاكهي",
     "accords": [
       "Fruity",
       "Sweet",
       "Tropical"
+    ],
+    "accordsAr": [
+      "فاكهي",
+      "لمسات سكرية متوازنة",
+      "فواكه استوائية"
     ],
     "topNotesEn": [
       "Guava",
@@ -271,12 +502,39 @@ export const catalogRows = [
       "Warm Sand",
       "Musk"
     ],
+    "topNotes": [
+      "جوافة",
+      "جوز هند"
+    ],
+    "heartNotes": [
+      "زهرة الماريبوسا"
+    ],
+    "baseNotes": [
+      "رمال دافئة",
+      "مسك"
+    ],
     "wearProfile": "A sun-kissed, exotic aroma.",
+    "wearProfileAr": "رائحة استوائية دافئة تذكرك بأشعة الشمس.",
     "occasion": "Summer days, Vacations",
+    "occasionAr": "أيام الصيف، العطلات",
     "related": [
       "serenity",
       "soften",
       "liminal"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -290,13 +548,22 @@ export const catalogRows = [
     "nameEn": "SIMAT DUALITY",
     "secondaryLine": "Inspired by Good Girl",
     "tagline": "Embrace your dual nature.",
+    "taglineAr": "تناغم بين الغموض والأناقة.",
     "shortDescription": "A mysterious and elegant amber floral fragrance.",
+    "shortDescriptionAr": "عطر عنبري زهري يجمع بين الغموض والأناقة.",
     "descriptionEn": "SIMAT DUALITY contrasts the sweet allure of jasmine with the dark mystery of cocoa and tonka bean.",
+    "description": "يبرز عطر DUALITY التباين بين الجاذبية السكرية للياسمين والغموض الداكن للكاكاو وحبوب التونكا.",
     "scentCharacter": "Mysterious, Elegant",
+    "scentCharacterAr": "غامض، أنيق",
     "familyEn": "Amber Floral",
+    "family": "عنبري زهري",
     "accords": [
       "White Floral",
       "Warm Spicy"
+    ],
+    "accordsAr": [
+      "أزهار بيضاء",
+      "توابل دافئة"
     ],
     "topNotesEn": [
       "Almond",
@@ -312,12 +579,42 @@ export const catalogRows = [
       "Cacao",
       "Vanilla"
     ],
+    "topNotes": [
+      "لوز",
+      "قهوة",
+      "برغموت"
+    ],
+    "heartNotes": [
+      "مسك الروم",
+      "ياسمين سامباك"
+    ],
+    "baseNotes": [
+      "حبوب التونكا",
+      "كاكاو",
+      "فانيلا"
+    ],
     "wearProfile": "A captivating dance of light and dark notes.",
+    "wearProfileAr": "رقصة آسرة بين النفحات المضيئة والداكنة.",
     "occasion": "Evening, Signature scent",
+    "occasionAr": "المساء، عطر شخصي مميز",
     "related": [
       "nocturne",
       "anima",
       "velvet-ego"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "bordeaux",
@@ -331,14 +628,24 @@ export const catalogRows = [
     "nameEn": "SIMAT LIBERA",
     "secondaryLine": "Inspired by Libre",
     "tagline": "The scent of freedom.",
+    "taglineAr": "عطر الحرية والانطلاق.",
     "shortDescription": "A fierce and clean amber fougere.",
+    "shortDescriptionAr": "فوچير عنبري نقي وجريء.",
     "descriptionEn": "SIMAT LIBERA blends aromatic lavender with sensual orange blossom for a bold, empowering fragrance.",
+    "description": "يمزج عطر LIBERA بين اللافندر الأروماتك وزهر البرتقال الجذاب ليقدم عطراً جريئاً يعزز الثقة.",
     "scentCharacter": "Fierce, Independent",
+    "scentCharacterAr": "جريء، مستقل",
     "familyEn": "Amber Fougere",
+    "family": "فوچير عنبري",
     "accords": [
       "White Floral",
       "Citrus",
       "Lavender"
+    ],
+    "accordsAr": [
+      "أزهار بيضاء",
+      "حمضيات مشرقة",
+      "لافندر"
     ],
     "topNotesEn": [
       "Lavender",
@@ -352,12 +659,40 @@ export const catalogRows = [
       "Madagascar Vanilla",
       "Musk"
     ],
+    "topNotes": [
+      "لافندر",
+      "يوسفي"
+    ],
+    "heartNotes": [
+      "لافندر",
+      "زهر البرتقال"
+    ],
+    "baseNotes": [
+      "فانيلا مدغشقر",
+      "مسك"
+    ],
     "wearProfile": "A sharp, clean, and empowering scent.",
+    "wearProfileAr": "رائحة حادة، نقية، وتعزز الثقة.",
     "occasion": "Office wear, Everyday",
+    "occasionAr": "أوقات العمل، الاستخدام اليومي",
     "related": [
       "identity",
       "clarity",
       "aura"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "bordeaux",
@@ -371,14 +706,24 @@ export const catalogRows = [
     "nameEn": "SIMAT MEMORIA",
     "secondaryLine": "Inspired by Burberry Her",
     "tagline": "Capture the moment.",
+    "taglineAr": "لحظات لا تُنسى.",
     "shortDescription": "A youthful, fruity gourmand fragrance.",
+    "shortDescriptionAr": "عطر فاكهي جورماند مفعم بالشباب.",
     "descriptionEn": "SIMAT MEMORIA is a burst of vibrant berries settling into a soft, musky, and woody base.",
+    "description": "يتميز عطر MEMORIA بانفجار من التوت النابض بالحياة، ليستقر على قاعدة ناعمة من المسك والأخشاب.",
     "scentCharacter": "Youthful, Urban",
+    "scentCharacterAr": "شبابي، عصري",
     "familyEn": "Floral Fruity Gourmand",
+    "family": "زهري فاكهي جورماند",
     "accords": [
       "Fruity",
       "Sweet",
       "Woody"
+    ],
+    "accordsAr": [
+      "فاكهي",
+      "لمسات سكرية متوازنة",
+      "أخشاب دافئة"
     ],
     "topNotesEn": [
       "Strawberry",
@@ -393,12 +738,41 @@ export const catalogRows = [
       "Vanilla",
       "Cashmeran"
     ],
+    "topNotes": [
+      "فراولة",
+      "توت العليق"
+    ],
+    "heartNotes": [
+      "بنفسج",
+      "ياسمين"
+    ],
+    "baseNotes": [
+      "مسك",
+      "فانيلا",
+      "كشميران"
+    ],
     "wearProfile": "A sweet, berry-forward modern scent.",
+    "wearProfileAr": "رائحة عصرية غنية بالتوت ولمسات سكرية.",
     "occasion": "Daytime, Casual",
+    "occasionAr": "أوقات النهار، الاستخدام اليومي",
     "related": [
       "euphoria",
       "reverie",
       "spark"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -412,14 +786,24 @@ export const catalogRows = [
     "nameEn": "SIMAT SOFTEN",
     "secondaryLine": "Inspired by Tender",
     "tagline": "Delicate and fresh.",
+    "taglineAr": "رقة وانتعاش ناعم.",
     "shortDescription": "A romantic floral fruity fragrance.",
+    "shortDescriptionAr": "عطر زهري فاكهي رومانسي.",
     "descriptionEn": "SIMAT SOFTEN is a gentle embrace of fresh quince and delicate florals, perfect for a subtle, romantic aura.",
+    "description": "عطر SOFTEN هو عناق رقيق من السفرجل الطازج والأزهار الناعمة، مثالي لهالة رومانسية هادئة.",
     "scentCharacter": "Delicate, Romantic",
+    "scentCharacterAr": "رقيق، رومانسي",
     "familyEn": "Floral Fruity",
+    "family": "زهري فاكهي",
     "accords": [
       "Fresh",
       "Floral",
       "Citrus"
+    ],
+    "accordsAr": [
+      "منعش",
+      "زهري",
+      "حمضيات مشرقة"
     ],
     "topNotesEn": [
       "Grapefruit",
@@ -434,12 +818,41 @@ export const catalogRows = [
       "Iris",
       "Cedar"
     ],
+    "topNotes": [
+      "جريب فروت",
+      "سفرجل"
+    ],
+    "heartNotes": [
+      "ياسمين",
+      "ياقوتية"
+    ],
+    "baseNotes": [
+      "مسك",
+      "سوسن",
+      "خشب الأرز"
+    ],
     "wearProfile": "A soft, airy, and romantic blend.",
+    "wearProfileAr": "مزيج ناعم، خفيف، ورومانسي.",
     "occasion": "Spring days, Dates",
+    "occasionAr": "أيام الربيع، اللقاءات الخاصة",
     "related": [
       "pulse",
       "serenity",
       "pearl"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -453,14 +866,24 @@ export const catalogRows = [
     "nameEn": "SIMAT LIMINAL",
     "secondaryLine": "Inspired by Escape",
     "tagline": "Find your sanctuary.",
+    "taglineAr": "ملاذك الهادئ.",
     "shortDescription": "A refreshing floral aquatic fragrance.",
+    "shortDescriptionAr": "عطر زهري مائي منعش.",
     "descriptionEn": "SIMAT LIMINAL captures the essence of the ocean breeze mixed with fresh melon and delicate florals.",
+    "description": "يجسد عطر LIMINAL جوهر نسيم المحيط الممزوج بالبطيخ المنعش والأزهار الرقيقة.",
     "scentCharacter": "Aquatic, Free",
+    "scentCharacterAr": "مائي، حر",
     "familyEn": "Floral Aquatic",
+    "family": "زهري مائي منعش",
     "accords": [
       "Fruity",
       "Floral",
       "Aquatic"
+    ],
+    "accordsAr": [
+      "فاكهي",
+      "زهري",
+      "مائي"
     ],
     "topNotesEn": [
       "Melon",
@@ -475,12 +898,41 @@ export const catalogRows = [
       "Musk",
       "Amber"
     ],
+    "topNotes": [
+      "بطيخ",
+      "بابونج"
+    ],
+    "heartNotes": [
+      "خوخ",
+      "زنبق الوادي"
+    ],
+    "baseNotes": [
+      "طحلب البلوط",
+      "مسك",
+      "عنبر"
+    ],
     "wearProfile": "A crisp, refreshing aquatic scent.",
+    "wearProfileAr": "رائحة مائية نقية ومنعشة.",
     "occasion": "Summer, Casual",
+    "occasionAr": "الصيف، الاستخدام اليومي",
     "related": [
       "flow",
       "pulse",
       "soften"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -494,14 +946,24 @@ export const catalogRows = [
     "nameEn": "SIMAT AURA",
     "secondaryLine": "Inspired by Olympia",
     "tagline": "Unleash your inner goddess.",
+    "taglineAr": "أطلقي العنان لقوتك الداخلية.",
     "shortDescription": "A divine, salty amber floral.",
+    "shortDescriptionAr": "عطر عنبري زهري بلمسات مالحة فريدة.",
     "descriptionEn": "SIMAT AURA is a unique blend of salty vanilla and water jasmine, creating a powerful and addictive signature.",
+    "description": "عطر AURA هو مزيج فريد من الفانيلا المالحة وياسمين الماء، ليخلق بصمة عطرية قوية وآسرة.",
     "scentCharacter": "Divine, Powerful",
+    "scentCharacterAr": "آسر، قوي",
     "familyEn": "Amber Floral",
+    "family": "عنبري زهري",
     "accords": [
       "Vanilla",
       "Salty",
       "White Floral"
+    ],
+    "accordsAr": [
+      "فانيلا",
+      "مالح",
+      "أزهار بيضاء"
     ],
     "topNotesEn": [
       "Water Jasmine",
@@ -515,12 +977,40 @@ export const catalogRows = [
       "Ambergris",
       "Cashmere Wood"
     ],
+    "topNotes": [
+      "ياسمين الماء",
+      "يوسفي أخضر"
+    ],
+    "heartNotes": [
+      "فانيلا",
+      "ملح"
+    ],
+    "baseNotes": [
+      "عنبر رمادي",
+      "خشب الكشمير"
+    ],
     "wearProfile": "A unique salty-sweet floral.",
+    "wearProfileAr": "عطر زهري سكري بلمسة مالحة فريدة.",
     "occasion": "Signature scent, Evening",
+    "occasionAr": "عطر شخصي مميز، المساء",
     "related": [
       "anima",
       "libera",
       "velvet-ego"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "bordeaux",
@@ -534,13 +1024,22 @@ export const catalogRows = [
     "nameEn": "SIMAT PSYCHE",
     "secondaryLine": "Inspired by Georgina",
     "tagline": "Pure floral elegance.",
+    "taglineAr": "أناقة زهرية نقية.",
     "shortDescription": "A fresh and elegant floral fragrance.",
+    "shortDescriptionAr": "عطر زهري أنيق ومنعش.",
     "descriptionEn": "SIMAT PSYCHE is a beautifully balanced composition of white flowers and bright citrus notes.",
+    "description": "عطر PSYCHE هو تركيبة متوازنة ببراعة من الأزهار البيضاء ونفحات الحمضيات المشرقة.",
     "scentCharacter": "Elegant, Fresh",
+    "scentCharacterAr": "أنيق، منعش",
     "familyEn": "Floral",
+    "family": "زهري",
     "accords": [
       "Floral",
       "Fresh"
+    ],
+    "accordsAr": [
+      "زهري",
+      "منعش"
     ],
     "topNotesEn": [
       "Citrus Notes"
@@ -552,12 +1051,38 @@ export const catalogRows = [
       "Musk",
       "Woods"
     ],
+    "topNotes": [
+      "نفحات حمضية"
+    ],
+    "heartNotes": [
+      "أزهار بيضاء"
+    ],
+    "baseNotes": [
+      "مسك",
+      "أخشاب"
+    ],
     "wearProfile": "A clean, bright floral bouquet.",
+    "wearProfileAr": "باقة زهرية نقية ومشرقة.",
     "occasion": "Office, Everyday",
+    "occasionAr": "أوقات العمل، الاستخدام اليومي",
     "related": [
       "soften",
       "memoria",
       "pearl"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -571,14 +1096,24 @@ export const catalogRows = [
     "nameEn": "SIMAT SERENITY",
     "secondaryLine": "Inspired by Mayar",
     "tagline": "Vibrant and sweet.",
+    "taglineAr": "حيوية ولمسات سكرية.",
     "shortDescription": "A lively floral fruity fragrance.",
+    "shortDescriptionAr": "عطر زهري فاكهي حيوي.",
     "descriptionEn": "SIMAT SERENITY is a burst of juicy lychee and raspberry, balanced by soft white rose and vanilla.",
+    "description": "عطر SERENITY هو انفجار من الليتشي والتوت الغني، يتوازن مع الورد الأبيض الناعم والفانيلا.",
     "scentCharacter": "Vibrant, Sweet",
+    "scentCharacterAr": "حيوي، سكري",
     "familyEn": "Floral Fruity",
+    "family": "زهري فاكهي",
     "accords": [
       "Fruity",
       "Sweet",
       "Fresh"
+    ],
+    "accordsAr": [
+      "فاكهي",
+      "لمسات سكرية متوازنة",
+      "منعش"
     ],
     "topNotesEn": [
       "Lychee",
@@ -592,12 +1127,40 @@ export const catalogRows = [
       "Vanilla",
       "Musk"
     ],
+    "topNotes": [
+      "ليتشي",
+      "توت العليق"
+    ],
+    "heartNotes": [
+      "ورد أبيض",
+      "ياسمين"
+    ],
+    "baseNotes": [
+      "فانيلا",
+      "مسك"
+    ],
     "wearProfile": "A juicy, mouth-watering fruity scent.",
+    "wearProfileAr": "رائحة فاكهية غنية تسيل اللعاب.",
     "occasion": "Daytime, Summer",
+    "occasionAr": "أوقات النهار، الصيف",
     "related": [
       "pulse",
       "spark",
       "reverie"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -611,14 +1174,24 @@ export const catalogRows = [
     "nameEn": "SIMAT COMFORT",
     "secondaryLine": "Inspired by Bianco Latte",
     "tagline": "Wrap yourself in warmth.",
+    "taglineAr": "غلف نفسك بالدفء.",
     "shortDescription": "A cozy, sweet amber gourmand.",
+    "shortDescriptionAr": "عطر عنبري جورماند دافئ وسكري.",
     "descriptionEn": "SIMAT COMFORT is like a warm hug, featuring rich caramel, honey, and creamy vanilla.",
+    "description": "عطر COMFORT يشبه العناق الدافئ، حيث يتميز بالكراميل الغني والعسل والفانيلا الكريمية.",
     "scentCharacter": "Cozy, Warm",
+    "scentCharacterAr": "دافئ، مريح",
     "familyEn": "Amber Gourmand",
+    "family": "عنبري جورماند",
     "accords": [
       "Vanilla",
       "Sweet",
       "Caramel"
+    ],
+    "accordsAr": [
+      "فانيلا",
+      "لمسات سكرية متوازنة",
+      "كراميل"
     ],
     "topNotesEn": [
       "Caramel"
@@ -631,12 +1204,39 @@ export const catalogRows = [
       "Vanilla",
       "White Musk"
     ],
+    "topNotes": [
+      "كراميل"
+    ],
+    "heartNotes": [
+      "كومارين",
+      "عسل"
+    ],
+    "baseNotes": [
+      "فانيلا",
+      "مسك أبيض"
+    ],
     "wearProfile": "A comforting, milky-sweet aroma.",
+    "wearProfileAr": "رائحة حليبية سكرية تبعث على الراحة.",
     "occasion": "Fall/Winter, Cozy nights",
+    "occasionAr": "الخريف/الشتاء، الأمسيات الدافئة",
     "related": [
       "reverie",
       "soma",
       "cloud"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -650,14 +1250,24 @@ export const catalogRows = [
     "nameEn": "SIMAT SOMA",
     "secondaryLine": "Inspired by Khamrah",
     "tagline": "Rich, spicy, and decadent.",
+    "taglineAr": "فخامة غنية بالتوابل.",
     "shortDescription": "A luxurious amber spicy fragrance.",
+    "shortDescriptionAr": "عطر عنبري توابلي دافئ فاخر.",
     "descriptionEn": "SIMAT SOMA is an opulent blend of cinnamon, dates, and praline, perfect for making a statement.",
+    "description": "عطر SOMA هو مزيج فاخر من القرفة والتمر والبرالين، مثالي لترك انطباع لا يُنسى.",
     "scentCharacter": "Decadent, Rich",
+    "scentCharacterAr": "فاخر، غني",
     "familyEn": "Amber Spicy",
+    "family": "عنبري توابلي دافئ",
     "accords": [
       "Sweet",
       "Warm Spicy",
       "Woody"
+    ],
+    "accordsAr": [
+      "لمسات سكرية متوازنة",
+      "توابل دافئة",
+      "أخشاب دافئة"
     ],
     "topNotesEn": [
       "Cinnamon",
@@ -674,12 +1284,43 @@ export const catalogRows = [
       "Tonka Bean",
       "Myrrh"
     ],
+    "topNotes": [
+      "قرفة",
+      "جوزة الطيب",
+      "برغموت"
+    ],
+    "heartNotes": [
+      "تمر",
+      "برالين",
+      "مسك الروم"
+    ],
+    "baseNotes": [
+      "فانيلا",
+      "حبوب التونكا",
+      "مر"
+    ],
     "wearProfile": "A rich, spicy, and sweet oriental blend.",
+    "wearProfileAr": "مزيج شرقي غني بالتوابل واللمسات السكرية.",
     "occasion": "Evening, Winter",
+    "occasionAr": "المساء، الشتاء",
     "related": [
       "comfort",
       "obsession",
       "imperium"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -693,14 +1334,24 @@ export const catalogRows = [
     "nameEn": "SIMAT LIMEN",
     "secondaryLine": "Inspired by Reef 33",
     "tagline": "Fresh and aromatic.",
+    "taglineAr": "انتعاش أروماتك نقي.",
     "shortDescription": "A crisp woody aromatic fragrance.",
+    "shortDescriptionAr": "عطر خشبي أروماتك نقي.",
     "descriptionEn": "SIMAT LIMEN balances fresh citrus and lavender with a deep, woody base.",
+    "description": "يوازن عطر LIMEN بين الحمضيات المنعشة واللافندر مع قاعدة خشبية عميقة.",
     "scentCharacter": "Fresh, Woody",
+    "scentCharacterAr": "منعش، خشبي",
     "familyEn": "Woody Aromatic",
+    "family": "خشبي أروماتك",
     "accords": [
       "Aromatic",
       "Woody",
       "Fresh Spicy"
+    ],
+    "accordsAr": [
+      "أروماتك",
+      "أخشاب دافئة",
+      "توابل منعشة"
     ],
     "topNotesEn": [
       "Bergamot",
@@ -715,12 +1366,40 @@ export const catalogRows = [
       "Vetiver",
       "Musk"
     ],
+    "topNotes": [
+      "برغموت",
+      "ليمون"
+    ],
+    "heartNotes": [
+      "لافندر",
+      "إكليل الجبل"
+    ],
+    "baseNotes": [
+      "عود",
+      "نجيل الهند",
+      "مسك"
+    ],
     "wearProfile": "A clean, aromatic, and grounded scent.",
+    "wearProfileAr": "رائحة نقية، أروماتك، وثابتة.",
     "occasion": "Everyday, Office",
+    "occasionAr": "الاستخدام اليومي، أوقات العمل",
     "related": [
-      "ground",
       "clarity",
       "identity"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -734,14 +1413,25 @@ export const catalogRows = [
     "nameEn": "SIMAT IMPRINT",
     "secondaryLine": "Inspired by Baccarat Rouge 540",
     "tagline": "Leave a lasting impression.",
+    "taglineAr": "هالة مضيئة من الزعفران والعنبر المعدني تترك أثراً استثنائياً.",
     "shortDescription": "A radiant amber floral fragrance.",
+    "shortDescriptionAr": "عطر متفرد يجمع بين شفافية الزعفران النقي ونضارة الياسمين وأخشاب الأرز، مع ثبات عنبري معدني مميز. يناسب المناسبات الكبرى ومحبي العطور التي تملأ المكان بوقار ورقي.",
     "descriptionEn": "SIMAT IMPRINT is a mesmerizing and luxurious blend of saffron, amberwood, and cedar.",
+    "description": "صُمم إمبرينت ليكون بصمة خاصة لا تشبه غيرها؛ يفتتح العطر حضوره بنفحات الزعفران الأحمر واللوز المتبلور قبل أن يلتقي بزهور الياسمين الشفافة في تناغم هندسي دقيق. وفي قاعدته، يندمج العنبر المعدني الفاخر وأخشاب الأرز ليعطيا انتشاراً واسعاً وأثراً يبقى معلقاً في الهواء بعد المغادرة. عطر عصري ونخبوي، يلائم الحفلات الرسمية واللقاءات التي تتطلب حضوراً واثقاً لا يُمحى.",
     "scentCharacter": "Luxurious, Radiant",
+    "scentCharacterAr": "فاخر، مشرق",
     "familyEn": "Amber Floral",
+    "family": "عنبري زهري",
     "accords": [
       "Woody",
       "Amber",
       "Warm Spicy"
+    ],
+    "accordsAr": [
+      "الزعفران",
+      "الياسمين",
+      "عنبر معدني",
+      "خشب الأرز"
     ],
     "topNotesEn": [
       "Saffron",
@@ -755,12 +1445,42 @@ export const catalogRows = [
       "Fir Resin",
       "Cedar"
     ],
+    "topNotes": [
+      "زعفران أحمر",
+      "لوز مر",
+      "قشر اليوسفي"
+    ],
+    "heartNotes": [
+      "ياسمين سامباك",
+      "خشب أرز نقي"
+    ],
+    "baseNotes": [
+      "عنبر رمادي",
+      "راتنج التنوب",
+      "مسك خشبي"
+    ],
     "wearProfile": "A glowing, airy, and sweet woody scent.",
+    "wearProfileAr": "شفاف، مشع، وفخم؛ يتميز بالفوحان النقي والأثر الطويل.",
     "occasion": "Signature scent, Special events",
+    "occasionAr": "الحفلات الرسمية واللقاءات الهامة",
     "related": [
       "soma",
       "ascend",
       "nexus"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -774,14 +1494,24 @@ export const catalogRows = [
     "nameEn": "SIMAT ASCEND",
     "secondaryLine": "Inspired by Invictus Victory Elixir",
     "tagline": "Rise to the top.",
+    "taglineAr": "ارتقِ للقمة.",
     "shortDescription": "A powerful amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي قوي.",
     "descriptionEn": "SIMAT ASCEND is an intense and sweet blend of vanilla, incense, and tonka bean.",
+    "description": "عطر ASCEND هو مزيج مكثف وسكري من الفانيلا والبخور وحبوب التونكا.",
     "scentCharacter": "Powerful, Intense",
+    "scentCharacterAr": "قوي، مكثف",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Vanilla",
       "Amber",
       "Sweet"
+    ],
+    "accordsAr": [
+      "فانيلا",
+      "عنبر",
+      "لمسات سكرية متوازنة"
     ],
     "topNotesEn": [
       "Lavender",
@@ -795,58 +1525,44 @@ export const catalogRows = [
       "Vanilla Bean",
       "Tonka Bean"
     ],
+    "topNotes": [
+      "لافندر",
+      "حبهان"
+    ],
+    "heartNotes": [
+      "بخور",
+      "باتشولي"
+    ],
+    "baseNotes": [
+      "فانيلا",
+      "حبوب التونكا"
+    ],
     "wearProfile": "A strong, sweet, and victorious aroma.",
+    "wearProfileAr": "رائحة قوية، سكرية، وتشع بالانتصار.",
     "occasion": "Night out, Clubbing",
+    "occasionAr": "الخروجات المسائية، الحفلات",
     "related": [
-      "apex",
       "magnet",
       "poise"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 40
-  },
-  {
-    "id": "ground",
-    "slug": "ground",
-    "sheetId": 21,
-    "nameEn": "SIMAT GROUND",
-    "secondaryLine": "Inspired by Terre d'Hermès",
-    "tagline": "Earthy and grounded.",
-    "shortDescription": "A classic woody spicy fragrance.",
-    "descriptionEn": "SIMAT GROUND combines sparkling citrus with earthy vetiver and pepper for a sophisticated profile.",
-    "scentCharacter": "Earthy, Sophisticated",
-    "familyEn": "Woody Spicy",
-    "accords": [
-      "Citrus",
-      "Woody",
-      "Earthy"
-    ],
-    "topNotesEn": [
-      "Orange",
-      "Grapefruit"
-    ],
-    "heartNotesEn": [
-      "Pepper",
-      "Pelargonium"
-    ],
-    "baseNotesEn": [
-      "Vetiver",
-      "Cedar",
-      "Patchouli"
-    ],
-    "wearProfile": "A mature, earthy, and citrusy blend.",
-    "occasion": "Office, Signature scent",
-    "related": [
-      "clarity",
-      "limen",
-      "identity"
-    ],
-    "gender": "men",
-    "labelStyle": "noir",
-    "isFeatured": false,
-    "soldCount": 39
   },
   {
     "id": "shadow",
@@ -855,14 +1571,23 @@ export const catalogRows = [
     "nameEn": "SIMAT SHADOW",
     "secondaryLine": "Inspired by Black Afgano",
     "tagline": "Embrace the mystery.",
+    "taglineAr": "اكتشف الغموض.",
     "shortDescription": "A dark, smoky woody aromatic fragrance.",
+    "shortDescriptionAr": "عطر خشبي أروماتك دخاني وعميق.",
     "descriptionEn": "SIMAT SHADOW is an intense, hypnotic blend of resins, woods, and smoky incense.",
+    "description": "عطر SHADOW هو مزيج مكثف وآسر من الراتنجات والأخشاب والبخور الدخاني.",
     "scentCharacter": "Dark, Mysterious",
+    "scentCharacterAr": "داكن، غامض",
     "familyEn": "Woody Aromatic",
+    "family": "خشبي أروماتك",
     "accords": [
       "Woody",
       "Smoky",
       "Balsamic"
+    ],
+    "accordsAr": [
+      "أخشاب دافئة",
+      "دخاني راتنجي"
     ],
     "topNotesEn": [
       "Cannabis",
@@ -876,12 +1601,40 @@ export const catalogRows = [
       "Incense",
       "Agarwood (Oud)"
     ],
+    "topNotes": [
+      "قنب",
+      "نفحات خضراء"
+    ],
+    "heartNotes": [
+      "راتنجات",
+      "نفحات خشبية"
+    ],
+    "baseNotes": [
+      "بخور",
+      "عود"
+    ],
     "wearProfile": "A deep, dark, and intoxicating scent.",
+    "wearProfileAr": "رائحة عميقة، داكنة، وآسرة.",
     "occasion": "Evening, Winter",
+    "occasionAr": "المساء، الشتاء",
     "related": [
       "dark-matter",
       "umbra",
       "regal"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -894,35 +1647,74 @@ export const catalogRows = [
     "sheetId": 23,
     "nameEn": "SIMAT TEMPER",
     "secondaryLine": "Inspired by Fahrenheit",
-    "tagline": "Bold and fiery.",
-    "shortDescription": "A unique aromatic fougere with leather notes.",
-    "descriptionEn": "SIMAT TEMPER is a daring contrast of fresh mandarin and violet against warm leather and woods.",
-    "scentCharacter": "Bold, Fiery",
-    "familyEn": "Aromatic Fougere",
+    "tagline": "Fresh green vitality with cool violet.",
+    "taglineAr": "انتعاش عشبي بارد بنضارة أوراق البنفسج والحمضيات.",
+    "shortDescription": "A crisp aromatic green fragrance featuring dewy violet leaf and citrus.",
+    "shortDescriptionAr": "توليفة أروماتك خضراء منعشة تجمع بين نضارة أوراق البنفسج الندية وانتعاش الليمون ولمسة خفيفة من جوزة الطيب.",
+    "descriptionEn": "SIMAT TEMPER captures an exhilarating, cool green signature. Crisp dewy violet leaf and sparkling bergamot blend with subtle nutmeg over a clean, refined woody undertone.",
+    "description": "يعبر TEMPER عن انتعاش عشبي بارد وطابع ندي نظيف؛ يفتتح العطر بنفحات منعشة من قشور الليمون والبرغموت، يمتزج فيها قلب بارد ندي من أوراق البنفسج العريضة مع لمسة خفيفة جداً من جوزة الطيب، ليستقر على قاعدة خشبية نظيفة وفاتحة تمنحه ثباتاً نقياً.",
+    "scentCharacter": "Cool, Fresh, Distinctive",
+    "scentCharacterAr": "بارد، منعش، مميز",
+    "familyEn": "Aromatic Green",
+    "family": "أروماتك أخضر منعش",
     "accords": [
-      "Leather",
-      "Woody",
-      "Fresh Spicy"
+      "Ozonic",
+      "Fresh Spicy",
+      "Green",
+      "Citrus"
+    ],
+    "accordsAr": [
+      "أوزوني منعش",
+      "توابل خفيفة",
+      "أخضر ندي",
+      "حمضيات ناصعة"
     ],
     "topNotesEn": [
-      "Nutmeg Flower",
-      "Lavender"
+      "Lemon",
+      "Bergamot"
     ],
     "heartNotesEn": [
-      "Violet Leaf",
+      "Dewy Violet Leaf",
       "Nutmeg"
     ],
     "baseNotesEn": [
-      "Leather",
-      "Vetiver",
-      "Musk"
+      "Cedarwood",
+      "Vetiver"
     ],
-    "wearProfile": "A hot, leathery, and unmistakable aroma.",
-    "occasion": "Signature scent, Night out",
+    "topNotes": [
+      "قشر ليمون",
+      "برغموت أخضر"
+    ],
+    "heartNotes": [
+      "أوراق بنفسج ندية",
+      "لمسة جوزة الطيب"
+    ],
+    "baseNotes": [
+      "أخشاب خفيفة",
+      "نجيل الهند النقي"
+    ],
+    "wearProfile": "A crisp, cool violet leaf scent with an invigorating green freshness.",
+    "wearProfileAr": "رائحة عشبية خضراء باردة تمنح انتعاشاً ناصعاً وأثراً حيوياً فريداً.",
+    "occasion": "Daytime, Signature scent, Office",
+    "occasionAr": "الاستخدام اليومي، الإطلالات الصباحية، وأوقات العمل",
     "related": [
       "impulse",
       "rebel",
       "obsidian"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -936,14 +1728,24 @@ export const catalogRows = [
     "nameEn": "SIMAT OBSESSION",
     "secondaryLine": "Inspired by Oud Bouquet",
     "tagline": "A luxurious floral oriental.",
+    "taglineAr": "فخامة زهرية شرقية.",
     "shortDescription": "A rich amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي غني.",
     "descriptionEn": "SIMAT OBSESSION is a decadent pairing of dark rose and sweet praline over a deep oud base.",
+    "description": "عطر OBSESSION هو اقتران فاخر بين الورد الداكن والبرالين السكري فوق قاعدة عميقة من العود.",
     "scentCharacter": "Luxurious, Romantic",
+    "scentCharacterAr": "فاخر، رومانسي",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Oud",
       "Rose",
       "Vanilla"
+    ],
+    "accordsAr": [
+      "عود",
+      "ورد",
+      "فانيلا"
     ],
     "topNotesEn": [
       "Saffron"
@@ -955,12 +1757,38 @@ export const catalogRows = [
       "Agarwood (Oud)",
       "Praline"
     ],
+    "topNotes": [
+      "زعفران"
+    ],
+    "heartNotes": [
+      "ورد"
+    ],
+    "baseNotes": [
+      "عود",
+      "برالين"
+    ],
     "wearProfile": "A sweet, rosy, and woody masterpiece.",
+    "wearProfileAr": "تحفة فنية سكرية بلمسات الورد والأخشاب.",
     "occasion": "Evening, Special occasions",
+    "occasionAr": "المساء، المناسبات الخاصة",
     "related": [
       "resonance",
       "soma",
       "mood"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -974,14 +1802,24 @@ export const catalogRows = [
     "nameEn": "SIMAT SOVEREIGN",
     "secondaryLine": "Inspired by Oud Malaki",
     "tagline": "Regal and spicy.",
+    "taglineAr": "هيبة توابلية ملكية.",
     "shortDescription": "A sophisticated woody spicy fragrance.",
+    "shortDescriptionAr": "عطر خشبي توابلي راقٍ.",
     "descriptionEn": "SIMAT SOVEREIGN commands attention with its rich blend of tobacco, spices, and dark woods.",
+    "description": "يفرض عطر SOVEREIGN حضوره بمزيج غني من التبغ والتوابل والأخشاب الداكنة.",
     "scentCharacter": "Regal, Sophisticated",
+    "scentCharacterAr": "ملكي، راقٍ",
     "familyEn": "Woody Spicy",
+    "family": "خشبي توابلي",
     "accords": [
       "Tobacco",
       "Woody",
       "Warm Spicy"
+    ],
+    "accordsAr": [
+      "تبغ",
+      "أخشاب دافئة",
+      "توابل دافئة"
     ],
     "topNotesEn": [
       "Grapefruit",
@@ -995,12 +1833,40 @@ export const catalogRows = [
       "Agarwood (Oud)",
       "Dark Woods"
     ],
+    "topNotes": [
+      "جريب فروت",
+      "لافندر"
+    ],
+    "heartNotes": [
+      "تبغ",
+      "توابل"
+    ],
+    "baseNotes": [
+      "عود",
+      "أخشاب داكنة"
+    ],
     "wearProfile": "A warm, spicy, and masculine scent.",
+    "wearProfileAr": "رائحة دافئة، توابلية، وذكورية.",
     "occasion": "Formal events, Winter",
+    "occasionAr": "المناسبات الرسمية، الشتاء",
     "related": [
       "tobacco",
       "imperium",
       "regal"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -1014,14 +1880,24 @@ export const catalogRows = [
     "nameEn": "SIMAT ATTACH",
     "secondaryLine": "Inspired by Stronger With You Intensely",
     "tagline": "Warm and inviting.",
+    "taglineAr": "دفء جاذب وحميمي.",
     "shortDescription": "A sweet amber fougere fragrance.",
+    "shortDescriptionAr": "فوچير عنبري سكري.",
     "descriptionEn": "SIMAT ATTACH is a cozy, addictive blend of pink pepper, toffee, and warm amber.",
+    "description": "عطر ATTACH هو مزيج دافئ وآسر من الفلفل الوردي والتوفي والعنبر الدافئ.",
     "scentCharacter": "Warm, Inviting",
+    "scentCharacterAr": "دافئ، جاذب",
     "familyEn": "Amber Fougere",
+    "family": "فوچير عنبري",
     "accords": [
       "Sweet",
       "Vanilla",
       "Warm Spicy"
+    ],
+    "accordsAr": [
+      "لمسات سكرية متوازنة",
+      "فانيلا",
+      "توابل دافئة"
     ],
     "topNotesEn": [
       "Pink Pepper",
@@ -1037,12 +1913,42 @@ export const catalogRows = [
       "Tonka Bean",
       "Amber"
     ],
+    "topNotes": [
+      "فلفل وردي",
+      "عرعر"
+    ],
+    "heartNotes": [
+      "توفي",
+      "قرفة",
+      "لافندر"
+    ],
+    "baseNotes": [
+      "فانيلا",
+      "حبوب التونكا",
+      "عنبر"
+    ],
     "wearProfile": "A sweet, spicy, and comforting aroma.",
+    "wearProfileAr": "رائحة سكرية، توابلية، ومريحة.",
     "occasion": "Date night, Fall/Winter",
+    "occasionAr": "اللقاءات الخاصة، الخريف/الشتاء",
     "related": [
       "nostalgia",
       "poise",
       "ascend"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1056,14 +1962,24 @@ export const catalogRows = [
     "nameEn": "SIMAT IDENTITY",
     "secondaryLine": "Inspired by YSL Y",
     "tagline": "Modern and fresh.",
+    "taglineAr": "انتعاش عصري متجدد.",
     "shortDescription": "A crisp aromatic fougere fragrance.",
+    "shortDescriptionAr": "فوچير أروماتك نقي.",
     "descriptionEn": "SIMAT IDENTITY is the perfect balance of fresh apple, aromatic sage, and deep amberwood.",
+    "description": "عطر IDENTITY هو التوازن المثالي بين التفاح المنعش والمريمية الأروماتك وخشب العنبر العميق.",
     "scentCharacter": "Modern, Fresh",
+    "scentCharacterAr": "عصري، منعش",
     "familyEn": "Aromatic Fougere",
+    "family": "فوچير أروماتك",
     "accords": [
       "Aromatic",
       "Fresh Spicy",
       "Woody"
+    ],
+    "accordsAr": [
+      "أروماتك",
+      "توابل منعشة",
+      "أخشاب دافئة"
     ],
     "topNotesEn": [
       "Apple",
@@ -1078,12 +1994,41 @@ export const catalogRows = [
       "Amberwood",
       "Tonka Bean"
     ],
+    "topNotes": [
+      "تفاح",
+      "زنجبيل",
+      "برغموت"
+    ],
+    "heartNotes": [
+      "مريمية",
+      "توت العرعر"
+    ],
+    "baseNotes": [
+      "خشب العنبر",
+      "حبوب التونكا"
+    ],
     "wearProfile": "A versatile, fresh, and modern scent.",
+    "wearProfileAr": "رائحة عصرية، منعشة، ومتعددة الاستخدامات.",
     "occasion": "Everyday, Signature scent",
+    "occasionAr": "الاستخدام اليومي، عطر شخصي مميز",
     "related": [
       "clarity",
       "instinct",
       "flow"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1097,14 +2042,24 @@ export const catalogRows = [
     "nameEn": "SIMAT PROVOCATEUR",
     "secondaryLine": "Inspired by Scandal Pour Homme",
     "tagline": "Bold and playful.",
+    "taglineAr": "جرأة ومرح لافت.",
     "shortDescription": "A sweet amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي بلمسات سكرية.",
     "descriptionEn": "SIMAT PROVOCATEUR is a daring and energetic blend of caramel, tonka bean, and clary sage.",
+    "description": "عطر PROVOCATEUR هو مزيج جريء وحيوي من الكراميل وحبوب التونكا والمريمية.",
     "scentCharacter": "Bold, Playful",
+    "scentCharacterAr": "جريء، مرح",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Caramel",
       "Sweet",
       "Aromatic"
+    ],
+    "accordsAr": [
+      "كراميل",
+      "لمسات سكرية متوازنة",
+      "أروماتك"
     ],
     "topNotesEn": [
       "Clary Sage",
@@ -1117,12 +2072,39 @@ export const catalogRows = [
     "baseNotesEn": [
       "Vetiver"
     ],
+    "topNotes": [
+      "مريمية",
+      "يوسفي"
+    ],
+    "heartNotes": [
+      "كراميل",
+      "حبوب التونكا"
+    ],
+    "baseNotes": [
+      "نجيل الهند"
+    ],
     "wearProfile": "A sweet, aromatic, and confident aroma.",
+    "wearProfileAr": "رائحة سكرية، أروماتك، وواثقة.",
     "occasion": "Night out, Parties",
+    "occasionAr": "الخروجات المسائية، الحفلات",
     "related": [
       "magnet",
       "attach",
       "ascend"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1136,14 +2118,24 @@ export const catalogRows = [
     "nameEn": "SIMAT CLARITY",
     "secondaryLine": "Inspired by Bleu de Chanel",
     "tagline": "Elegant and crisp.",
+    "taglineAr": "أناقة وانتعاش نقي.",
     "shortDescription": "A classic woody aromatic fragrance.",
+    "shortDescriptionAr": "عطر خشبي أروماتك كلاسيكي.",
     "descriptionEn": "SIMAT CLARITY is a timeless composition of fresh grapefruit, ginger, and deep incense.",
+    "description": "عطر CLARITY هو تركيبة خالدة من الجريب فروت المنعش والزنجبيل والبخور العميق.",
     "scentCharacter": "Elegant, Crisp",
+    "scentCharacterAr": "أنيق، نقي",
     "familyEn": "Woody Aromatic",
+    "family": "خشبي أروماتك",
     "accords": [
       "Citrus",
       "Woody",
       "Warm Spicy"
+    ],
+    "accordsAr": [
+      "حمضيات مشرقة",
+      "أخشاب دافئة",
+      "توابل دافئة"
     ],
     "topNotesEn": [
       "Grapefruit",
@@ -1160,12 +2152,42 @@ export const catalogRows = [
       "Vetiver",
       "Cedar"
     ],
+    "topNotes": [
+      "جريب فروت",
+      "ليمون",
+      "نعناع"
+    ],
+    "heartNotes": [
+      "زنجبيل",
+      "جوزة الطيب",
+      "ياسمين"
+    ],
+    "baseNotes": [
+      "بخور",
+      "نجيل الهند",
+      "خشب الأرز"
+    ],
     "wearProfile": "A clean, sophisticated, and versatile scent.",
+    "wearProfileAr": "رائحة نقية، راقية، ومتعددة الاستخدامات.",
     "occasion": "Office, Signature scent",
+    "occasionAr": "أوقات العمل، عطر شخصي مميز",
     "related": [
       "identity",
-      "ground",
       "instinct"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1179,14 +2201,24 @@ export const catalogRows = [
     "nameEn": "SIMAT IMPULSE",
     "secondaryLine": "Inspired by Spicebomb",
     "tagline": "Explosive and warm.",
+    "taglineAr": "دفء توابلي قوي.",
     "shortDescription": "A dynamic woody spicy fragrance.",
+    "shortDescriptionAr": "عطر خشبي توابلي حيوي.",
     "descriptionEn": "SIMAT IMPULSE is a fiery detonation of spices, cinnamon, and tobacco.",
+    "description": "عطر IMPULSE هو انفجار ناري من التوابل والقرفة والتبغ.",
     "scentCharacter": "Explosive, Warm",
+    "scentCharacterAr": "متفجر، دافئ",
     "familyEn": "Woody Spicy",
+    "family": "خشبي توابلي",
     "accords": [
       "Warm Spicy",
       "Cinnamon",
       "Tobacco"
+    ],
+    "accordsAr": [
+      "توابل دافئة",
+      "قرفة",
+      "تبغ"
     ],
     "topNotesEn": [
       "Pink Pepper",
@@ -1202,12 +2234,42 @@ export const catalogRows = [
       "Leather",
       "Vetiver"
     ],
+    "topNotes": [
+      "فلفل وردي",
+      "إليمي"
+    ],
+    "heartNotes": [
+      "قرفة",
+      "زعفران",
+      "بابريكا"
+    ],
+    "baseNotes": [
+      "تبغ",
+      "جلود",
+      "نجيل الهند"
+    ],
     "wearProfile": "A hot, spicy, and captivating aroma.",
+    "wearProfileAr": "رائحة دافئة، توابلية، وآسرة.",
     "occasion": "Winter, Night out",
+    "occasionAr": "الشتاء، الخروجات المسائية",
     "related": [
       "temper",
       "rebel",
       "feral"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1221,14 +2283,23 @@ export const catalogRows = [
     "nameEn": "SIMAT DARK MATTER",
     "secondaryLine": "Inspired by Black Afgano Deep",
     "tagline": "Intense and smoky.",
+    "taglineAr": "عمق دخاني آسر.",
     "shortDescription": "A profound woody aromatic fragrance.",
+    "shortDescriptionAr": "عطر خشبي أروماتك عميق.",
     "descriptionEn": "SIMAT DARK MATTER takes the smoky, resinous DNA of the original to even darker depths.",
+    "description": "يأخذ عطر DARK MATTER الحمض النووي الدخاني والراتنجي للعطر الأصلي إلى أعماق أكثر غموضاً.",
     "scentCharacter": "Intense, Smoky",
+    "scentCharacterAr": "مكثف، دخاني",
     "familyEn": "Woody Aromatic",
+    "family": "خشبي أروماتك",
     "accords": [
       "Woody",
       "Smoky",
       "Balsamic"
+    ],
+    "accordsAr": [
+      "أخشاب دافئة",
+      "دخاني راتنجي"
     ],
     "topNotesEn": [
       "Cannabis",
@@ -1242,12 +2313,40 @@ export const catalogRows = [
       "Incense",
       "Agarwood (Oud)"
     ],
+    "topNotes": [
+      "قنب",
+      "نفحات خضراء"
+    ],
+    "heartNotes": [
+      "راتنجات",
+      "نفحات خشبية"
+    ],
+    "baseNotes": [
+      "بخور",
+      "عود"
+    ],
     "wearProfile": "An incredibly deep and mysterious scent.",
+    "wearProfileAr": "رائحة عميقة وغامضة بشكل لا يصدق.",
     "occasion": "Evening, Winter",
+    "occasionAr": "المساء، الشتاء",
     "related": [
       "shadow",
       "umbra",
       "regal"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -1261,14 +2360,24 @@ export const catalogRows = [
     "nameEn": "SIMAT NOSTALGIA",
     "secondaryLine": "Inspired by Tobacco Vanille",
     "tagline": "Classic and rich.",
+    "taglineAr": "كلاسيكية غنية.",
     "shortDescription": "A warm amber spicy fragrance.",
+    "shortDescriptionAr": "عطر عنبري توابلي دافئ.",
     "descriptionEn": "SIMAT NOSTALGIA is a comforting, luxurious blend of sweet vanilla and rich tobacco leaf.",
+    "description": "عطر NOSTALGIA هو مزيج مريح وفاخر من الفانيلا السكرية وأوراق التبغ الغنية.",
     "scentCharacter": "Classic, Rich",
+    "scentCharacterAr": "كلاسيكي، غني",
     "familyEn": "Amber Spicy",
+    "family": "عنبري توابلي دافئ",
     "accords": [
       "Vanilla",
       "Sweet",
       "Tobacco"
+    ],
+    "accordsAr": [
+      "فانيلا",
+      "لمسات سكرية متوازنة",
+      "تبغ"
     ],
     "topNotesEn": [
       "Tobacco Leaf",
@@ -1283,12 +2392,41 @@ export const catalogRows = [
       "Dried Fruits",
       "Woody Notes"
     ],
+    "topNotes": [
+      "أوراق التبغ",
+      "نفحات توابلية"
+    ],
+    "heartNotes": [
+      "فانيلا",
+      "كاكاو",
+      "حبوب التونكا"
+    ],
+    "baseNotes": [
+      "فواكه مجففة",
+      "نفحات خشبية"
+    ],
     "wearProfile": "A sweet, spicy, and nostalgic aroma.",
+    "wearProfileAr": "رائحة سكرية، توابلية، وحنينية.",
     "occasion": "Fall/Winter, Cozy evenings",
+    "occasionAr": "الخريف/الشتاء، الأمسيات الدافئة",
     "related": [
       "sovereign",
       "tobacco",
       "attach"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -1302,14 +2440,24 @@ export const catalogRows = [
     "nameEn": "SIMAT FLOW",
     "secondaryLine": "Inspired by Acqua di Giò",
     "tagline": "Fresh and marine.",
+    "taglineAr": "انتعاش مائي وحيوي.",
     "shortDescription": "A refreshing aromatic aquatic fragrance.",
+    "shortDescriptionAr": "عطر أروماتك مائي منعش.",
     "descriptionEn": "SIMAT FLOW captures the essence of the sea with crisp marine notes, lime, and white musk.",
+    "description": "يجسد عطر FLOW جوهر البحر مع النفحات المائية النقية والليمون والمسك الأبيض.",
     "scentCharacter": "Fresh, Marine",
+    "scentCharacterAr": "منعش، مائي",
     "familyEn": "Aromatic Aquatic",
+    "family": "أروماتك مائي",
     "accords": [
       "Citrus",
       "Aromatic",
       "Marine"
+    ],
+    "accordsAr": [
+      "حمضيات مشرقة",
+      "أروماتك",
+      "بحري"
     ],
     "topNotesEn": [
       "Lime",
@@ -1325,12 +2473,42 @@ export const catalogRows = [
       "Cedar",
       "Oakmoss"
     ],
+    "topNotes": [
+      "ليمون حامض",
+      "ليمون",
+      "برغموت"
+    ],
+    "heartNotes": [
+      "نفحات بحرية",
+      "ياسمين"
+    ],
+    "baseNotes": [
+      "مسك أبيض",
+      "خشب الأرز",
+      "طحلب البلوط"
+    ],
     "wearProfile": "A clean, aquatic, and breezy scent.",
+    "wearProfileAr": "رائحة نقية، مائية، ومنعشة.",
     "occasion": "Summer, Casual",
+    "occasionAr": "الصيف، الاستخدام اليومي",
     "related": [
       "liminal",
       "clarity",
       "identity"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1344,14 +2522,24 @@ export const catalogRows = [
     "nameEn": "SIMAT INSTINCT",
     "secondaryLine": "Inspired by Sauvage",
     "tagline": "Wild and fresh.",
+    "taglineAr": "انتعاش بري جامح.",
     "shortDescription": "A sharp aromatic fougere fragrance.",
+    "shortDescriptionAr": "فوچير أروماتك حاد وجذاب.",
     "descriptionEn": "SIMAT INSTINCT is a radically fresh composition of spicy pepper, bergamot, and rich ambroxan.",
+    "description": "عطر INSTINCT هو تركيبة منعشة للغاية من الفلفل الحار والبرغموت والأمبروكسان الغني.",
     "scentCharacter": "Wild, Fresh",
+    "scentCharacterAr": "بري، منعش",
     "familyEn": "Aromatic Fougere",
+    "family": "فوچير أروماتك",
     "accords": [
       "Fresh Spicy",
       "Amber",
       "Citrus"
+    ],
+    "accordsAr": [
+      "توابل منعشة",
+      "عنبر",
+      "حمضيات مشرقة"
     ],
     "topNotesEn": [
       "Calabrian Bergamot",
@@ -1366,12 +2554,41 @@ export const catalogRows = [
       "Cedar",
       "Labdanum"
     ],
+    "topNotes": [
+      "برغموت كالابريا",
+      "فلفل"
+    ],
+    "heartNotes": [
+      "فلفل سيتشوان",
+      "لافندر"
+    ],
+    "baseNotes": [
+      "أمبروكسان",
+      "خشب الأرز",
+      "لابدانوم"
+    ],
     "wearProfile": "A crisp, spicy, and highly versatile aroma.",
+    "wearProfileAr": "رائحة نقية، توابلية، ومتعددة الاستخدامات للغاية.",
     "occasion": "Everyday, Signature scent",
+    "occasionAr": "الاستخدام اليومي، عطر شخصي مميز",
     "related": [
       "identity",
       "feral",
       "clarity"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1385,14 +2602,24 @@ export const catalogRows = [
     "nameEn": "SIMAT ROOT",
     "secondaryLine": "Inspired by Madawi",
     "tagline": "Elegant and fruity.",
+    "taglineAr": "أناقة فاكهية ناعمة.",
     "shortDescription": "A sophisticated floral fruity fragrance.",
+    "shortDescriptionAr": "عطر زهري فاكهي راقٍ.",
     "descriptionEn": "SIMAT ROOT is a beautiful blend of sweet peach, apple blossom, and a soft musky base.",
+    "description": "عطر ROOT هو مزيج جميل من الخوخ السكري وزهر التفاح وقاعدة مسكية ناعمة.",
     "scentCharacter": "Elegant, Fruity",
+    "scentCharacterAr": "أنيق، فاكهي",
     "familyEn": "Floral Fruity",
+    "family": "زهري فاكهي",
     "accords": [
       "Fruity",
       "Musky",
       "Floral"
+    ],
+    "accordsAr": [
+      "فاكهي",
+      "مسكي",
+      "زهري"
     ],
     "topNotesEn": [
       "Peach",
@@ -1406,15 +2633,43 @@ export const catalogRows = [
       "Wild Rose",
       "Patchouli"
     ],
+    "topNotes": [
+      "خوخ",
+      "زهر التفاح"
+    ],
+    "heartNotes": [
+      "زهر الأناناس"
+    ],
+    "baseNotes": [
+      "مسك",
+      "ورد بري",
+      "باتشولي"
+    ],
     "wearProfile": "A soft, fruity, and radiant scent.",
+    "wearProfileAr": "رائحة ناعمة، فاكهية، ومشرقة.",
     "occasion": "Daytime, Special occasions",
+    "occasionAr": "أوقات النهار، المناسبات الخاصة",
     "related": [
       "serenity",
       "pearl",
       "memoria"
     ],
-    "gender": "women",
-    "labelStyle": "linen",
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
+    ],
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 25
   },
@@ -1425,14 +2680,24 @@ export const catalogRows = [
     "nameEn": "SIMAT LEGACY",
     "secondaryLine": "Inspired by Creed Aventus",
     "tagline": "Powerful and iconic.",
+    "taglineAr": "حضور قوي وأيقوني.",
     "shortDescription": "A bold chypre fruity fragrance.",
+    "shortDescriptionAr": "عطر تشيبر فاكهي جريء.",
     "descriptionEn": "SIMAT LEGACY is a triumphant blend of fresh pineapple, birch, and oakmoss.",
+    "description": "عطر LEGACY هو مزيج منتصر من الأناناس الطازج والبتولا وطحلب البلوط.",
     "scentCharacter": "Powerful, Iconic",
+    "scentCharacterAr": "قوي، أيقوني",
     "familyEn": "Chypre Fruity",
+    "family": "تشيبر فاكهي",
     "accords": [
       "Fruity",
       "Sweet",
       "Leather"
+    ],
+    "accordsAr": [
+      "فاكهي",
+      "لمسات سكرية متوازنة",
+      "جلود كلاسيكية"
     ],
     "topNotesEn": [
       "Pineapple",
@@ -1447,57 +2712,46 @@ export const catalogRows = [
       "Oakmoss",
       "Ambergris"
     ],
+    "topNotes": [
+      "أناناس",
+      "برغموت"
+    ],
+    "heartNotes": [
+      "بتولا",
+      "باتشولي"
+    ],
+    "baseNotes": [
+      "مسك",
+      "طحلب البلوط",
+      "عنبر رمادي"
+    ],
     "wearProfile": "A strong, fruity, and smoky aroma.",
+    "wearProfileAr": "رائحة قوية، فاكهية، ودخانية.",
     "occasion": "Signature scent, Office",
+    "occasionAr": "عطر شخصي مميز، أوقات العمل",
     "related": [
       "instinct",
       "clarity",
       "nexus"
     ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
+    ],
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": true,
     "soldCount": 70
-  },
-  {
-    "id": "apex",
-    "slug": "apex",
-    "sheetId": 37,
-    "nameEn": "SIMAT APEX",
-    "secondaryLine": "Inspired by Invictus Elixir",
-    "tagline": "Strong and sweet.",
-    "shortDescription": "An intense amber woody fragrance.",
-    "descriptionEn": "SIMAT APEX is a potent, sweet blend of vanilla, amber, and deep woods.",
-    "scentCharacter": "Strong, Sweet",
-    "familyEn": "Amber Woody",
-    "accords": [
-      "Vanilla",
-      "Amber",
-      "Sweet"
-    ],
-    "topNotesEn": [
-      "Lavender",
-      "Cardamom"
-    ],
-    "heartNotesEn": [
-      "Incense",
-      "Patchouli"
-    ],
-    "baseNotesEn": [
-      "Vanilla Bean",
-      "Tonka Bean"
-    ],
-    "wearProfile": "A powerful, sweet, and victorious scent.",
-    "occasion": "Night out, Clubbing",
-    "related": [
-      "ascend",
-      "magnet",
-      "poise"
-    ],
-    "gender": "men",
-    "labelStyle": "noir",
-    "isFeatured": false,
-    "soldCount": 23
   },
   {
     "id": "magnet",
@@ -1506,14 +2760,24 @@ export const catalogRows = [
     "nameEn": "SIMAT MAGNET",
     "secondaryLine": "Inspired by Ultra Male",
     "tagline": "Seductive and vibrant.",
+    "taglineAr": "جاذبية وحيوية لافتة.",
     "shortDescription": "A sweet amber fougere fragrance.",
+    "shortDescriptionAr": "فوچير عنبري سكري.",
     "descriptionEn": "SIMAT MAGNET is an irresistible, party-ready blend of pear, mint, and black vanilla.",
+    "description": "عطر MAGNET هو مزيج لا يقاوم ومثالي للحفلات من الكمثرى والنعناع والفانيلا السوداء.",
     "scentCharacter": "Seductive, Vibrant",
+    "scentCharacterAr": "جذاب، حيوي",
     "familyEn": "Amber Fougere",
+    "family": "فوچير عنبري",
     "accords": [
       "Sweet",
       "Vanilla",
       "Fruity"
+    ],
+    "accordsAr": [
+      "لمسات سكرية متوازنة",
+      "فانيلا",
+      "فاكهي"
     ],
     "topNotesEn": [
       "Pear",
@@ -1528,12 +2792,41 @@ export const catalogRows = [
       "Black Vanilla Husk",
       "Amber"
     ],
+    "topNotes": [
+      "كمثرى",
+      "لافندر",
+      "نعناع"
+    ],
+    "heartNotes": [
+      "قرفة",
+      "مريمية"
+    ],
+    "baseNotes": [
+      "فانيلا سوداء",
+      "عنبر"
+    ],
     "wearProfile": "A sweet, fruity, and magnetic aroma.",
+    "wearProfileAr": "رائحة سكرية، فاكهية، وجذابة.",
     "occasion": "Night out, Parties",
+    "occasionAr": "الخروجات المسائية، الحفلات",
     "related": [
       "provocateur",
       "poise",
       "ascend"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1545,35 +2838,75 @@ export const catalogRows = [
     "slug": "obsidian",
     "sheetId": 39,
     "nameEn": "SIMAT OBSIDIAN",
-    "secondaryLine": "Inspired by Black Lexus",
-    "tagline": "Dark and aromatic.",
-    "shortDescription": "A modern woody spicy fragrance.",
-    "descriptionEn": "SIMAT OBSIDIAN is a sleek, dark blend of aromatic lavender, spices, and deep woods.",
-    "scentCharacter": "Dark, Modern",
-    "familyEn": "Woody Spicy",
+    "secondaryLine": "Inspired by Black XS L'Exces for Him",
+    "tagline": "Electrifying citrus and aromatic woods.",
+    "taglineAr": "حيوية عصرية تجمع بين انتعاش الليمون وأناقة اللافندر والأخشاب.",
+    "shortDescription": "A dynamic woody aromatic fragrance blending vibrant lemon, lavender, and warm amber woods.",
+    "shortDescriptionAr": "عطر خشبي أروماتك عصري يمزج بين انتعاش قشور الليمون وأناقة أزهار اللافندر مع دفء الأخشاب ولمسة العنبر الناعمة.",
+    "descriptionEn": "SIMAT OBSIDIAN delivers an electrifying and sleek presence. Fresh yellow lemon and crisp dewy notes merge with aromatic lavender, settling into a warm bed of woods and smooth amber.",
+    "description": "يقدم عطر OBSIDIAN حضوراً عصرياً أنيقاً ومفعماً بالحيوية؛ يفتتح بانتعاش صريح من شرائح وقشور الليمون الأصفر ورذاذ ندي، يلتقي بقلب أروماتك هادئ من اللافندر والورق الأخضر، ويستقر على قاعدة دافئة من قطع الخشب ولمسة عنبر ناعمة تبرز جاذبيته.",
+    "scentCharacter": "Dynamic, Sleek, Modern",
+    "scentCharacterAr": "حيوي، عصري، أنيق",
+    "familyEn": "Woody Aromatic",
+    "family": "خشبي أروماتك عالي الحيوية",
     "accords": [
-      "Woody",
-      "Aromatic",
-      "Fresh"
-    ],
-    "topNotesEn": [
       "Citrus",
-      "Lavender"
-    ],
-    "heartNotesEn": [
-      "Spices",
-      "Woods"
-    ],
-    "baseNotesEn": [
-      "Musk",
+      "Lavender",
+      "Woody",
       "Amber"
     ],
-    "wearProfile": "A cool, dark, and sophisticated scent.",
-    "occasion": "Evening, Signature scent",
+    "accordsAr": [
+      "حمضيات منعشة",
+      "لافندر",
+      "أخشاب دافئة",
+      "عنبر ناعم"
+    ],
+    "topNotesEn": [
+      "Lemon",
+      "Dewy Citrus Notes"
+    ],
+    "heartNotesEn": [
+      "Lavender",
+      "Green Notes"
+    ],
+    "baseNotesEn": [
+      "Warm Woods",
+      "Soft Amber"
+    ],
+    "topNotes": [
+      "شرائح وقشور ليمون أصفر",
+      "رذاذ ماء ندي"
+    ],
+    "heartNotes": [
+      "أعواد لافندر",
+      "ورق شجر أخضر"
+    ],
+    "baseNotes": [
+      "أخشاب دافئة",
+      "لمسة عنبر ناعمة"
+    ],
+    "wearProfile": "An energetic citrus-aromatic blend with a sleek woody-amber finish.",
+    "wearProfileAr": "رائحة حيوية تجمع بين انتعاش الليمون وهدوء اللافندر مع دفء خشبي عنبري أنيق.",
+    "occasion": "Night out, Modern casual, Signature scent",
+    "occasionAr": "الخروجات المسائية، اللقاءات العصرية، والاستخدام اليومي",
     "related": [
       "shadow",
       "temper",
       "vector"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1587,14 +2920,24 @@ export const catalogRows = [
     "nameEn": "SIMAT POISE",
     "secondaryLine": "Inspired by Le Male Elixir",
     "tagline": "Golden and sweet.",
+    "taglineAr": "إشراقة ذهبية سكرية.",
     "shortDescription": "A rich amber fougere fragrance.",
+    "shortDescriptionAr": "فوچير عنبري غني.",
     "descriptionEn": "SIMAT POISE is a luxurious, glowing blend of honey, vanilla, and tonka bean.",
+    "description": "عطر POISE هو مزيج فاخر ومشرق من العسل والفانيلا وحبوب التونكا.",
     "scentCharacter": "Golden, Sweet",
+    "scentCharacterAr": "ذهبي، سكري",
     "familyEn": "Amber Fougere",
+    "family": "فوچير عنبري",
     "accords": [
       "Vanilla",
       "Sweet",
       "Honey"
+    ],
+    "accordsAr": [
+      "فانيلا",
+      "لمسات سكرية متوازنة",
+      "عسل"
     ],
     "topNotesEn": [
       "Lavender",
@@ -1609,12 +2952,41 @@ export const catalogRows = [
       "Tobacco",
       "Tonka Bean"
     ],
+    "topNotes": [
+      "لافندر",
+      "نعناع"
+    ],
+    "heartNotes": [
+      "فانيلا",
+      "بنزوين"
+    ],
+    "baseNotes": [
+      "عسل",
+      "تبغ",
+      "حبوب التونكا"
+    ],
     "wearProfile": "A warm, honeyed, and radiant aroma.",
+    "wearProfileAr": "رائحة دافئة، عسلية، ومشرقة.",
     "occasion": "Night out, Winter",
+    "occasionAr": "الخروجات المسائية، الشتاء",
     "related": [
       "magnet",
       "attach",
       "ascend"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1628,14 +3000,24 @@ export const catalogRows = [
     "nameEn": "SIMAT VECTOR",
     "secondaryLine": "Inspired by Silver Scent",
     "tagline": "Sharp and fruity.",
+    "taglineAr": "حدة فاكهية بارزة.",
     "shortDescription": "A unique amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي فريد.",
     "descriptionEn": "SIMAT VECTOR is a bold, contrasting blend of sweet orange blossom, fruits, and teak wood.",
+    "description": "عطر VECTOR هو مزيج جريء ومتباين من زهر البرتقال السكري والفواكه وخشب الساج.",
     "scentCharacter": "Sharp, Bold",
+    "scentCharacterAr": "حاد، جريء",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Fruity",
       "White Floral",
       "Sweet"
+    ],
+    "accordsAr": [
+      "فاكهي",
+      "أزهار بيضاء",
+      "لمسات سكرية متوازنة"
     ],
     "topNotesEn": [
       "Orange Blossom",
@@ -1649,12 +3031,40 @@ export const catalogRows = [
       "Tonka Bean",
       "Teak Wood"
     ],
+    "topNotes": [
+      "زهر البرتقال",
+      "ليمون"
+    ],
+    "heartNotes": [
+      "لافندر",
+      "جوزة الطيب"
+    ],
+    "baseNotes": [
+      "حبوب التونكا",
+      "خشب الساج"
+    ],
     "wearProfile": "A sweet, sharp, and projecting scent.",
+    "wearProfileAr": "رائحة سكرية، حادة، وقوية الانتشار.",
     "occasion": "Night out, Casual",
+    "occasionAr": "الخروجات المسائية، الاستخدام اليومي",
     "related": [
       "magnet",
       "provocateur",
       "obsidian"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1668,14 +3078,24 @@ export const catalogRows = [
     "nameEn": "SIMAT IGNITE",
     "secondaryLine": "Inspired by God of Fire",
     "tagline": "Vibrant and exotic.",
+    "taglineAr": "حيوية استوائية نادرة.",
     "shortDescription": "A fiery amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي ناري.",
     "descriptionEn": "SIMAT IGNITE is an explosive, tropical blend of juicy mango, ginger, and warm amber.",
+    "description": "عطر IGNITE هو مزيج استوائي متفجر من المانجو الغنية والزنجبيل والعنبر الدافئ.",
     "scentCharacter": "Vibrant, Exotic",
+    "scentCharacterAr": "حيوي، استوائي",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Mango",
       "Fruity",
       "Sweet"
+    ],
+    "accordsAr": [
+      "مانجو",
+      "فاكهي",
+      "لمسات سكرية متوازنة"
     ],
     "topNotesEn": [
       "Mango",
@@ -1691,15 +3111,45 @@ export const catalogRows = [
       "Musk",
       "Cypriol Oil"
     ],
+    "topNotes": [
+      "مانجو",
+      "ليمون",
+      "زنجبيل"
+    ],
+    "heartNotes": [
+      "نفحات خشبية",
+      "ياسمين"
+    ],
+    "baseNotes": [
+      "عنبر",
+      "مسك",
+      "زيت السيبريول"
+    ],
     "wearProfile": "A juicy, fiery, and unique aroma.",
+    "wearProfileAr": "رائحة غنية، نارية، وفريدة من نوعها.",
     "occasion": "Summer nights, Special events",
+    "occasionAr": "ليالي الصيف، المناسبات الخاصة",
     "related": [
       "pulse",
       "serenity",
       "flow"
     ],
-    "gender": "unisex",
-    "labelStyle": "velvet",
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
+    ],
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 18
   },
@@ -1710,14 +3160,24 @@ export const catalogRows = [
     "nameEn": "SIMAT REBEL",
     "secondaryLine": "Inspired by Al Thaer",
     "tagline": "Bold and spicy.",
+    "taglineAr": "جرأة توابلية قوية.",
     "shortDescription": "A daring woody spicy fragrance.",
+    "shortDescriptionAr": "عطر خشبي توابلي جريء.",
     "descriptionEn": "SIMAT REBEL is an uncompromising blend of spices, oud, and rich woods.",
+    "description": "عطر REBEL هو مزيج لا يقبل المساومة من التوابل والعود والأخشاب الغنية.",
     "scentCharacter": "Bold, Daring",
+    "scentCharacterAr": "جريء، مقدام",
     "familyEn": "Woody Spicy",
+    "family": "خشبي توابلي",
     "accords": [
       "Woody",
       "Spicy",
       "Oriental"
+    ],
+    "accordsAr": [
+      "أخشاب دافئة",
+      "توابلي",
+      "شرقي"
     ],
     "topNotesEn": [
       "Bergamot",
@@ -1732,12 +3192,41 @@ export const catalogRows = [
       "Musk",
       "Sandalwood"
     ],
+    "topNotes": [
+      "برغموت",
+      "توابل"
+    ],
+    "heartNotes": [
+      "عود",
+      "نفحات زهرية"
+    ],
+    "baseNotes": [
+      "عنبر",
+      "مسك",
+      "خشب الصندل"
+    ],
     "wearProfile": "A strong, spicy, and rebellious scent.",
+    "wearProfileAr": "رائحة قوية، توابلية، ومتمردة.",
     "occasion": "Evening, Winter",
+    "occasionAr": "المساء، الشتاء",
     "related": [
       "temper",
       "impulse",
       "shadow"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1751,14 +3240,24 @@ export const catalogRows = [
     "nameEn": "SIMAT NEXUS",
     "secondaryLine": "Inspired by Alexandria 2",
     "tagline": "Regal and powdery.",
+    "taglineAr": "هيبة ولمسات بودرية.",
     "shortDescription": "A luxurious amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي فاخر.",
     "descriptionEn": "SIMAT NEXUS is a masterful, powdery blend of lavender, rosewood, and premium oud.",
+    "description": "عطر NEXUS هو مزيج متقن وبودري من اللافندر وخشب الورد والعود الفاخر.",
     "scentCharacter": "Regal, Luxurious",
+    "scentCharacterAr": "ملكي، فاخر",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Woody",
       "Powdery",
       "Oud"
+    ],
+    "accordsAr": [
+      "أخشاب دافئة",
+      "بودري",
+      "عود"
     ],
     "topNotesEn": [
       "Lavender",
@@ -1772,15 +3271,43 @@ export const catalogRows = [
       "Agarwood (Oud)",
       "Sandalwood"
     ],
+    "topNotes": [
+      "لافندر",
+      "خشب الورد"
+    ],
+    "heartNotes": [
+      "زنبق الوادي",
+      "ورد"
+    ],
+    "baseNotes": [
+      "عود",
+      "خشب الصندل"
+    ],
     "wearProfile": "A soft, powdery, and majestic aroma.",
+    "wearProfileAr": "رائحة ناعمة، بودرية، ومهيبة.",
     "occasion": "Special occasions, Signature scent",
+    "occasionAr": "المناسبات الخاصة، عطر شخصي مميز",
     "related": [
       "imprint",
       "sovereign",
       "obsession"
     ],
-    "gender": "unisex",
-    "labelStyle": "velvet",
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 499
+      },
+      {
+        "sizeMl": 60,
+        "price": 749
+      },
+      {
+        "sizeMl": 100,
+        "price": 999
+      }
+    ],
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 16
   },
@@ -1791,14 +3318,24 @@ export const catalogRows = [
     "nameEn": "SIMAT DESIRE",
     "secondaryLine": "Inspired by Dunhill Desire",
     "tagline": "Passionate and sweet.",
+    "taglineAr": "شغف وحلاوة متوازنة.",
     "shortDescription": "A vibrant amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي نابض بالحياة.",
     "descriptionEn": "SIMAT DESIRE is a romantic, sweet blend of apple, rose, and vanilla.",
+    "description": "عطر DESIRE هو مزيج رومانسي وسكري من التفاح والورد والفانيلا.",
     "scentCharacter": "Passionate, Vibrant",
+    "scentCharacterAr": "شغوف، حيوي",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Fruity",
       "Vanilla",
       "Sweet"
+    ],
+    "accordsAr": [
+      "فاكهي",
+      "فانيلا",
+      "لمسات سكرية متوازنة"
     ],
     "topNotesEn": [
       "Apple",
@@ -1814,12 +3351,42 @@ export const catalogRows = [
       "Vanilla",
       "Musk"
     ],
+    "topNotes": [
+      "تفاح",
+      "ليمون",
+      "نيرولي"
+    ],
+    "heartNotes": [
+      "ورد",
+      "خشب الساج",
+      "باتشولي"
+    ],
+    "baseNotes": [
+      "فانيلا",
+      "مسك"
+    ],
     "wearProfile": "A sweet, fruity, and romantic scent.",
+    "wearProfileAr": "رائحة سكرية، فاكهية، ورومانسية.",
     "occasion": "Date night, Casual",
+    "occasionAr": "اللقاءات الخاصة، الاستخدام اليومي",
     "related": [
       "vector",
       "magnet",
       "attach"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1833,14 +3400,24 @@ export const catalogRows = [
     "nameEn": "SIMAT TOBACCO",
     "secondaryLine": "Inspired by Cigar",
     "tagline": "Classic and earthy.",
+    "taglineAr": "كلاسيكية ترابية أصيلة.",
     "shortDescription": "A traditional aromatic fruity fragrance.",
+    "shortDescriptionAr": "عطر أروماتك فاكهي كلاسيكي.",
     "descriptionEn": "SIMAT TOBACCO is a classic, masculine blend of plum, tobacco leaves, and woods.",
+    "description": "عطر TOBACCO هو مزيج كلاسيكي ذكوري من البرقوق وأوراق التبغ والأخشاب.",
     "scentCharacter": "Classic, Earthy",
+    "scentCharacterAr": "كلاسيكي، ترابي",
     "familyEn": "Aromatic Fruity",
+    "family": "أروماتك فاكهي",
     "accords": [
       "Tobacco",
       "Fruity",
       "Sweet"
+    ],
+    "accordsAr": [
+      "تبغ",
+      "فاكهي",
+      "لمسات سكرية متوازنة"
     ],
     "topNotesEn": [
       "Plum",
@@ -1856,12 +3433,42 @@ export const catalogRows = [
       "Patchouli",
       "Sandalwood"
     ],
+    "topNotes": [
+      "برقوق",
+      "أناناس",
+      "كمثرى"
+    ],
+    "heartNotes": [
+      "تبغ",
+      "ورق الغار",
+      "قطيفة"
+    ],
+    "baseNotes": [
+      "باتشولي",
+      "خشب الصندل"
+    ],
     "wearProfile": "A warm, earthy, and nostalgic aroma.",
+    "wearProfileAr": "رائحة دافئة، ترابية، وحنينية.",
     "occasion": "Everyday, Casual",
+    "occasionAr": "الاستخدام اليومي، الأوقات العادية",
     "related": [
       "nostalgia",
       "sovereign",
       "imperium"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -1875,14 +3482,24 @@ export const catalogRows = [
     "nameEn": "SIMAT UMBRA",
     "secondaryLine": "Inspired by Oud Black",
     "tagline": "Dark and smoky.",
+    "taglineAr": "غموض دخاني عميق.",
     "shortDescription": "An intense amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي مكثف.",
     "descriptionEn": "SIMAT UMBRA is a deep, mysterious blend of warm spices, smoke, and rich oud.",
+    "description": "عطر UMBRA هو مزيج عميق وغامض من التوابل الدافئة والدخان والعود الغني.",
     "scentCharacter": "Dark, Mysterious",
+    "scentCharacterAr": "داكن، غامض",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Oud",
       "Warm Spicy",
       "Smoky"
+    ],
+    "accordsAr": [
+      "عود",
+      "توابل دافئة",
+      "دخاني راتنجي"
     ],
     "topNotesEn": [
       "Spices",
@@ -1897,12 +3514,41 @@ export const catalogRows = [
       "Amber",
       "Musk"
     ],
+    "topNotes": [
+      "توابل",
+      "زعفران"
+    ],
+    "heartNotes": [
+      "ورد",
+      "أخشاب"
+    ],
+    "baseNotes": [
+      "عود",
+      "عنبر",
+      "مسك"
+    ],
     "wearProfile": "A dark, smoky, and enveloping scent.",
+    "wearProfileAr": "رائحة داكنة، دخانية، ومغلفة.",
     "occasion": "Evening, Winter",
+    "occasionAr": "المساء، الشتاء",
     "related": [
       "shadow",
       "dark-matter",
       "regal"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -1916,14 +3562,24 @@ export const catalogRows = [
     "nameEn": "SIMAT REGAL",
     "secondaryLine": "Inspired by Ameer Al Oudh",
     "tagline": "Smoky and sweet.",
+    "taglineAr": "دفء دخاني سكري.",
     "shortDescription": "A luxurious amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي فاخر.",
     "descriptionEn": "SIMAT REGAL is a captivating contrast of smoky burning wood and sweet vanilla sugar.",
+    "description": "عطر REGAL هو تباين آسر بين الأخشاب المحترقة الدخانية وسكر الفانيلا السكري.",
     "scentCharacter": "Smoky, Sweet",
+    "scentCharacterAr": "دخاني، سكري",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Woody",
       "Vanilla",
       "Smoky"
+    ],
+    "accordsAr": [
+      "أخشاب دافئة",
+      "فانيلا",
+      "دخاني راتنجي"
     ],
     "topNotesEn": [
       "Woodsy Notes",
@@ -1937,57 +3593,45 @@ export const catalogRows = [
       "Agarwood (Oud)",
       "Sandalwood"
     ],
+    "topNotes": [
+      "نفحات خشبية",
+      "عود"
+    ],
+    "heartNotes": [
+      "سكر",
+      "فانيلا"
+    ],
+    "baseNotes": [
+      "عود",
+      "خشب الصندل"
+    ],
     "wearProfile": "A warm, smoky, and sweet aroma.",
+    "wearProfileAr": "رائحة دافئة، دخانية، وسكرية.",
     "occasion": "Evening, Winter",
+    "occasionAr": "المساء، الشتاء",
     "related": [
       "umbra",
       "shadow",
       "imperium"
     ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
+    ],
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
     "soldCount": 12
-  },
-  {
-    "id": "sanctum",
-    "slug": "sanctum",
-    "sheetId": 49,
-    "nameEn": "SIMAT SANCTUM",
-    "secondaryLine": "Inspired by Misk Al Haram",
-    "tagline": "Clean and pure.",
-    "shortDescription": "A delicate floral woody musk fragrance.",
-    "descriptionEn": "SIMAT SANCTUM is a pure, ethereal blend of white flowers, clean musk, and soft woods.",
-    "scentCharacter": "Clean, Pure",
-    "familyEn": "Floral Woody Musk",
-    "accords": [
-      "Musky",
-      "Floral",
-      "Clean"
-    ],
-    "topNotesEn": [
-      "Citrus",
-      "Aldehydes"
-    ],
-    "heartNotesEn": [
-      "White Flowers",
-      "Rose"
-    ],
-    "baseNotesEn": [
-      "White Musk",
-      "Sandalwood"
-    ],
-    "wearProfile": "A soft, clean, and comforting scent.",
-    "occasion": "Everyday, Office",
-    "related": [
-      "psyche",
-      "soften",
-      "pearl"
-    ],
-    "gender": "unisex",
-    "labelStyle": "velvet",
-    "isFeatured": false,
-    "soldCount": 11
   },
   {
     "id": "imperium",
@@ -1996,14 +3640,24 @@ export const catalogRows = [
     "nameEn": "SIMAT IMPERIUM",
     "secondaryLine": "Inspired by Ambre Sultan",
     "tagline": "Rich and balsamic.",
+    "taglineAr": "فخامة بلسمية غنية.",
     "shortDescription": "An opulent amber fragrance.",
+    "shortDescriptionAr": "عطر عنبري فخم.",
     "descriptionEn": "SIMAT IMPERIUM is a masterful, glowing blend of rich resins, amber, and spices.",
+    "description": "عطر IMPERIUM هو مزيج متقن ومشرق من الراتنجات الغنية والعنبر والتوابل.",
     "scentCharacter": "Rich, Opulent",
+    "scentCharacterAr": "غني، فخم",
     "familyEn": "Amber",
+    "family": "عنبري",
     "accords": [
       "Amber",
       "Warm Spicy",
       "Balsamic"
+    ],
+    "accordsAr": [
+      "عنبر",
+      "توابل دافئة",
+      "دخاني راتنجي"
     ],
     "topNotesEn": [
       "Resins",
@@ -2018,12 +3672,41 @@ export const catalogRows = [
       "Sandalwood",
       "Vanilla"
     ],
+    "topNotes": [
+      "راتنجات",
+      "عنبر"
+    ],
+    "heartNotes": [
+      "ورق الغار",
+      "كزبرة"
+    ],
+    "baseNotes": [
+      "مر",
+      "خشب الصندل",
+      "فانيلا"
+    ],
     "wearProfile": "A warm, glowing, and majestic aroma.",
+    "wearProfileAr": "رائحة دافئة، مشرقة، ومهيبة.",
     "occasion": "Evening, Special occasions",
+    "occasionAr": "المساء، المناسبات الخاصة",
     "related": [
       "soma",
       "nostalgia",
       "regal"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -2037,14 +3720,24 @@ export const catalogRows = [
     "nameEn": "SIMAT MOOD",
     "secondaryLine": "Inspired by Oud Mood",
     "tagline": "Sweet and rosy.",
+    "taglineAr": "رقة زهرية سكرية.",
     "shortDescription": "A romantic amber fragrance.",
+    "shortDescriptionAr": "عطر عنبري رومانسي.",
     "descriptionEn": "SIMAT MOOD is a deep, sweet blend of rose petals, caramel, and warm oud.",
+    "description": "عطر MOOD هو مزيج عميق وسكري من بتلات الورد والكراميل والعود الدافئ.",
     "scentCharacter": "Romantic, Sweet",
+    "scentCharacterAr": "رومانسي، سكري",
     "familyEn": "Amber",
+    "family": "عنبري",
     "accords": [
       "Oud",
       "Rose",
       "Caramel"
+    ],
+    "accordsAr": [
+      "عود",
+      "ورد",
+      "كراميل"
     ],
     "topNotesEn": [
       "Rose",
@@ -2059,12 +3752,41 @@ export const catalogRows = [
       "Amber",
       "Oud"
     ],
+    "topNotes": [
+      "ورد",
+      "زعفران"
+    ],
+    "heartNotes": [
+      "باتشولي",
+      "كراميل"
+    ],
+    "baseNotes": [
+      "فانيلا",
+      "عنبر",
+      "عود"
+    ],
     "wearProfile": "A sweet, rosy, and woody scent.",
+    "wearProfileAr": "رائحة سكرية بلمسات الورد والأخشاب.",
     "occasion": "Date night, Evening",
+    "occasionAr": "اللقاءات الخاصة، المساء",
     "related": [
       "obsession",
       "resonance",
       "comfort"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -2078,14 +3800,24 @@ export const catalogRows = [
     "nameEn": "SIMAT RESONANCE",
     "secondaryLine": "Inspired by Oud Bouquet Alt",
     "tagline": "Decadent and rich.",
+    "taglineAr": "ترف شرقي غني.",
     "shortDescription": "A luxurious amber woody fragrance.",
+    "shortDescriptionAr": "عطر عنبري خشبي فاخر.",
     "descriptionEn": "SIMAT RESONANCE is an opulent pairing of dark rose, sweet praline, and deep oud wood.",
+    "description": "عطر RESONANCE هو اقتران فاخر بين الورد الداكن والبرالين السكري وخشب العود العميق.",
     "scentCharacter": "Decadent, Luxurious",
+    "scentCharacterAr": "فاخر، غني",
     "familyEn": "Amber Woody",
+    "family": "عنبري خشبي",
     "accords": [
       "Oud",
       "Rose",
       "Vanilla"
+    ],
+    "accordsAr": [
+      "عود",
+      "ورد",
+      "فانيلا"
     ],
     "topNotesEn": [
       "Saffron"
@@ -2097,12 +3829,38 @@ export const catalogRows = [
       "Agarwood (Oud)",
       "Praline"
     ],
+    "topNotes": [
+      "زعفران"
+    ],
+    "heartNotes": [
+      "ورد"
+    ],
+    "baseNotes": [
+      "عود",
+      "برالين"
+    ],
     "wearProfile": "A sweet, rosy, and woody masterpiece.",
+    "wearProfileAr": "تحفة فنية سكرية بلمسات الورد والأخشاب.",
     "occasion": "Evening, Special occasions",
+    "occasionAr": "المساء، المناسبات الخاصة",
     "related": [
       "obsession",
       "mood",
       "soma"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -2116,13 +3874,22 @@ export const catalogRows = [
     "nameEn": "SIMAT FERAL",
     "secondaryLine": "Inspired by Sauvage Elixir",
     "tagline": "Intense and spicy.",
+    "taglineAr": "كثافة توابلية قوية.",
     "shortDescription": "A powerful aromatic fragrance.",
+    "shortDescriptionAr": "عطر أروماتك قوي.",
     "descriptionEn": "SIMAT FERAL is an ultra-concentrated, spicy blend of nutmeg, cinnamon, and lavender.",
+    "description": "عطر FERAL هو مزيج توابلي شديد التركيز من جوزة الطيب والقرفة واللافندر.",
     "scentCharacter": "Intense, Powerful",
+    "scentCharacterAr": "مكثف، قوي",
     "familyEn": "Aromatic",
+    "family": "أروماتك",
     "accords": [
       "Warm Spicy",
       "Fresh Spicy"
+    ],
+    "accordsAr": [
+      "توابل دافئة",
+      "توابل منعشة"
     ],
     "topNotesEn": [
       "Nutmeg",
@@ -2137,12 +3904,41 @@ export const catalogRows = [
       "Licorice",
       "Amber"
     ],
+    "topNotes": [
+      "جوزة الطيب",
+      "قرفة",
+      "حبهان"
+    ],
+    "heartNotes": [
+      "لافندر"
+    ],
+    "baseNotes": [
+      "خشب الصندل",
+      "عرق سوس",
+      "عنبر"
+    ],
     "wearProfile": "A sharp, spicy, and commanding aroma.",
+    "wearProfileAr": "رائحة حادة، توابلية، وذات حضور قوي.",
     "occasion": "Night out, Signature scent",
+    "occasionAr": "الخروجات المسائية، عطر شخصي مميز",
     "related": [
       "instinct",
       "impulse",
       "clarity"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "men",
     "labelStyle": "noir",
@@ -2156,14 +3952,24 @@ export const catalogRows = [
     "nameEn": "SIMAT NOESIS",
     "secondaryLine": "Inspired by Rosendo Mateu 5",
     "tagline": "Sensual and musky.",
+    "taglineAr": "جاذبية مسكية ناعمة.",
     "shortDescription": "An elegant amber floral fragrance.",
+    "shortDescriptionAr": "عطر عنبري زهري أنيق.",
     "descriptionEn": "SIMAT NOESIS is a captivating, skin-like blend of exotic florals, amber, and musk.",
+    "description": "عطر NOESIS هو مزيج آسر ينسجم مع البشرة من الأزهار النادرة والعنبر والمسك.",
     "scentCharacter": "Sensual, Elegant",
+    "scentCharacterAr": "جذاب، أنيق",
     "familyEn": "Amber Floral",
+    "family": "عنبري زهري",
     "accords": [
       "Amber",
       "Vanilla",
       "Musky"
+    ],
+    "accordsAr": [
+      "عنبر",
+      "فانيلا",
+      "مسكي"
     ],
     "topNotesEn": [
       "Spices",
@@ -2178,12 +3984,40 @@ export const catalogRows = [
       "Vanilla",
       "Musk"
     ],
+    "topNotes": [
+      "توابل",
+      "نفحات زهرية نادرة"
+    ],
+    "heartNotes": [
+      "قرنفل",
+      "زنبق الوادي"
+    ],
+    "baseNotes": [
+      "عنبر",
+      "فانيلا",
+      "مسك"
+    ],
     "wearProfile": "A soft, musky, and highly sensual scent.",
+    "wearProfileAr": "رائحة ناعمة، مسكية، وحسية للغاية.",
     "occasion": "Date night, Signature scent",
+    "occasionAr": "اللقاءات الخاصة، عطر شخصي مميز",
     "related": [
       "imprint",
-      "sanctum",
       "aura"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",
@@ -2197,14 +4031,24 @@ export const catalogRows = [
     "nameEn": "SIMAT CLOUD",
     "secondaryLine": "Inspired by Kayali Marshmallow",
     "tagline": "Dreamy and sweet.",
+    "taglineAr": "حلاوة حالمة ورقيقة.",
     "shortDescription": "A delightful floral fruity gourmand fragrance.",
+    "shortDescriptionAr": "عطر زهري فاكهي جورماند مبهج.",
     "descriptionEn": "SIMAT CLOUD is a fluffy, sweet cloud of marshmallow, vanilla, and soft orange blossom.",
+    "description": "عطر CLOUD هو سحابة رقيقة وسكرية من المارشميلو والفانيلا وزهر البرتقال الناعم.",
     "scentCharacter": "Dreamy, Sweet",
+    "scentCharacterAr": "حالم، سكري",
     "familyEn": "Floral Fruity Gourmand",
+    "family": "زهري فاكهي جورماند",
     "accords": [
       "Sweet",
       "Vanilla",
       "Powdery"
+    ],
+    "accordsAr": [
+      "لمسات سكرية متوازنة",
+      "فانيلا",
+      "بودري"
     ],
     "topNotesEn": [
       "Marshmallow"
@@ -2216,12 +4060,38 @@ export const catalogRows = [
     "baseNotesEn": [
       "Musk"
     ],
+    "topNotes": [
+      "مارشميلو"
+    ],
+    "heartNotes": [
+      "فانيلا",
+      "زهر البرتقال"
+    ],
+    "baseNotes": [
+      "مسك"
+    ],
     "wearProfile": "A soft, sweet, and comforting aroma.",
+    "wearProfileAr": "رائحة ناعمة، سكرية، ومريحة.",
     "occasion": "Everyday, Casual",
+    "occasionAr": "الاستخدام اليومي، الأوقات العادية",
     "related": [
       "reverie",
       "euphoria",
       "spark"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -2235,14 +4105,24 @@ export const catalogRows = [
     "nameEn": "SIMAT SPARK",
     "secondaryLine": "Inspired by Kayali Eden Apple",
     "tagline": "Juicy and vibrant.",
+    "taglineAr": "حيوية فاكهية مشرقة.",
     "shortDescription": "A fresh floral fruity fragrance.",
+    "shortDescriptionAr": "عطر زهري فاكهي منعش.",
     "descriptionEn": "SIMAT SPARK is a mouth-watering, crisp blend of red apple, lychee, and berries.",
+    "description": "عطر SPARK هو مزيج منعش وغني من التفاح الأحمر والليتشي والتوت.",
     "scentCharacter": "Juicy, Vibrant",
+    "scentCharacterAr": "غني، حيوي",
     "familyEn": "Floral Fruity",
+    "family": "زهري فاكهي",
     "accords": [
       "Fruity",
       "Sweet",
       "Fresh"
+    ],
+    "accordsAr": [
+      "فاكهي",
+      "لمسات سكرية متوازنة",
+      "منعش"
     ],
     "topNotesEn": [
       "Red Apple",
@@ -2256,12 +4136,40 @@ export const catalogRows = [
       "Vanilla Flower",
       "Musk"
     ],
+    "topNotes": [
+      "تفاح أحمر",
+      "ليتشي"
+    ],
+    "heartNotes": [
+      "توت بري",
+      "توت العليق"
+    ],
+    "baseNotes": [
+      "زهرة الفانيلا",
+      "مسك"
+    ],
     "wearProfile": "A crisp, fruity, and refreshing scent.",
+    "wearProfileAr": "رائحة نقية، فاكهية، ومنعشة.",
     "occasion": "Daytime, Spring/Summer",
+    "occasionAr": "أوقات النهار، الربيع/الصيف",
     "related": [
       "serenity",
       "cloud",
       "memoria"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "women",
     "labelStyle": "linen",
@@ -2274,37 +4182,74 @@ export const catalogRows = [
     "sheetId": 57,
     "nameEn": "SIMAT PEARL",
     "secondaryLine": "Inspired by Akoya Qissah",
-    "tagline": "Luminous and fresh.",
-    "shortDescription": "An elegant floral fruity fragrance.",
-    "descriptionEn": "SIMAT PEARL is a radiant, clean blend of white rose, crisp apple, and soft musk.",
-    "scentCharacter": "Luminous, Elegant",
-    "familyEn": "Floral Fruity",
+    "tagline": "Opulent oriental warmth and aged oud.",
+    "taglineAr": "فخامة شرقية شتوية بالعود المعتق والبخور والعنبر.",
+    "shortDescription": "A rich, opulent oriental woody fragrance built on aged oud, incense, and amber.",
+    "shortDescriptionAr": "عطر شرقي شتوي فخم يرتكز على عمق خشب العود المعتق وخيوط البخور الفاخر ودفء العنبر الكهرماني والتوابل الشرقية.",
+    "descriptionEn": "SIMAT PEARL is a regal and commanding winter fragrance. Deep aged oud wood combines with wisps of sacred incense, warm golden amber, and a delicate dusting of oriental spices for ultimate opulence.",
+    "description": "يجسد PEARL قمة الفخامة الشرقية وطابعها الشتوي المهيب؛ يفتتح برشة دافئة من التوابل والبهارات الشرقية الخفيفة، ليمتزج بقلب دخاني راقٍ من كسر البخور الفاخر والعنبر الكهرماني الدافئ، ويرتكز على قاعدة مهيبة وعميقة من قطع خشب العود المعتق التي تمنحه ثباتاً فخماً وأثراً لا يُنسى.",
+    "scentCharacter": "Opulent, Regal, Warm",
+    "scentCharacterAr": "ملكي، فخم، دافئ ومهيب",
+    "familyEn": "Oriental Woody",
+    "family": "شرقي خشبي فاخر",
     "accords": [
-      "Floral",
-      "Fresh",
-      "Musky"
+      "Oud",
+      "Amber",
+      "Smoky",
+      "Warm Spicy"
+    ],
+    "accordsAr": [
+      "عود معتق",
+      "عنبر دافئ",
+      "دخاني بلسمي",
+      "توابل شرقية"
     ],
     "topNotesEn": [
-      "Citrus",
-      "Apple"
+      "Oriental Warm Spices"
     ],
     "heartNotesEn": [
-      "Rose",
-      "Jasmine"
-    ],
-    "baseNotesEn": [
-      "Musk",
+      "Incense",
       "Amber"
     ],
-    "wearProfile": "A clean, bright, and elegant aroma.",
-    "occasion": "Office, Everyday",
+    "baseNotesEn": [
+      "Aged Oud",
+      "Dark Woods"
+    ],
+    "topNotes": [
+      "بهارات وتوابل شرقية دافئة"
+    ],
+    "heartNotes": [
+      "بخور فاخر",
+      "كتل عنبر كهرمانية"
+    ],
+    "baseNotes": [
+      "خشب عود معتق",
+      "أخشاب شرقية دافئة"
+    ],
+    "wearProfile": "A deeply rich, warm oriental oud scent with regal presence and lingering elegance.",
+    "wearProfileAr": "رائحة شرقية ثقيلة ومعتقة تنبض بالهيبة والدفء والبصمة الفاخرة.",
+    "occasion": "Winter, Formal events, Grand evenings",
+    "occasionAr": "أجواء الشتاء، المناسبات الرسمية الكبرى، والأمسيات الفخمة",
     "related": [
       "psyche",
-      "soften",
-      "sanctum"
+      "soften"
     ],
-    "gender": "women",
-    "labelStyle": "linen",
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
+    ],
+    "gender": "unisex",
+    "labelStyle": "velvet",
     "isFeatured": false,
     "soldCount": 3
   },
@@ -2315,14 +4260,24 @@ export const catalogRows = [
     "nameEn": "SIMAT AUREATE",
     "secondaryLine": "Inspired by Turab Al Dhahab",
     "tagline": "Tropical and golden.",
+    "taglineAr": "دفء استوائي مشرق.",
     "shortDescription": "A sunny floral fruity gourmand fragrance.",
+    "shortDescriptionAr": "عطر زهري فاكهي جورماند مشرق.",
     "descriptionEn": "SIMAT AUREATE is a warm, beachy blend of sweet coconut, white flowers, and vanilla.",
+    "description": "عطر AUREATE هو مزيج دافئ ومناسب للأجواء الشاطئية من جوز الهند السكري والأزهار البيضاء والفانيلا.",
     "scentCharacter": "Tropical, Sunny",
+    "scentCharacterAr": "استوائي، مشمس",
     "familyEn": "Floral Fruity Gourmand",
+    "family": "زهري فاكهي جورماند",
     "accords": [
       "Sweet",
       "Coconut",
       "Vanilla"
+    ],
+    "accordsAr": [
+      "لمسات سكرية متوازنة",
+      "جوز هند",
+      "فانيلا"
     ],
     "topNotesEn": [
       "White Flowers"
@@ -2334,12 +4289,38 @@ export const catalogRows = [
     "baseNotesEn": [
       "Musk"
     ],
+    "topNotes": [
+      "أزهار بيضاء"
+    ],
+    "heartNotes": [
+      "جوز هند",
+      "فانيلا"
+    ],
+    "baseNotes": [
+      "مسك"
+    ],
     "wearProfile": "A sweet, tropical, and radiant scent.",
+    "wearProfileAr": "رائحة سكرية، استوائية، ومشرقة.",
     "occasion": "Summer, Vacations",
+    "occasionAr": "الصيف، العطلات",
     "related": [
       "pulse",
       "aura",
       "reverie"
+    ],
+    "variants": [
+      {
+        "sizeMl": 40,
+        "price": 450
+      },
+      {
+        "sizeMl": 60,
+        "price": 700
+      },
+      {
+        "sizeMl": 100,
+        "price": 900
+      }
     ],
     "gender": "unisex",
     "labelStyle": "velvet",

@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
 import { normalizeArabic, price } from '@/lib/format';
+import { defaultVariant, hasPrice } from '@/lib/pricing';
 import { productText, shortName } from '@/lib/localize';
 import { useUi, uiStore } from '@/components/cart/CartProvider';
 import { Modal } from '@/components/ui/Modal';
@@ -80,7 +81,7 @@ export function SearchModal({ products }: { products: Product[] }) {
                     <p className="text-sm font-serif text-noir font-bold truncate">{text.name}</p>
                     <p className="text-[11px] text-stone-500 truncate">{text.family}</p>
                   </div>
-                  <span className="text-xs text-bordeaux latin">{price(p.price, lang)}</span>
+                  <span className="text-xs text-bordeaux latin">{hasPrice(p) ? price(defaultVariant(p).price, lang) : dict.common.priceSoon}</span>
                 </Link>
               </li>
             );

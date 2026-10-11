@@ -15,7 +15,7 @@ import type { Product } from '@/lib/types';
 /** بيرشّح عطر من الكتالوج حسب الإجابات (الطابع + النوتة المفضلة). */
 function recommend(answers: string[]): string {
   const [profile, , note] = answers;
-  if (note === 'musk') return 'sanctum';
+  if (note === 'musk') return 'noesis';
   if (profile === 'fresh') return 'flow';
   if (profile === 'fruit') return 'cloud';
   if (profile === 'warm' && note === 'oud') return 'regal';

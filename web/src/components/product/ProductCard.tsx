@@ -6,8 +6,8 @@ import { Heart } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
 import { price } from '@/lib/format';
-import { displayName, shortName, subLine } from '@/lib/localize';
-import { defaultVariant } from '@/lib/pricing';
+import { displayName, productText, shortName, subLine } from '@/lib/localize';
+import { defaultVariant, hasPrice } from '@/lib/pricing';
 import { useHydrated, useWishlist } from '@/components/cart/CartProvider';
 import { Flacon } from '@/components/brand/Flacon';
 import { NotesModal } from './NotesModal';
@@ -33,6 +33,7 @@ export function ProductCard({ product }: { product: Product }) {
   const href = to(lang, `/product/${product.slug}`);
   const title = displayName(product, lang, dict.concentration);
   const variant = defaultVariant(product);
+  const priced = hasPrice(product);
 
   return (
     <article className="flip-card group relative bg-linen-light border border-linen-border p-4 flex flex-col justify-between hover:border-bordeaux/40 hover:shadow-xl transition-all duration-300">
@@ -91,18 +92,18 @@ export function ProductCard({ product }: { product: Product }) {
         </p>
         <div className="flex items-center justify-between mt-4 pt-3 border-t border-linen-border gap-2">
           <span className="latin text-sm text-noir tracking-wider font-medium">
-            {price(variant.price, lang)}
-            {product.kind === 'bottle' && (
+            {priced ? price(variant.price, lang) : dict.common.priceSoon}
+            {priced && product.kind === 'bottle' && (
               <span className="ms-1.5 text-[10px] text-stone-400 font-normal">· <bdi dir="ltr">{variant.sizeMl} ml</bdi></span>
             )}
           </span>
           <button
             type="button"
             onClick={() => bag.add(product)}
-            disabled={product.stock <= 0}
+            disabled={!priced || product.stock <= 0}
             className="text-[11px] uppercase tracking-wider text-bordeaux hover:underline font-medium disabled:text-stone-400 disabled:no-underline whitespace-nowrap"
           >
-            {product.stock > 0 ? `+ ${dict.common.addToCart}` : dict.common.outOfStock}
+            {!priced ? dict.common.comingSoon : product.stock > 0 ? `+ ${dict.common.addToCart}` : dict.common.outOfStock}
           </button>
         </div>
       </div>
@@ -119,20 +120,22 @@ export function ProductCard({ product }: { product: Product }) {
  * الأساسية للعطر بنفس الإحساس.
  */
 function IngredientsFace({ product }: { product: Product }) {
-  const notes = [...product.topNotesEn, ...product.heartNotesEn].slice(0, 5);
+  const { lang } = useI18n();
+  const text = productText(product, lang);
+  const notes = [...text.top, ...text.heart].slice(0, 5);
   return (
     <div className="absolute inset-0 bg-noir flex flex-col items-center justify-center gap-4 p-6 text-center overflow-hidden">
       <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_20%,#c5a880_0,transparent_45%),radial-gradient(circle_at_75%_80%,#721924_0,transparent_50%)]" />
-      <span className="relative latin text-[10px] uppercase tracking-[0.25em] text-gold">{product.familyEn}</span>
+      <span className="relative text-[10px] uppercase tracking-[0.25em] text-gold">{text.family}</span>
       <div className="relative flex flex-wrap justify-center gap-1.5 max-w-[220px]">
         {notes.map((n) => (
-          <span key={n} className="latin px-2.5 py-1 text-[10px] text-linen-light/90 border border-white/20 rounded-full">
+          <span key={n} className="px-2.5 py-1 text-[10px] text-linen-light/90 border border-white/20 rounded-full">
             {n}
           </span>
         ))}
       </div>
-      {product.accords.length > 0 && (
-        <span className="relative latin text-[10px] text-stone-400">{product.accords.join(' · ')}</span>
+      {text.accords.length > 0 && (
+        <span className="relative text-[10px] text-stone-400">{text.accords.join(' · ')}</span>
       )}
     </div>
   );

@@ -84,7 +84,7 @@ class ProductCard extends StatelessWidget {
                         ),
                         if (onAddToCart != null)
                           _AddButton(
-                            enabled: product.inStock,
+                            enabled: product.canBuy,
                             onTap: onAddToCart!,
                           ),
                       ],

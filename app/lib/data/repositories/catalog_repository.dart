@@ -147,9 +147,12 @@ class CatalogRepository {
           p.description,
           p.descriptionEn,
           p.secondaryLine,
+          p.family,
           p.familyEn,
           p.scentCharacter,
+          p.scentCharacterAr,
           ...p.accords,
+          ...p.accordsAr,
           ...p.allNotes,
         ].join(' '));
         return haystack.contains(needle);

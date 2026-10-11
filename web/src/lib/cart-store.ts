@@ -2,7 +2,7 @@
  * عربة التسوق + كود الخصم + خيار الهدية — كلهم محفوظين في المتصفح.
  */
 import { createPersistedStore } from './persisted-store';
-import { defaultVariant, priceFor } from './pricing';
+import { defaultVariant, hasPrice, priceFor } from './pricing';
 import type { CartLine, Product } from './types';
 
 /** كل سطر في السلة = منتج + حجم. */
@@ -44,8 +44,11 @@ function commit(next: CartLine[]) {
 
 export const cartStore = {
   add(product: Product, quantity = 1, sizeMl?: number) {
+    // منتج لسه ملهوش سعر مينفعش يدخل العربة.
+    if (!hasPrice(product)) return;
     const lines = linesStore.get();
     const size = sizeMl ?? defaultVariant(product).sizeMl;
+    if (!(priceFor(product, size) > 0)) return;
     const key = lineKey({ productId: product.id, sizeMl: size });
     const max = product.stock > 0 ? product.stock : 99;
     const found = lines.find((l) => lineKey(l) === key);

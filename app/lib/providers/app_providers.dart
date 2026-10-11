@@ -161,6 +161,8 @@ class CartController extends StateNotifier<List<CartItem>> {
   Future<void> _persist() => _store.saveCart(state);
 
   void add(Product product, {int quantity = 1, int? sizeMl}) {
+    // منتج لسه ملهوش سعر مينفعش يدخل العربة.
+    if (!product.hasPrice) return;
     final line = CartItem.fromProduct(product, quantity: quantity, sizeMl: sizeMl);
     final index = state.indexWhere((e) => e.key == line.key);
     if (index == -1) {

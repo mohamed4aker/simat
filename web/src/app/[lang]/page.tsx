@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { fill, getDictionary, hasLocale } from '@/i18n';
+import { getDictionary, hasLocale } from '@/i18n';
 import { to } from '@/lib/href';
-import { price, priceNumber } from '@/lib/format';
+import { price } from '@/lib/format';
 import { displayName, productText, shortName, subLine } from '@/lib/localize';
-import { defaultVariant } from '@/lib/pricing';
+import { defaultVariant, hasPrice } from '@/lib/pricing';
 import { STORE } from '@/lib/constants';
 import { getProducts } from '@/lib/store';
 import { Coffret, Flacon } from '@/components/brand/Flacon';
@@ -214,14 +214,18 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
               <Eyebrow>{dict.discovery.eyebrow}</Eyebrow>
               <h2 className="text-3xl sm:text-4xl font-serif text-noir">{dict.discovery.title}</h2>
               <p className="text-xs sm:text-sm text-stone-700 leading-relaxed max-w-xl">
-                {fill(dict.discovery.body, { amount: priceNumber(discoverySet.price) })}
+                {dict.discovery.body}
               </p>
               <div className="flex flex-wrap items-baseline gap-4 pt-2">
-                <span className="latin text-2xl font-serif text-bordeaux font-medium">{price(discoverySet.price, lang)}</span>
+                <span className="latin text-2xl font-serif text-bordeaux font-medium">
+                  {hasPrice(discoverySet) ? price(discoverySet.price, lang) : dict.common.priceSoon}
+                </span>
                 <span className="text-xs text-stone-500">{dict.discovery.priceNote}</span>
               </div>
               <div className="flex flex-wrap items-center gap-6">
-                <AddButton product={discoverySet} className={btn.primary}>{dict.discovery.cta}</AddButton>
+                {hasPrice(discoverySet) && (
+                  <AddButton product={discoverySet} className={btn.primary}>{dict.discovery.cta}</AddButton>
+                )}
                 <Link href={to(lang, `/product/${discoverySet.slug}`)} className={btn.link}>{dict.mega.collections.explore}</Link>
               </div>
             </div>

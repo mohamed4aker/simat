@@ -1,8 +1,7 @@
 /**
- * أحجام الزجاجات والأسعار.
- *
- * ⚠ الأسعار دي مؤقتة لحد ما تتعتمد. لما تتحدد غيّرها هنا وشغّل
- * `npm run gen:seed` (أو عدّلها من لوحة التحكم لكل عطر لوحده).
+ * أحجام الزجاجات والأسعار. أسعار كل عطر جاية من الشيت
+ * (scripts/import-catalog.py) أو من لوحة التحكم — مفيش أسعار افتراضية.
+ * منتج من غير سعر (0) بيظهر «السعر قريباً» ومينفعش يتطلب.
  */
 import type { Product, Variant } from './types';
 
@@ -10,15 +9,6 @@ export const SIZE_OPTIONS = [40, 60, 100] as const;
 
 /** الحجم اللي بيكون مختار أول ما صفحة المنتج تفتح. */
 export const DEFAULT_SIZE = 60;
-
-export const DEFAULT_PRICES: Record<number, number> = {
-  40: 450,
-  60: 600,
-  100: 850,
-};
-
-export const defaultVariants = (): Variant[] =>
-  SIZE_OPTIONS.map((sizeMl) => ({ sizeMl, price: DEFAULT_PRICES[sizeMl] }));
 
 /** الأحجام المتاحة للمنتج (مترتبة من الصغير للكبير). */
 export function variantsOf(p: Pick<Product, 'variants' | 'price' | 'sizeMl'>): Variant[] {
@@ -43,4 +33,9 @@ export function priceFor(
 /** أقل سعر — للكروت: «من 450 ج.م». */
 export function minPrice(p: Pick<Product, 'variants' | 'price' | 'sizeMl'>): number {
   return Math.min(...variantsOf(p).map((v) => v.price));
+}
+
+/** المنتج ليه سعر ويتطلب؟ */
+export function hasPrice(p: Pick<Product, 'variants' | 'price' | 'sizeMl'>): boolean {
+  return variantsOf(p).some((v) => v.price > 0);
 }

@@ -28,9 +28,9 @@ class LocalStore {
   static const String _kSeedVersion = 'simat.seed.version';
   static const int seedVersion = 2;
 
-  /// نسخة كتالوج الشيت (58 عطر). زوّدها لما الملف المدمج يتغيّر.
+  /// نسخة كتالوج الشيت المدمج. زوّدها لما الملف المدمج يتغيّر.
   static const String _kCatalogVersion = 'simat.catalog.version';
-  static const int catalogVersion = 1;
+  static const int catalogVersion = 2;
 
   /// كتالوج الموقع المدمج جوه الأبلكيشن (npm run export:app).
   static const String catalogAsset = 'assets/data/catalog.json';

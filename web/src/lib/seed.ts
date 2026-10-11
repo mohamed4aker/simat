@@ -1,9 +1,9 @@
-// كتالوج سِمة — 58 عطر من شيت المنتجات + طقم العينات.
+// كتالوج سِمة — عطور شيت المنتجات (55 عطر) + طقم العينات.
 // بيُستخدم في وضع العرض (من غير قاعدة بيانات)، وكمان بيتحوّل لـ SQL
 // في supabase/seed.sql (npm run gen:seed) عشان يتزرع في قاعدة البيانات.
 
 import { catalogRows } from './catalog.data.ts';
-import { DEFAULT_PRICES, DEFAULT_SIZE, defaultVariants } from './pricing.ts';
+import { DEFAULT_SIZE } from './pricing.ts';
 import type { Category, Coupon, Product, Review } from './types';
 
 const daysAgo = (n: number) =>
@@ -42,37 +42,43 @@ const empty = {
   ratingCount: 0,
 };
 
-/** عطور سِمة من شيت المنتجات (58 عطر). */
+/** عطور سِمة من شيت المنتجات بأسعار العميل. */
 const sheetProducts: Product[] = catalogRows.map((r) => ({
   ...empty,
   id: r.id,
   slug: r.slug,
-  // الأسماء والمحتوى إنجليزي في الشيت — النسخة العربية بتعرضهم لحد ما تتترجم.
+  // الأسماء إنجليزي زي ما هي، والمحتوى عربي + إنجليزي من الشيت.
   name: r.nameEn,
   nameEn: r.nameEn,
   categoryId: 'cat_signature',
-  description: '',
+  description: r.description,
   descriptionEn: r.descriptionEn,
-  family: '',
+  family: r.family,
   familyEn: r.familyEn,
   kind: 'bottle',
   labelStyle: r.labelStyle,
   secondaryLine: r.secondaryLine,
   tagline: r.tagline,
+  taglineAr: r.taglineAr,
   shortDescription: r.shortDescription,
+  shortDescriptionAr: r.shortDescriptionAr,
   scentCharacter: r.scentCharacter,
+  scentCharacterAr: r.scentCharacterAr,
   accords: [...r.accords],
+  accordsAr: [...r.accordsAr],
   wearProfile: r.wearProfile,
+  wearProfileAr: r.wearProfileAr,
   occasion: r.occasion,
+  occasionAr: r.occasionAr,
   related: [...r.related],
-  variants: defaultVariants(),
-  price: DEFAULT_PRICES[DEFAULT_SIZE],
+  variants: r.variants.map((v) => ({ ...v })),
+  price: r.variants.find((v) => v.sizeMl === DEFAULT_SIZE)?.price ?? 0,
   sizeMl: DEFAULT_SIZE,
   gender: r.gender,
   concentration: 'edp',
-  topNotes: [],
-  heartNotes: [],
-  baseNotes: [],
+  topNotes: [...r.topNotes],
+  heartNotes: [...r.heartNotes],
+  baseNotes: [...r.baseNotes],
   topNotesEn: [...r.topNotesEn],
   heartNotesEn: [...r.heartNotesEn],
   baseNotesEn: [...r.baseNotesEn],
@@ -91,23 +97,30 @@ const discoverySet: Product = {
   nameEn: 'SIMAT Discovery Set (5 × 2ml)',
   categoryId: 'cat_discovery',
   description:
-    'جرب 5 من أكتر عطورنا المحبوبة على جلدك في البيت. ومع العلبة كارت خصم بقيمة 650 ج.م تخصمه من تمن أي زجاجة تطلبها بعدين.',
+    'جرب 5 من أكتر عطورنا المحبوبة على جلدك في البيت قبل ما تقرر.',
   descriptionEn:
-    'Try five of our most loved perfumes at home on your own skin. Inside the box you will find a 650 EGP voucher you can deduct from any full bottle later.',
+    'Try five of our most loved perfumes at home on your own skin before you decide.',
   family: 'طقم عينات',
   familyEn: 'Discovery Coffret',
   kind: 'set',
   labelStyle: 'noir',
   secondaryLine: '5 × 2ml',
   tagline: 'Try before you decide.',
+  taglineAr: 'جرب قبل ما تقرر.',
   shortDescription: 'Five 2ml vials of our best sellers.',
+  shortDescriptionAr: '5 عينات 2 مل من أكتر عطورنا مبيعاً.',
   scentCharacter: '',
+  scentCharacterAr: '',
   accords: [],
+  accordsAr: [],
   wearProfile: '',
+  wearProfileAr: '',
   occasion: '',
+  occasionAr: '',
   related: [],
+  // لسه ملهوش سعر من العميل — بيظهر «السعر قريباً» ومينفعش يتطلب.
   variants: [],
-  price: 650,
+  price: 0,
   sizeMl: 10,
   gender: 'unisex',
   concentration: 'edp',

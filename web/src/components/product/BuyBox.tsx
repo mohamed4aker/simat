@@ -8,7 +8,7 @@ import { fill } from '@/i18n/fill';
 import { to } from '@/lib/href';
 import { price } from '@/lib/format';
 import { displayName } from '@/lib/localize';
-import { defaultVariant, variantsOf } from '@/lib/pricing';
+import { defaultVariant, hasPrice, variantsOf } from '@/lib/pricing';
 import { cartStore } from '@/components/cart/CartProvider';
 import { btn } from '@/components/ui/store';
 import { useBag } from './useBag';
@@ -28,6 +28,11 @@ export function BuyBox({ product }: { product: Product }) {
   const [qty, setQty] = useState(1);
   const current = variants.find((v) => v.sizeMl === size) ?? variants[0];
   const soldOut = product.stock <= 0;
+  // لسه ملهوش سعر → «السعر قريباً» ومينفعش يتطلب.
+  const priced = hasPrice(product);
+  const blocked = soldOut || !priced;
+  const blockedLabel = priced ? dict.common.outOfStock : dict.common.comingSoon;
+  const shownPrice = priced ? price(current.price, lang) : dict.common.priceSoon;
   const max = Math.max(1, Math.min(product.stock, 10));
   const title = displayName(product, lang, dict.concentration);
 
@@ -53,7 +58,7 @@ export function BuyBox({ product }: { product: Product }) {
   return (
     <>
       <p className="latin text-2xl text-noir tracking-wide" aria-live="polite">
-        {price(current.price, lang)}
+        {shownPrice}
       </p>
 
       {product.kind === 'bottle' && variants.length > 1 && (
@@ -94,16 +99,16 @@ export function BuyBox({ product }: { product: Product }) {
               <Plus className="w-3.5 h-3.5" />
             </button>
           </div>
-          <button type="button" disabled={soldOut} onClick={addToCart} className={`${btn.primary} flex-1 !px-4`}>
-            {soldOut ? dict.common.outOfStock : dict.common.addToCart}
+          <button type="button" disabled={blocked} onClick={addToCart} className={`${btn.primary} flex-1 !px-4`}>
+            {blocked ? blockedLabel : dict.common.addToCart}
           </button>
         </div>
-        {!soldOut && (
+        {!blocked && (
           <button type="button" onClick={buyNow} className={`${btn.dark} w-full`}>
             {t.buyNow}
           </button>
         )}
-        {!soldOut && product.stock <= 5 && (
+        {!blocked && product.stock <= 5 && (
           <p className="text-[11px] text-bordeaux">{fill(dict.common.lowStock, { count: product.stock })}</p>
         )}
       </div>
@@ -118,18 +123,18 @@ export function BuyBox({ product }: { product: Product }) {
         <div className="min-w-0">
           <h4 className="text-xs font-serif text-noir truncate">{title}</h4>
           <span className="latin text-[11px] text-bordeaux">
-            {price(current.price, lang)}
-            {product.kind === 'bottle' && <> · <bdi dir="ltr">{current.sizeMl} ml</bdi></>}
+            {shownPrice}
+            {priced && product.kind === 'bottle' && <> · <bdi dir="ltr">{current.sizeMl} ml</bdi></>}
           </span>
         </div>
         <button
           type="button"
-          disabled={soldOut}
+          disabled={blocked}
           tabIndex={showSticky ? 0 : -1}
           onClick={addToCart}
           className="shrink-0 px-5 py-2.5 bg-bordeaux hover:bg-bordeaux-dark text-linen-light text-[11px] tracking-wider uppercase font-medium shadow-md disabled:opacity-60"
         >
-          {dict.common.addToCart}
+          {blocked ? blockedLabel : dict.common.addToCart}
         </button>
       </aside>
     </>

@@ -55,15 +55,22 @@ export interface Product {
   labelStyle: LabelStyle;
   /** «Inspired by Black Opium» */
   secondaryLine: string;
+  // الخانات الإنجليزي من غير لاحقة، والعربي بـ Ar (من الشيت العربي).
   tagline: string;
+  taglineAr: string;
   shortDescription: string;
+  shortDescriptionAr: string;
   /** «Seductive, Energetic, Bold» */
   scentCharacter: string;
+  scentCharacterAr: string;
   accords: string[];
+  accordsAr: string[];
   /** شخصية وسلوك العطر (عمود The Scent) */
   wearProfile: string;
+  wearProfileAr: string;
   /** أوقات ومناسبات الاستخدام */
   occasion: string;
+  occasionAr: string;
   /** slugs لعطور تتركب معاه (Layer It With) */
   related: string[];
   /** الأحجام وأسعارها — فاضية = حجم واحد بسعر price */

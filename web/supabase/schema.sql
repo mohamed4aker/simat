@@ -173,9 +173,18 @@ alter table public.products
   add column if not exists wear_profile_en      text   default '',
   add column if not exists occasion_en          text   default '',
   add column if not exists related              text[] default '{}',
-  -- [{"size_ml":40,"price":450},{"size_ml":60,"price":600},...]
+  -- [{"size_ml":40,"price":450},{"size_ml":60,"price":700},...]
   add column if not exists variants             jsonb  default '[]'::jsonb,
   add column if not exists image_hover_url      text;
+
+-- ── ١-د. النسخة العربي من محتوى صفحة المنتج (الشيت العربي) ───────
+alter table public.products
+  add column if not exists tagline_ar           text   default '',
+  add column if not exists short_description_ar text   default '',
+  add column if not exists scent_character_ar   text   default '',
+  add column if not exists accords_ar           text[] default '{}',
+  add column if not exists wear_profile_ar      text   default '',
+  add column if not exists occasion_ar          text   default '';
 
 alter table public.orders
   add column if not exists alt_phone    text,
@@ -387,6 +396,9 @@ begin
     v_unit := public.variant_price(prod, nullif(item->>'size_ml', '')::int);
     if v_unit is null then
       return jsonb_build_object('ok', false, 'error', 'الحجم المطلوب مش متاح');
+    end if;
+    if v_unit <= 0 then
+      return jsonb_build_object('ok', false, 'error', 'المنتج ده لسه ملهوش سعر');
     end if;
 
     v_subtotal := v_subtotal + (v_unit * qty);

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { X } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
+import { defaultVariant, hasPrice } from '@/lib/pricing';
 import { price } from '@/lib/format';
 import { productText } from '@/lib/localize';
 import { cartStore, toggleWishlist, useUi, useWishlist, uiStore } from '@/components/cart/CartProvider';
@@ -37,7 +38,7 @@ export function WishlistModal({ products }: { products: Product[] }) {
                 className="flex-1 min-w-0"
               >
                 <p className="text-sm font-serif text-noir font-bold truncate">{productText(p, lang).name}</p>
-                <p className="text-[11px] text-bordeaux latin">{price(p.price, lang)}</p>
+                <p className="text-[11px] text-bordeaux latin">{hasPrice(p) ? price(defaultVariant(p).price, lang) : dict.common.priceSoon}</p>
               </Link>
               <button
                 type="button"

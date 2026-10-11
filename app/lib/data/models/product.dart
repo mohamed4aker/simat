@@ -37,8 +37,17 @@ class Product {
   final String tagline;
   final String shortDescription;
 
-  /// العائلة العطرية «Amber Vanilla»
+  /// العائلة العطرية «عنبري فانيلا» / «Amber Vanilla»
+  final String family;
   final String familyEn;
+
+  // النسخة العربي من محتوى صفحة المنتج (الشيت العربي). لو فاضية بيظهر الإنجليزي.
+  final String taglineAr;
+  final String shortDescriptionAr;
+  final String scentCharacterAr;
+  final List<String> accordsAr;
+  final String wearProfileAr;
+  final String occasionAr;
 
   /// «Seductive, Energetic, Bold»
   final String scentCharacter;
@@ -102,7 +111,14 @@ class Product {
     this.secondaryLine = '',
     this.tagline = '',
     this.shortDescription = '',
+    this.family = '',
     this.familyEn = '',
+    this.taglineAr = '',
+    this.shortDescriptionAr = '',
+    this.scentCharacterAr = '',
+    this.accordsAr = const [],
+    this.wearProfileAr = '',
+    this.occasionAr = '',
     this.scentCharacter = '',
     this.accords = const [],
     this.wearProfile = '',
@@ -133,6 +149,10 @@ class Product {
   bool get isLowStock => stock > 0 && stock <= 5;
   bool get hasDiscount => oldPrice != null && oldPrice! > price;
   bool get isSet => kind == 'set';
+
+  /// لسه ملهوش سعر من العميل → «السعر قريباً» ومينفعش يتطلب.
+  bool get hasPrice => sizes.any((v) => v.price > 0);
+  bool get canBuy => inStock && hasPrice;
 
   int get discountPercent =>
       hasDiscount ? (((oldPrice! - price) / oldPrice!) * 100).round() : 0;
@@ -179,6 +199,16 @@ class Product {
   String get bestDescription =>
       description.isNotEmpty ? description : descriptionEn;
 
+  static String _ar(String ar, String en) => ar.isNotEmpty ? ar : en;
+
+  String get familyText => _ar(family, familyEn);
+  String get taglineText => _ar(taglineAr, tagline);
+  String get shortDescriptionText => _ar(shortDescriptionAr, shortDescription);
+  String get scentCharacterText => _ar(scentCharacterAr, scentCharacter);
+  String get wearProfileText => _ar(wearProfileAr, wearProfile);
+  String get occasionText => _ar(occasionAr, occasion);
+  List<String> get accordsText => accordsAr.isNotEmpty ? accordsAr : accords;
+
   Product copyWith({
     String? name,
     String? nameEn,
@@ -217,7 +247,14 @@ class Product {
       secondaryLine: secondaryLine,
       tagline: tagline,
       shortDescription: shortDescription,
+      family: family,
       familyEn: familyEn,
+      taglineAr: taglineAr,
+      shortDescriptionAr: shortDescriptionAr,
+      scentCharacterAr: scentCharacterAr,
+      accordsAr: accordsAr,
+      wearProfileAr: wearProfileAr,
+      occasionAr: occasionAr,
       scentCharacter: scentCharacter,
       accords: accords,
       wearProfile: wearProfile,
@@ -258,7 +295,14 @@ class Product {
         'secondaryLine': secondaryLine,
         'tagline': tagline,
         'shortDescription': shortDescription,
+        'family': family,
         'familyEn': familyEn,
+        'taglineAr': taglineAr,
+        'shortDescriptionAr': shortDescriptionAr,
+        'scentCharacterAr': scentCharacterAr,
+        'accordsAr': accordsAr,
+        'wearProfileAr': wearProfileAr,
+        'occasionAr': occasionAr,
         'scentCharacter': scentCharacter,
         'accords': accords,
         'wearProfile': wearProfile,
@@ -307,7 +351,14 @@ class Product {
       secondaryLine: json['secondaryLine'] as String? ?? '',
       tagline: json['tagline'] as String? ?? '',
       shortDescription: json['shortDescription'] as String? ?? '',
+      family: json['family'] as String? ?? '',
       familyEn: json['familyEn'] as String? ?? '',
+      taglineAr: json['taglineAr'] as String? ?? '',
+      shortDescriptionAr: json['shortDescriptionAr'] as String? ?? '',
+      scentCharacterAr: json['scentCharacterAr'] as String? ?? '',
+      accordsAr: strings('accordsAr'),
+      wearProfileAr: json['wearProfileAr'] as String? ?? '',
+      occasionAr: json['occasionAr'] as String? ?? '',
       scentCharacter: json['scentCharacter'] as String? ?? '',
       accords: strings('accords'),
       wearProfile: json['wearProfile'] as String? ?? '',

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { fill } from '@/i18n/fill';
 import { priceNumber } from '@/lib/format';
-import { shortName } from '@/lib/localize';
+import { productText, shortName } from '@/lib/localize';
 import { defaultVariant } from '@/lib/pricing';
 import { useBag } from '@/components/product/useBag';
 import { Eyebrow, SectionTitle, btn } from '@/components/ui/store';
@@ -12,11 +12,11 @@ import type { Product } from '@/lib/types';
 
 // عطور القاعدة (دافية وتقيلة) واللمسة العلوية (أخف وأنعم).
 const BASES = ['soma', 'shadow', 'imperium'] as const;
-const TOPS = ['cloud', 'sanctum', 'flow'] as const;
+const TOPS = ['cloud', 'anima', 'flow'] as const;
 
 /** معمل الميكس: اختار عطر قاعدة + لمسة علوية والسعر بيتحسب (60 مل). */
 export function Layering({ products }: { products: Product[] }) {
-  const { dict } = useI18n();
+  const { lang, dict } = useI18n();
   const t = dict.layering;
   const bag = useBag();
   const find = (slug: string) => products.find((p) => p.slug === slug);
@@ -53,7 +53,7 @@ export function Layering({ products }: { products: Product[] }) {
           />
           <span>
             <span className="font-serif block text-noir">{shortName(p)}</span>
-            <span className="latin text-[10px] text-stone-500">{p.familyEn}</span>
+            <span className="text-[10px] text-stone-500">{productText(p, lang).family}</span>
           </span>
         </label>
       ))}
