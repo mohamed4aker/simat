@@ -7,12 +7,15 @@
 #
 #  متغيرات Supabase ورابط الموقع بتتحط وقت البناء، فلو اتغيرت
 #  لازم تبني النسخة تاني:
-#    NEXT_PUBLIC_SITE_URL=https://example.com \
+#    NEXT_PUBLIC_SITE_URL=https://simatfragrances.com \
 #    NEXT_PUBLIC_SUPABASE_URL=... NEXT_PUBLIC_SUPABASE_ANON_KEY=... \
 #    npm run package:cpanel
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 cd "$(dirname "$0")/.."
+
+# دومين العميل افتراضياً.
+export NEXT_PUBLIC_SITE_URL="${NEXT_PUBLIC_SITE_URL:-https://simatfragrances.com}"
 
 BUILD_STANDALONE=1 npx next build
 

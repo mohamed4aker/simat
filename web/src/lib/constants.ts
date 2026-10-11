@@ -117,4 +117,4 @@ export const DELIVERY_DAYS = { min: 2, max: 4 } as const;
 
 /** عنوان الموقع — يُستخدم في روابط SEO وخريطة الموقع. */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://simat.store';
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://simatfragrances.com';

@@ -141,7 +141,7 @@ cp .env.example .env.local
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
-NEXT_PUBLIC_SITE_URL=https://simat.store
+NEXT_PUBLIC_SITE_URL=https://simatfragrances.com
 ```
 
 > مفتاح `anon` ده **آمن** إنه يبقى في المتصفح — الحماية الحقيقية في
@@ -211,7 +211,7 @@ cd web
 docker build \
   --build-arg NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co \
   --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ... \
-  --build-arg NEXT_PUBLIC_SITE_URL=https://simat.store \
+  --build-arg NEXT_PUBLIC_SITE_URL=https://simatfragrances.com \
   -t simat-web .
 
 docker run -d --name simat-web --restart always -p 3000:3000 simat-web
