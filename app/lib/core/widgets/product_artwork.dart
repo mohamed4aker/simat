@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
 import 'simat_pattern.dart';
 
@@ -46,8 +47,10 @@ class ProductArtwork extends StatelessWidget {
     );
   }
 
-  Widget _buildImage(String path) {
+  Widget _buildImage(String raw) {
     final fallback = _BottleArt(seed: seed, showPattern: showPattern);
+    // صور الموقع (/products/x.webp) بتتحمّل من الموقع نفسه.
+    final path = raw.startsWith('/') ? '${AppConstants.apiBaseUrl}$raw' : raw;
     if (path.startsWith('http')) {
       return Image.network(
         path,

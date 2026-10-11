@@ -71,6 +71,8 @@ const sheetProducts: Product[] = catalogRows.map((r) => ({
   occasion: r.occasion,
   occasionAr: r.occasionAr,
   related: [...r.related],
+  imageUrl: r.imageUrl,
+  hoverImageUrl: r.hoverImageUrl,
   variants: r.variants.map((v) => ({ ...v })),
   price: r.variants.find((v) => v.sizeMl === DEFAULT_SIZE)?.price ?? 0,
   sizeMl: DEFAULT_SIZE,

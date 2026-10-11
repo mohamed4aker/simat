@@ -17,6 +17,8 @@ import openpyxl
 
 SRC = Path(sys.argv[1] if len(sys.argv) > 1 else '../docs/data/SIMAT_Arabic_PDP_Content_System.xlsx')
 OUT = Path(__file__).resolve().parent.parent / 'src' / 'lib' / 'catalog.data.ts'
+# صور العطور (scripts/import-images.mjs).
+IMAGES = Path(__file__).resolve().parent.parent / 'public' / 'products'
 
 # الشيت مفيهوش عمود Category (FOR HER / FOR HIM)، فاتحدد من العطر
 # المستوحى منه. راجعه وعدّله هنا أو من لوحة التحكم.
@@ -116,6 +118,10 @@ for row in ws.iter_rows(min_row=2, values_only=True):
         'related': [slugify(get(f'Related Product {n}')) for n in (1, 2, 3) if get(f'Related Product {n}')],
         'variants': [{'sizeMl': ml, 'price': price}
                      for ml, price in (PREMIUM_PRICES if pid in PREMIUM else PRICES).items()],
+        'imageUrl': f'/products/{slugify(name)}.webp'
+                    if (IMAGES / f'{slugify(name)}.webp').exists() else None,
+        'hoverImageUrl': f'/products/{slugify(name)}-notes.webp'
+                         if (IMAGES / f'{slugify(name)}-notes.webp').exists() else None,
         'gender': gender,
         'labelStyle': label_style(gender, family),
         'isFeatured': featured_rank is not None,

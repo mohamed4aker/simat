@@ -79,6 +79,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/nocturne.webp",
+    "hoverImageUrl": "/products/nocturne-notes.webp",
     "gender": "women",
     "labelStyle": "bordeaux",
     "isFeatured": true,
@@ -158,6 +160,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/anima.webp",
+    "hoverImageUrl": "/products/anima-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -231,6 +235,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/velvet-ego.webp",
+    "hoverImageUrl": "/products/velvet-ego-notes.webp",
     "gender": "women",
     "labelStyle": "bordeaux",
     "isFeatured": false,
@@ -303,6 +309,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/alter.webp",
+    "hoverImageUrl": "/products/alter-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -386,6 +394,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/euphoria.webp",
+    "hoverImageUrl": "/products/euphoria-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -460,6 +470,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/reverie.webp",
+    "hoverImageUrl": "/products/reverie-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -536,6 +548,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/pulse.webp",
+    "hoverImageUrl": "/products/pulse-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -616,6 +630,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/duality.webp",
+    "hoverImageUrl": "/products/duality-notes.webp",
     "gender": "women",
     "labelStyle": "bordeaux",
     "isFeatured": true,
@@ -694,6 +710,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/libera.webp",
+    "hoverImageUrl": "/products/libera-notes.webp",
     "gender": "women",
     "labelStyle": "bordeaux",
     "isFeatured": false,
@@ -774,6 +792,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/memoria.webp",
+    "hoverImageUrl": "/products/memoria-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -854,6 +874,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/soften.webp",
+    "hoverImageUrl": "/products/soften-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -934,6 +956,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/liminal.webp",
+    "hoverImageUrl": "/products/liminal-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -1012,6 +1036,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/aura.webp",
+    "hoverImageUrl": "/products/aura-notes.webp",
     "gender": "women",
     "labelStyle": "bordeaux",
     "isFeatured": false,
@@ -1084,6 +1110,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/psyche.webp",
+    "hoverImageUrl": "/products/psyche-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -1162,6 +1190,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/serenity.webp",
+    "hoverImageUrl": "/products/serenity-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -1238,6 +1268,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/comfort.webp",
+    "hoverImageUrl": "/products/comfort-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -1322,6 +1354,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/soma.webp",
+    "hoverImageUrl": "/products/soma-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": true,
@@ -1401,6 +1435,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/limen.webp",
+    "hoverImageUrl": "/products/limen-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -1482,6 +1518,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/imprint.webp",
+    "hoverImageUrl": "/products/imprint-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": true,
@@ -1559,6 +1597,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/ascend.webp",
+    "hoverImageUrl": "/products/ascend-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -1636,6 +1676,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/shadow.webp",
+    "hoverImageUrl": "/products/shadow-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -1716,6 +1758,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/temper.webp",
+    "hoverImageUrl": "/products/temper-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -1790,6 +1834,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/obsession.webp",
+    "hoverImageUrl": "/products/obsession-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -1868,6 +1914,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/sovereign.webp",
+    "hoverImageUrl": "/products/sovereign-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -1950,6 +1998,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/attach.webp",
+    "hoverImageUrl": "/products/attach-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -2030,6 +2080,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/identity.webp",
+    "hoverImageUrl": "/products/identity-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -2106,6 +2158,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/provocateur.webp",
+    "hoverImageUrl": "/products/provocateur-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -2189,6 +2243,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/clarity.webp",
+    "hoverImageUrl": "/products/clarity-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": true,
@@ -2271,6 +2327,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/impulse.webp",
+    "hoverImageUrl": "/products/impulse-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -2348,6 +2406,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/dark-matter.webp",
+    "hoverImageUrl": "/products/dark-matter-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -2428,6 +2488,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/nostalgia.webp",
+    "hoverImageUrl": "/products/nostalgia-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -2510,6 +2572,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/flow.webp",
+    "hoverImageUrl": "/products/flow-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -2590,6 +2654,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/instinct.webp",
+    "hoverImageUrl": "/products/instinct-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": true,
@@ -2668,6 +2734,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/root.webp",
+    "hoverImageUrl": "/products/root-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -2748,6 +2816,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/legacy.webp",
+    "hoverImageUrl": "/products/legacy-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": true,
@@ -2828,6 +2898,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/magnet.webp",
+    "hoverImageUrl": "/products/magnet-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -2908,6 +2980,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/obsidian.webp",
+    "hoverImageUrl": "/products/obsidian-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -2988,6 +3062,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/poise.webp",
+    "hoverImageUrl": "/products/poise-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -3066,6 +3142,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/vector.webp",
+    "hoverImageUrl": "/products/vector-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -3148,6 +3226,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/ignite.webp",
+    "hoverImageUrl": "/products/ignite-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -3228,6 +3308,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/rebel.webp",
+    "hoverImageUrl": "/products/rebel-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -3306,6 +3388,8 @@ export const catalogRows = [
         "price": 999
       }
     ],
+    "imageUrl": "/products/nexus.webp",
+    "hoverImageUrl": "/products/nexus-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -3388,6 +3472,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/desire.webp",
+    "hoverImageUrl": "/products/desire-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -3470,6 +3556,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/tobacco.webp",
+    "hoverImageUrl": "/products/tobacco-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -3550,6 +3638,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/umbra.webp",
+    "hoverImageUrl": "/products/umbra-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -3628,6 +3718,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/regal.webp",
+    "hoverImageUrl": "/products/regal-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -3708,6 +3800,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/imperium.webp",
+    "hoverImageUrl": "/products/imperium-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -3788,6 +3882,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/mood.webp",
+    "hoverImageUrl": "/products/mood-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -3862,6 +3958,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/resonance.webp",
+    "hoverImageUrl": "/products/resonance-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -3940,6 +4038,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/feral.webp",
+    "hoverImageUrl": "/products/feral-notes.webp",
     "gender": "men",
     "labelStyle": "noir",
     "isFeatured": false,
@@ -4019,6 +4119,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/noesis.webp",
+    "hoverImageUrl": "/products/noesis-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -4093,6 +4195,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/cloud.webp",
+    "hoverImageUrl": "/products/cloud-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": true,
@@ -4171,6 +4275,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/spark.webp",
+    "hoverImageUrl": "/products/spark-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -4248,6 +4354,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/pearl.webp",
+    "hoverImageUrl": "/products/pearl-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,
@@ -4322,6 +4430,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
+    "imageUrl": "/products/aureate.webp",
+    "hoverImageUrl": "/products/aureate-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,

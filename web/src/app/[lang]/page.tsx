@@ -9,6 +9,7 @@ import { defaultVariant, hasPrice } from '@/lib/pricing';
 import { STORE } from '@/lib/constants';
 import { getProducts } from '@/lib/store';
 import { Coffret, Flacon } from '@/components/brand/Flacon';
+import { ProductImage } from '@/components/product/ProductImage';
 import { BestSellers } from '@/components/home/BestSellers';
 import { ScentFinder } from '@/components/home/ScentFinder';
 import { Layering } from '@/components/home/Layering';
@@ -81,14 +82,20 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
                   <span>{dict.hero.cardAtelier}</span>
                   <span className="text-bordeaux font-medium"><bdi className="latin">{defaultVariant(signature).sizeMl} ML</bdi> · {dict.concentrationShort[signature.concentration]}</span>
                 </div>
-                <Link href={to(lang, `/product/${signature.slug}`)} className="my-auto hover:scale-105 transition-transform duration-500" aria-label={signatureText.name}>
-                  <Flacon
-                    labelStyle={signature.labelStyle}
-                    name={shortName(signature)}
-                    concentration={dict.concentration[signature.concentration]}
-                    size="lg"
-                  />
-                </Link>
+                {signature.imageUrl ? (
+                  <Link href={to(lang, `/product/${signature.slug}`)} className="relative w-full flex-1 my-4 hover:scale-105 transition-transform duration-500" aria-label={signatureText.name}>
+                    <ProductImage src={signature.imageUrl} alt={signatureText.name} fit="contain" priority sizes="(max-width: 1024px) 80vw, 400px" />
+                  </Link>
+                ) : (
+                  <Link href={to(lang, `/product/${signature.slug}`)} className="my-auto hover:scale-105 transition-transform duration-500" aria-label={signatureText.name}>
+                    <Flacon
+                      labelStyle={signature.labelStyle}
+                      name={shortName(signature)}
+                      concentration={dict.concentration[signature.concentration]}
+                      size="lg"
+                    />
+                  </Link>
+                )}
                 <div className="w-full pt-4 border-t border-stone-300/80 flex items-center justify-between gap-4 text-xs">
                   <div className="min-w-0">
                     <h3 className="font-serif text-sm text-noir">{displayName(signature, lang, dict.concentration)}</h3>

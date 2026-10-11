@@ -148,7 +148,7 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
             )}
           </div>
           {product.hoverImageUrl && (
-            <div className="relative aspect-[4/5] border border-linen-border overflow-hidden">
+            <div className="relative aspect-square border border-linen-border overflow-hidden">
               <ProductImage src={product.hoverImageUrl} alt={title} />
             </div>
           )}

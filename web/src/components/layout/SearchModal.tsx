@@ -11,6 +11,7 @@ import { productText, shortName } from '@/lib/localize';
 import { useUi, uiStore } from '@/components/cart/CartProvider';
 import { Modal } from '@/components/ui/Modal';
 import { Flacon } from '@/components/brand/Flacon';
+import { ProductImage } from '@/components/product/ProductImage';
 import type { Product } from '@/lib/types';
 
 /** بحث فوري في العطور بالاسم أو النوتات (عربي أو إنجليزي). */
@@ -73,9 +74,15 @@ export function SearchModal({ products }: { products: Product[] }) {
                   className="flex items-center gap-4 py-3 hover:bg-linen transition-colors"
                 >
                   <div className="w-12 h-14 bg-linen-dark border border-linen-border flex items-center justify-center overflow-hidden shrink-0">
-                    <div className="scale-[0.3]">
-                      <Flacon labelStyle={p.labelStyle} name={shortName(p)} concentration="" size="sm" kind={p.kind} />
-                    </div>
+                    {p.imageUrl ? (
+                      <div className="relative w-full h-full">
+                        <ProductImage src={p.imageUrl} alt={text.name} fit="contain" sizes="48px" />
+                      </div>
+                    ) : (
+                      <div className="scale-[0.3]">
+                        <Flacon labelStyle={p.labelStyle} name={shortName(p)} concentration="" size="sm" kind={p.kind} />
+                      </div>
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-serif text-noir font-bold truncate">{text.name}</p>

@@ -14,6 +14,7 @@ import { cartStore, useCart, useUi, uiStore } from './CartProvider';
 import { lineKey } from '@/lib/cart-store';
 import { useLockScroll } from '@/components/ui/Modal';
 import { Flacon } from '@/components/brand/Flacon';
+import { ProductImage } from '@/components/product/ProductImage';
 import { btn, field } from '@/components/ui/store';
 
 /** السلة الجانبية: كود الخصم، عدّاد الشحن المجاني، الهدية، والإجمالي. */
@@ -94,9 +95,15 @@ export function CartDrawer() {
                       onClick={() => uiStore.close()}
                       className="w-16 h-20 bg-[#ebe5db] shrink-0 border border-linen-border flex items-center justify-center overflow-hidden"
                     >
-                      <div className="scale-[0.34]">
-                        <Flacon labelStyle={line.labelStyle ?? 'bordeaux'} name="" concentration="" size="sm" kind={line.kind} />
-                      </div>
+                      {line.imageUrl ? (
+                        <div className="relative w-full h-full">
+                          <ProductImage src={line.imageUrl} alt={line.nameEn || line.name} fit="contain" sizes="64px" />
+                        </div>
+                      ) : (
+                        <div className="scale-[0.34]">
+                          <Flacon labelStyle={line.labelStyle ?? 'bordeaux'} name="" concentration="" size="sm" kind={line.kind} />
+                        </div>
+                      )}
                     </Link>
                     <div className="flex-1 flex flex-col justify-between min-w-0">
                       <div className="flex justify-between items-start gap-2">

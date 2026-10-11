@@ -21,6 +21,7 @@ import { to } from '@/lib/href';
 import { productText, shortName } from '@/lib/localize';
 import { whatsappLink } from '@/lib/constants';
 import { Coffret, Flacon } from '@/components/brand/Flacon';
+import { ProductImage } from '@/components/product/ProductImage';
 import type { Product } from '@/lib/types';
 
 type MenuKey = 'shop' | 'discover' | 'collections' | 'about';
@@ -215,14 +216,20 @@ function ShopPanel({ featured }: { featured: Product | null }) {
           className="group/card bg-linen p-5 border border-linen-border flex gap-4 items-center hover:border-bordeaux/40 transition-colors"
         >
           <div className="w-24 aspect-[3/4] bg-gradient-to-b from-[#ece5da] to-[#dfd6c7] border border-linen-border flex items-center justify-center overflow-hidden shrink-0">
-            <div className="scale-[0.55] group-hover/card:scale-[0.6] transition-transform duration-500">
-              <Flacon
-                labelStyle={featured.labelStyle}
-                name={shortName(featured)}
-                concentration={dict.concentrationShort[featured.concentration]}
-                size="sm"
-              />
-            </div>
+            {featured.imageUrl ? (
+              <div className="relative w-full h-full group-hover/card:scale-105 transition-transform duration-500">
+                <ProductImage src={featured.imageUrl} alt={shortName(featured)} fit="contain" sizes="96px" />
+              </div>
+            ) : (
+              <div className="scale-[0.55] group-hover/card:scale-[0.6] transition-transform duration-500">
+                <Flacon
+                  labelStyle={featured.labelStyle}
+                  name={shortName(featured)}
+                  concentration={dict.concentrationShort[featured.concentration]}
+                  size="sm"
+                />
+              </div>
+            )}
           </div>
           <div className="min-w-0">
             <span className="text-[9px] uppercase tracking-wider text-bordeaux font-serif block mb-1 font-bold">
