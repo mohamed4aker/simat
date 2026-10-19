@@ -180,9 +180,9 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
 
                       // المواصفات السريعة
                       if (!product.isSet) ...[
-                        _Spec(label: 'العائلة', value: product.familyText),
-                        _Spec(label: 'الطابع', value: product.scentCharacterText),
-                        _Spec(label: 'مناسب لـ', value: product.occasionText),
+                        _Spec(label: 'Scent', value: product.familyText),
+                        _Spec(label: 'Character', value: product.scentCharacterText),
+                        _Spec(label: 'Best for', value: product.occasionText),
                         const SizedBox(height: 14),
                       ],
 
@@ -303,7 +303,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                         )
                       else
                         _Section(
-                          title: 'Scent Notes · المكونات العطرية',
+                          title: 'Scent Notes',
                           initiallyExpanded: true,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,16 +330,16 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                         ),
                       if (product.wearProfileText.isNotEmpty)
                         _Section(
-                          title: 'Wear Profile · شخصية العطر',
+                          title: 'Wear Profile',
                           child: _NotesLine(product.wearProfileText),
                         ),
                       if (product.related.isNotEmpty)
                         _Section(
-                          title: 'Layer It With · ركّبه مع',
+                          title: 'Layer It With',
                           child: _LayerWith(product: product),
                         ),
                       _Section(
-                        title: 'Description · الوصف',
+                        title: 'Description',
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -587,7 +587,7 @@ class _LayerWith extends ConsumerWidget {
                           ),
                         ),
                         Text(
-                          '${Fmt.price(p.defaultVariant.price)} · ${p.defaultVariant.sizeMl} مل',
+                          '${Fmt.price(p.defaultVariant.price)} · ${p.defaultVariant.sizeMl} ml',
                           style: const TextStyle(
                             fontSize: 12,
                             color: AppColors.primary,
@@ -712,7 +712,7 @@ class _BuyBar extends StatelessWidget {
                           ? 'السعر قريباً'
                           : product.isSet
                               ? Fmt.price(price)
-                              : '${Fmt.price(price)} · $size مل',
+                              : '${Fmt.price(price)} · $size ml',
                       style: const TextStyle(
                         color: AppColors.primary,
                         fontSize: 12.5,

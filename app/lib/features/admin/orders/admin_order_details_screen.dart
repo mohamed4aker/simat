@@ -163,7 +163,7 @@ class AdminOrderDetailsScreen extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                '${item.sizeMl} مل × ${item.quantity} · '
+                                '${item.sizeMl} ml × ${item.quantity} · '
                                 '${Fmt.price(item.unitPrice)}',
                                 style: const TextStyle(
                                   fontSize: 11.5,

@@ -102,7 +102,7 @@ class OrderDetailsScreen extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                '${item.sizeMl} مل × ${item.quantity}',
+                                '${item.sizeMl} ml × ${item.quantity}',
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: AppColors.textMuted,

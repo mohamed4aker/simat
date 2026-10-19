@@ -120,7 +120,7 @@ class CartScreen extends ConsumerWidget {
                                       ),
                                     ),
                                     Text(
-                                      '${item.sizeMl} مل',
+                                      '${item.sizeMl} ml',
                                       style: const TextStyle(
                                         fontSize: 12,
                                         color: AppColors.textMuted,
