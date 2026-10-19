@@ -1286,8 +1286,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
-    "imageUrl": null,
-    "hoverImageUrl": null,
+    "imageUrl": "/products/amoria.webp",
+    "hoverImageUrl": "/products/amoria-notes.webp",
     "gender": "women",
     "labelStyle": "linen",
     "isFeatured": false,
@@ -4641,8 +4641,8 @@ export const catalogRows = [
         "price": 900
       }
     ],
-    "imageUrl": null,
-    "hoverImageUrl": null,
+    "imageUrl": "/products/paradox.webp",
+    "hoverImageUrl": "/products/paradox-notes.webp",
     "gender": "unisex",
     "labelStyle": "velvet",
     "isFeatured": false,

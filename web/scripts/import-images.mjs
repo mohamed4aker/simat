@@ -10,21 +10,29 @@
  * فولدر من غير رقم (زي «Untitled folder») فيه كذا عطر، فبيتجمّع بالاسم.
  * الفولدرات المتداخلة بتتقري كلها.
  *
- *   node scripts/import-images.mjs "<فولدر الصور>"
+ *   node scripts/import-images.mjs "<فولدر الصور>" [--by-id] [--skip=39,40]
  *   python3 scripts/import-catalog.py   # بيربط الصور بالعطور
+ *
+ * --by-id: الفولدرات المترقمة بنفس أرقام الشيت النهائي (Product ID)، فالعطر
+ *          بيتعرف من رقم الفولدر بدل اسم الملف.
+ * --skip:  فولدرات تتساب (مثلاً فولدر فيه صور عطر تاني بالغلط).
  */
 import { readdirSync, mkdirSync, readFileSync } from 'node:fs';
 import sharp from 'sharp';
 
 const src = process.argv[2];
 if (!src) throw new Error('حدد فولدر الصور');
+const byId = process.argv.includes('--by-id');
+const skip = new Set(
+  (process.argv.find((a) => a.startsWith('--skip=')) ?? '--skip=').slice(7).split(',').filter(Boolean),
+);
 const out = new URL('../public/products/', import.meta.url);
 mkdirSync(out, { recursive: true });
 
 const catalog = readFileSync(new URL('../src/lib/catalog.data.ts', import.meta.url), 'utf8');
-const slugs = new Set(
-  JSON.parse(catalog.slice(catalog.indexOf('['), catalog.lastIndexOf(']') + 1)).map((r) => r.slug),
-);
+const rows = JSON.parse(catalog.slice(catalog.indexOf('['), catalog.lastIndexOf(']') + 1));
+const slugs = new Set(rows.map((r) => r.slug));
+const slugById = new Map(rows.map((r) => [String(r.sheetId), r.slug]));
 const slugOf = (file) =>
   file.replace(/\.[^.]+$/, '').replace(/\s*\d+\s*copy$/i, '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
@@ -38,6 +46,10 @@ function folders(path) {
 const found = {};
 for (const path of folders(src)) {
   const dir = path.split('/').pop();
+  if (skip.has(dir)) {
+    console.warn(`⚠ فولدر «${dir}» اتساب (--skip)`);
+    continue;
+  }
   const files = readdirSync(path, { withFileTypes: true })
     .filter((e) => e.isFile() && /\.(png|jpe?g)$/i.test(e.name))
     .map((e) => e.name);
@@ -50,7 +62,8 @@ for (const path of folders(src)) {
   if (/^\d+$/.test(dir)) {
     const bottle = meta.find(isBottle);
     if (!bottle) continue;
-    found[slugOf(bottle.f)] = { bottle, scene: meta.find(isScene) };
+    const slug = byId ? slugById.get(dir) ?? slugOf(bottle.f) : slugOf(bottle.f);
+    found[slug] = { bottle, scene: meta.find(isScene) };
   } else {
     for (const m of meta) {
       const entry = (found[slugOf(m.f)] ??= {});

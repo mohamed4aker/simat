@@ -66,7 +66,7 @@ npm run export:app    # نسخة الكتالوج المدمجة في الأبل
   منه في `GENDER` جوه `scripts/import-catalog.py` — راجعه.
 - **خلية عربي ناقصة** (مقطوعة بـ «...») بتتساب فاضية فيظهر الإنجليزي مكانها.
 - **الصور:** فولدر صور العميل (فولدر لكل عطر برقمه في الشيت) →
-  `node scripts/import-images.mjs "<فولدر الصور>"` → بيطلع `public/products/<slug>.webp`
+  `node scripts/import-images.mjs "<فولدر الصور>" --by-id` (الفولدرات بأرقام الشيت النهائي) → بيطلع `public/products/<slug>.webp`
   (الزجاجة) و`<slug>-notes.webp` (المكونات، للهوفر)، وبعدها شغّل `import-catalog.py`.
   أو من لوحة التحكم ← المنتج ← «رابط الصورة» و«صورة الهوفر».
 
