@@ -48,12 +48,12 @@
 
 ### تحديث العطور من شيت المنتجات
 
-الكتالوج جاي من `docs/data/SIMAT_Arabic_PDP_Content_System.xlsx` (فيه
+الكتالوج جاي من `docs/data/SIMAT_PDP_Content_System_Final.xlsx` (الشيت النهائي، فيه
 المحتوى بالإنجليزي والعربي). لو الشيت اتعدّل:
 
 ```bash
 pip install openpyxl
-python3 scripts/import-catalog.py ../docs/data/SIMAT_Arabic_PDP_Content_System.xlsx
+python3 scripts/import-catalog.py ../docs/data/SIMAT_PDP_Content_System_Final.xlsx
 npm run gen:seed      # supabase/seed.sql
 npm run export:app    # نسخة الكتالوج المدمجة في الأبلكيشن
 ```
@@ -61,7 +61,7 @@ npm run export:app    # نسخة الكتالوج المدمجة في الأبل
 - **الأسعار** من العميل في `PRICES` و`PREMIUM` جوه `scripts/import-catalog.py`
   (450 / 700 / 900، والعشرة المميزين 499 / 749 / 999) — أو عدّلها لكل عطر من
   لوحة التحكم. منتج من غير سعر بيظهر «السعر قريباً» ومينفعش يتطلب.
-- **عطور اتشالت:** في `EXCLUDE` (GROUND و APEX و SANCTUM).
+- **عطور اتشالت:** في `EXCLUDE` (REGAL و SANCTUM و PEARL اللي بقى PARADOX).
 - **FOR HER / FOR HIM:** الشيت مفيهوش عمود Category، فاتحدد من العطر المستوحى
   منه في `GENDER` جوه `scripts/import-catalog.py` — راجعه.
 - **خلية عربي ناقصة** (مقطوعة بـ «...») بتتساب فاضية فيظهر الإنجليزي مكانها.

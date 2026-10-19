@@ -18,7 +18,7 @@ function recommend(answers: string[]): string {
   if (note === 'musk') return 'noesis';
   if (profile === 'fresh') return 'flow';
   if (profile === 'fruit') return 'cloud';
-  if (profile === 'warm' && note === 'oud') return 'regal';
+  if (profile === 'warm' && note === 'oud') return 'sovereign';
   if (profile === 'warm') return 'soma';
   if (profile === 'rose') return 'imprint';
   if (note === 'amber') return 'imperium';

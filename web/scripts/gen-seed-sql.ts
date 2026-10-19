@@ -138,8 +138,8 @@ lines.push(
   "  'p_001','p_002','p_003','p_004','p_005','p_006','p_007','p_008','p_009','p_010',",
   "  'p_011','p_012','p_013','p_014','p_015','p_016','p_017','p_018','p_019','p_020',",
   "  'simat-bordeaux','simat-noir','simat-ivoire','royal-velvet');",
-  '-- عطور اتشالت من الكتالوج بطلب العميل.',
-  "update public.products set is_active = false where id in ('ground','apex','sanctum');",
+  '-- عطور اتشالت من الكتالوج بطلب العميل (الشيت النهائي).',
+  "update public.products set is_active = false where id in ('regal','sanctum','pearl');",
   "update public.categories set is_active = false where id in (",
   "  'cat_oriental','cat_french','cat_oud','cat_niche','cat_body','cat_gift');",
 );

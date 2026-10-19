@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-بيحوّل شيت المنتجات (SIMAT_Arabic_PDP_Content_System.xlsx — فيه الإنجليزي
+بيحوّل شيت المنتجات النهائي (SIMAT_PDP_Content_System_Final.xlsx — فيه الإنجليزي
 والعربي) لكتالوج الموقع: src/lib/catalog.data.ts — ومنه بيتولّد
 supabase/seed.sql (npm run gen:seed) وكتالوج الأبلكيشن (npm run export:app).
 
     pip install openpyxl
-    python3 scripts/import-catalog.py ../docs/data/SIMAT_Arabic_PDP_Content_System.xlsx
+    python3 scripts/import-catalog.py ../docs/data/SIMAT_PDP_Content_System_Final.xlsx
     npm run gen:seed && npm run export:app
 """
 import json
@@ -15,31 +15,46 @@ from pathlib import Path
 
 import openpyxl
 
-SRC = Path(sys.argv[1] if len(sys.argv) > 1 else '../docs/data/SIMAT_Arabic_PDP_Content_System.xlsx')
+SRC = Path(sys.argv[1] if len(sys.argv) > 1 else '../docs/data/SIMAT_PDP_Content_System_Final.xlsx')
 OUT = Path(__file__).resolve().parent.parent / 'src' / 'lib' / 'catalog.data.ts'
 # صور العطور (scripts/import-images.mjs).
 IMAGES = Path(__file__).resolve().parent.parent / 'public' / 'products'
 
-# الشيت مفيهوش عمود Category (FOR HER / FOR HIM)، فاتحدد من العطر
-# المستوحى منه. راجعه وعدّله هنا أو من لوحة التحكم.
-# 35 و42 و44 رجالي حسب جدول أسعار العميل.
-GENDER = {
-    **{i: 'women' for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 55, 56]},
-    **{i: 'men' for i in [20, 21, 23, 26, 27, 28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 53]},
-    **{i: 'unisex' for i in [16, 17, 18, 19, 22, 24, 25, 31, 32, 47, 48, 49, 50, 51, 52, 54, 57, 58]},
+# الشيت مفيهوش عمود Category. ترتيب الشيت النهائي (من العميل):
+#   1–17 حريمي · 18–21 للجنسين · 22–46 رجالي
+# ومن 47 لـ 58 مقالوش، فاتحددوا من العطر المستوحى منه — راجعهم.
+GENDER_BY_NAME = {
+    'DESIRE': 'men', 'TOBACCO': 'men', 'UMBRA': 'unisex', 'IMPERIUM': 'unisex',
+    'MOOD': 'unisex', 'RESONANCE': 'unisex', 'FERAL': 'men', 'NOESIS': 'unisex',
+    'CLOUD': 'women', 'SPARK': 'women', 'PARADOX': 'unisex', 'AUREATE': 'unisex',
 }
 
-# عطور اتشالت من الكتالوج (مش هتنزل): GROUND و APEX و SANCTUM.
-EXCLUDE = {21, 37, 49}
+
+def gender_of(pid: int, short: str) -> str:
+    if short in GENDER_BY_NAME:
+        return GENDER_BY_NAME[short]
+    if pid <= 17:
+        return 'women'
+    if pid <= 21:
+        return 'unisex'
+    if pid <= 46:
+        return 'men'
+    return 'unisex'
+
+
+# عطور اتلغت (لو رجعت في شيت قديم مش هتنزل).
+EXCLUDE = {'REGAL', 'SANCTUM', 'PEARL'}
 
 # الأسعار من العميل: 450 / 700 / 900 لكل العطور (40 / 60 / 100 مل)،
-# ما عدا العشرة دول 499 / 749 / 999.
+# ما عدا العشرة دول 499 / 749 / 999. (بالاسم عشان الأرقام بتتغير.)
 PRICES = {40: 450, 60: 700, 100: 900}
 PREMIUM_PRICES = {40: 499, 60: 749, 100: 999}
-PREMIUM = {20, 33, 35, 36, 38, 40, 41, 42, 43, 44}
+PREMIUM = {'LEGACY', 'ROOT', 'FLOW', 'POISE', 'MAGNET', 'ASCEND', 'VECTOR',
+           'NEXUS', 'REBEL', 'IGNITE'}
 
 # العطور اللي بتظهر في «الأكثر طلباً» والـ Mega Menu (بالترتيب).
-FEATURED = [1, 19, 29, 34, 17, 55, 36, 8]
+FEATURED = ['NOCTURNE', 'IMPRINT', 'CLARITY', 'INSTINCT', 'SOMA', 'CLOUD',
+            'LEGACY', 'DUALITY']
 
 
 def slugify(name: str) -> str:
@@ -69,8 +84,6 @@ for row in ws.iter_rows(min_row=2, values_only=True):
     if not row[col['Product ID']]:
         continue
     pid = int(row[col['Product ID']])
-    if pid in EXCLUDE:
-        continue
     get = lambda key: str(row[col[key]] or '').strip() if key in col else ''
 
     def get_ar(key: str) -> str:
@@ -84,9 +97,12 @@ for row in ws.iter_rows(min_row=2, values_only=True):
     def split_ar(key: str) -> list[str]:
         return [p.strip() for p in re.split(r'[،,]', get_ar(key)) if p.strip()]
     name = get('SIMAT Name')
+    short = re.sub(r'^SIMAT\s+', '', name, flags=re.I).upper()
+    if short in EXCLUDE:
+        continue
     family = get('Fragrance Family')
-    gender = GENDER.get(pid, 'unisex')
-    featured_rank = FEATURED.index(pid) if pid in FEATURED else None
+    gender = gender_of(pid, short)
+    featured_rank = FEATURED.index(short) if short in FEATURED else None
     products.append({
         'id': slugify(name),
         'slug': slugify(name),
@@ -117,7 +133,7 @@ for row in ws.iter_rows(min_row=2, values_only=True):
         'occasionAr': get_ar('Occasion / Character').rstrip('.'),
         'related': [slugify(get(f'Related Product {n}')) for n in (1, 2, 3) if get(f'Related Product {n}')],
         'variants': [{'sizeMl': ml, 'price': price}
-                     for ml, price in (PREMIUM_PRICES if pid in PREMIUM else PRICES).items()],
+                     for ml, price in (PREMIUM_PRICES if short in PREMIUM else PRICES).items()],
         'imageUrl': f'/products/{slugify(name)}.webp'
                     if (IMAGES / f'{slugify(name)}.webp').exists() else None,
         'hoverImageUrl': f'/products/{slugify(name)}-notes.webp'

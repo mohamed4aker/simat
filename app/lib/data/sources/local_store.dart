@@ -30,7 +30,7 @@ class LocalStore {
 
   /// نسخة كتالوج الشيت المدمج. زوّدها لما الملف المدمج يتغيّر.
   static const String _kCatalogVersion = 'simat.catalog.version';
-  static const int catalogVersion = 2;
+  static const int catalogVersion = 3;
 
   /// كتالوج الموقع المدمج جوه الأبلكيشن (npm run export:app).
   static const String catalogAsset = 'assets/data/catalog.json';

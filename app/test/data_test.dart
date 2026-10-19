@@ -130,12 +130,16 @@ void main() {
       expect(nocturne.related, isNotEmpty);
     });
 
-    test('أسعار العميل والعطور المشالة والمحتوى العربي', () async {
+    test('الشيت النهائي: الأسعار والعطور المشالة والمحتوى العربي', () async {
       final repository = CatalogRepository(store);
       final all = await repository.allProducts(includeInactive: true);
-      expect(all.where((p) => p.kind == 'bottle').length, 55);
-      for (final id in ['ground', 'apex', 'sanctum']) {
+      // الشيت النهائي: 58 عطر، REGAL و SANCTUM اتلغوا و PEARL بقى PARADOX.
+      expect(all.where((p) => p.kind == 'bottle').length, 58);
+      for (final id in ['regal', 'sanctum', 'pearl']) {
         expect(await repository.productById(id), isNull);
+      }
+      for (final id in ['ground', 'apex', 'amoria', 'lumina', 'paradox']) {
+        expect(await repository.productById(id), isNotNull);
       }
 
       final anima = (await repository.productById('anima'))!;
