@@ -1,26 +1,42 @@
 'use client';
 
-import { Gift } from 'lucide-react';
+import { Truck, Banknote, Sparkles } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { fill } from '@/i18n/fill';
 import { FREE_SHIPPING_THRESHOLD } from '@/lib/constants';
 import { priceNumber } from '@/lib/format';
 
+/** شريط الإعلانات: رسايل بتتحرك بهدوء (وبتقف لما الماوس يقف عليها). */
 export function AnnouncementBar() {
   const { dict } = useI18n();
+  const t = dict.announcement;
+  const messages = [
+    { icon: Truck, text: fill(t.delivery, { amount: priceNumber(FREE_SHIPPING_THRESHOLD) }) },
+    { icon: Banknote, text: t.cod },
+    { icon: Sparkles, text: t.quality },
+  ];
+  // نسختين ورا بعض عشان الحركة تلف من غير ما يبان فيها قطع.
+  const group = (hidden: boolean) => (
+    <div className="flex shrink-0 items-center" aria-hidden={hidden || undefined}>
+      {messages.map(({ icon: Icon, text }) => (
+        <span key={text} className="flex items-center gap-2.5 px-10 whitespace-nowrap">
+          <Icon className="w-4 h-4 text-gold shrink-0" strokeWidth={1.6} />
+          <span>{text}</span>
+        </span>
+      ))}
+    </div>
+  );
+
   return (
     <aside
       aria-label="Announcement"
-      className="bg-bordeaux text-linen-light text-[11px] tracking-wider uppercase py-2.5 px-4 flex items-center justify-center gap-6 text-center"
+      className="marquee bg-bordeaux-dark text-linen-light text-[13px] sm:text-sm py-2.5 overflow-hidden"
     >
-      <div className="flex items-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
-        <span>{fill(dict.announcement.delivery, { amount: priceNumber(FREE_SHIPPING_THRESHOLD) })}</span>
-      </div>
-      <span className="hidden md:inline text-white/30">•</span>
-      <div className="hidden md:flex items-center gap-2">
-        <Gift className="w-3.5 h-3.5 text-gold" strokeWidth={1.5} />
-        <span>{dict.announcement.sample}</span>
+      <div className="marquee-track flex w-max">
+        {group(false)}
+        {group(true)}
+        {group(true)}
+        {group(true)}
       </div>
     </aside>
   );

@@ -1,12 +1,12 @@
 // ثوابت المتجر: معلومات التواصل، الشحن، والمحافظات.
 
-// ملحوظة: رقم الواتساب والتليفون هنا مؤقتين — غيّرهم بأرقام المحل الحقيقية.
+// رقم سِمة (واتساب وتليفون) من العميل. الإيميل وحسابات السوشيال لسه مؤقتة.
 export const STORE = {
   name: 'SIMAT',
   nameAr: 'سِمة',
-  phone: '01099999999',
-  phoneDisplay: '+20 10 9999 9999',
-  whatsapp: '201099999999',
+  phone: '01273162855',
+  phoneDisplay: '+20 12 73162855',
+  whatsapp: '201273162855',
   email: 'care@simat.store',
   instagram: 'simat.perfumes',
   facebook: 'simat.perfumes',

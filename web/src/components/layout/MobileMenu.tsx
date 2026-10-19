@@ -1,64 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { ChevronDown, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
 import { useUi, uiStore } from '@/components/cart/CartProvider';
 import { useLockScroll } from '@/components/ui/Modal';
 import { LanguageSwitch } from './LanguageSwitch';
+import { navLinks } from './nav-links';
 
-/** قائمة الموبايل الجانبية — نفس محتوى الـ Mega Menu في أقسام بتتفتح. */
+/** قائمة الموبايل الجانبية — نفس روابط القائمة الرئيسية. */
 export function MobileMenu() {
   const { lang, dict } = useI18n();
   const open = useUi().panel === 'menu';
   useLockScroll(open);
   const close = () => uiStore.close();
-  const t = dict.mega;
-
-  const groups = [
-    {
-      label: dict.nav.shop,
-      links: [
-        [t.shop.all, '/shop'],
-        [t.shop.women, '/shop?gender=women'],
-        [t.shop.men, '/shop?gender=men'],
-        [t.shop.unisex, '/shop?gender=unisex'],
-        [t.shop.bestSellers, '/shop?sort=best-selling'],
-        [dict.shop.families.amber, '/shop?family=amber'],
-        [dict.shop.families.woody, '/shop?family=woody'],
-        [dict.shop.families.floral, '/shop?family=floral'],
-        [dict.shop.families.fresh, '/shop?family=fresh'],
-      ],
-    },
-    {
-      label: dict.nav.discover,
-      links: [
-        [t.discover.finder, '#scent-finder'],
-        [t.discover.layering, '#layering'],
-        [t.discover.tryAtHome, '#discovery-set'],
-        [t.discover.story, '/about'],
-      ],
-    },
-    {
-      label: dict.nav.collections,
-      links: [
-        [t.collections.signature, '/shop?category=signature'],
-        [t.collections.discovery, '/product/discovery-set'],
-        [t.collections.duos, '#layering'],
-      ],
-    },
-    {
-      label: dict.nav.about,
-      links: [
-        [t.about.story, '/about'],
-        [t.about.shipping, '/shipping'],
-        [t.about.faq, '/faq'],
-        [t.about.track, '/track'],
-        [t.about.contact, '/contact'],
-      ],
-    },
-  ];
 
   return (
     <div
@@ -82,23 +38,18 @@ export function MobileMenu() {
             </button>
           </div>
 
-          <div className="py-4 text-xs uppercase tracking-wider text-noir divide-y divide-linen-border">
-            {groups.map((g) => (
-              <details key={g.label} className="group py-2">
-                <summary className="flex justify-between items-center py-2 cursor-pointer">
-                  <span>{g.label}</span>
-                  <ChevronDown className="chevron w-4 h-4 text-stone-400 transition-transform" strokeWidth={1.5} />
-                </summary>
-                <div className="ps-4 pb-2 pt-1 space-y-3 text-stone-600 normal-case tracking-normal text-[13px]">
-                  {g.links.map(([label, path]) => (
-                    <Link key={label} href={to(lang, path)} onClick={close} className="block hover:text-bordeaux">
-                      {label}
-                    </Link>
-                  ))}
-                </div>
-              </details>
+          <nav className="py-4 divide-y divide-linen-border">
+            {navLinks(dict.nav).map(([label, path]) => (
+              <Link
+                key={path}
+                href={to(lang, path)}
+                onClick={close}
+                className="block py-4 text-[15px] text-noir hover:text-bordeaux"
+              >
+                {label}
+              </Link>
             ))}
-          </div>
+          </nav>
         </div>
 
         <div className="border-t border-linen-border pt-6 space-y-4">

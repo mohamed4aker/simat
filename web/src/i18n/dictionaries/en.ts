@@ -12,7 +12,7 @@ export const en = {
     title: 'SIMAT — Fine Fragrances from Alexandria',
     titleTemplate: '%s | SIMAT',
     description:
-      'SIMAT fine fragrances: Extrait de Parfum and Eau de Parfum with high oil concentration, bottled in Egypt. Free 2ml sample with every bottle, cash on delivery across Egypt.',
+      'SIMAT fine fragrances: Extrait de Parfum and Eau de Parfum with high oil concentration, bottled in Egypt. Cash on delivery across Egypt.',
     keywords: [
       'perfume Egypt', 'extrait de parfum', 'oud perfume', 'taif rose',
       'niche perfume Alexandria', 'SIMAT',
@@ -46,11 +46,16 @@ export const en = {
 
   announcement: {
     delivery: 'Free shipping across Egypt on orders over {amount} EGP',
-    sample: 'Every bottle comes with a free 2ml sample to try first',
+    cod: 'Cash on delivery across Egypt',
+    quality: 'High-concentration perfumes that last all day',
   },
 
   // ── Header & mega menus ───────────────────────────────────────
   nav: {
+    home: 'Home',
+    story: 'Our Story',
+    faq: 'FAQ',
+    contact: 'Contact Us',
     shop: 'Shop',
     discover: 'Discover',
     collections: 'Collections',
@@ -142,6 +147,9 @@ export const en = {
 
   // ── Homepage sections (in page order) ─────────────────────────
   hero: {
+    sliderLabel: 'SIMAT highlights',
+    prev: 'Previous',
+    next: 'Next',
     eyebrow: 'SIMAT Fragrances',
     title: 'Perfumes made to stay with you.',
     body: 'Rich woods, fresh florals, and clean musks. Carefully formulated with high concentrations of perfume oil so they stay noticeable on your skin and clothes all day.',
@@ -178,6 +186,7 @@ export const en = {
   },
 
   categories: {
+    cta: 'Shop now',
     eyebrow: 'Categories',
     title: 'Find a Scent That Fits You',
     women: { sub: 'Soft Florals & Musk', title: "Women's Scents", body: 'Taif rose, clean white musk, and soft vanilla.' },
@@ -187,6 +196,7 @@ export const en = {
   },
 
   story: {
+    more: 'Learn more',
     eyebrow: 'Our Story',
     quote: '“A good fragrance is one you feel comfortable wearing every single day.”',
     body: 'We started SIMAT in Alexandria with a clear goal: make high-grade fragrances that actually last, packaged with care, and sold at fair prices. We pick our oils directly from reputable distillers, bottle everything locally in Egypt, and pack every order with care so it feels special — whether it is for you or someone you care about.',
@@ -295,16 +305,26 @@ export const en = {
     tiles: ['SIMAT Bordeaux', 'Taif Damascene Rose', 'Noir Absolu Extrait', 'Gift Box & 2ml Vial'],
   },
 
+  testimonials: {
+    eyebrow: 'Loved by our clients',
+    title: 'What they say about SIMAT',
+  },
+
   faq: {
     eyebrow: 'Practical Answers',
     title: 'Frequently Asked Questions',
-    subtitle: 'Delivery, cash on delivery, inspecting your parcel, and how our sample guarantee works.',
+    subtitle: 'Delivery and shipping costs, cash on delivery, and returns & exchanges.',
     more: 'Still have a question? Message us on WhatsApp →',
     items: [
       {
         topic: 'Delivery',
         q: 'Do you deliver across Egypt, and how long does it take?',
         a: 'Yes, we deliver to all Egyptian governorates. Orders in Alexandria, Cairo, and Giza arrive in 24 to 48 business hours (orders placed before 2:00 PM are dispatched the same day). All other governorates arrive within 2 to 4 business days.',
+      },
+      {
+        topic: 'Shipping Costs',
+        q: 'How is shipping calculated?',
+        a: 'Shipping is calculated automatically at checkout based on your governorate and address, and you will see it before confirming your order.',
       },
       {
         topic: 'Cash on Delivery',
@@ -314,12 +334,12 @@ export const en = {
       {
         topic: 'Parcel Inspection',
         q: 'Can I inspect the parcel with the courier before paying?',
-        a: 'Yes. You may open the parcel, inspect the SIMAT tote bag, and confirm your separate 2ml sample vial is inside before paying the courier. The main 100ml perfume box must remain sealed.',
+        a: 'Yes. You can inspect the parcel with the courier and make sure your order is complete before paying anything.',
       },
       {
-        topic: 'Sample Policy',
-        q: "What is the return policy if I don't like the scent?",
-        a: "Every 100ml bottle includes a complimentary 2ml sample vial packed outside the box. Spray the sample first. If you don't love it, keep the 100ml box sealed and reach out within 14 days — we will arrange collection of the sealed bottle and process your refund.",
+        topic: 'Returns & Exchanges',
+        q: 'What is your return and exchange policy?',
+        a: 'You can request a return or exchange within 14 days of delivery, as long as the perfume is in its original condition with the box sealed. Message us on WhatsApp with your order number and we will arrange everything.',
       },
       {
         topic: 'Damaged Orders',
@@ -345,13 +365,18 @@ export const en = {
   },
 
   footer: {
-    about: 'SIMAT — Fine fragrances blended with quality oils and bottled in Egypt. Made for comfortable wear that lasts.',
+    newArrivals: 'New arrivals',
+    bestSellers: 'Best sellers',
+    allProducts: 'All products',
+    colInfo: 'Information',
+    colShop: 'Shop',
+    about: 'SIMAT — refined perfumes with concentrated oils and real longevity, made to become the signature people remember you by.',
     sampleBadge: 'Every bottle arrives with a free 2ml sample so you can test it risk-free before opening the box.',
     colFragrances: 'Fragrances',
     colCare: 'Customer Care & Policies',
-    returns: 'Returns & Sample Guarantee',
+    returns: 'Return & Exchange Policy',
     shipping: 'Shipping & Delivery Terms',
-    privacy: 'Privacy & Confidentiality',
+    privacy: 'Privacy Policy',
     track: 'Track Your Order',
     faq: 'FAQ',
     colContact: 'Contact Us',
@@ -379,8 +404,8 @@ export const en = {
     giftLabel: 'Write your message for the card:',
     giftPlaceholder: 'Wishing you memorable days…',
     giftHidePrices: '* Invoices and prices will not be included in the box.',
-    guaranteeTitle: '✓ The 2ml Sample Guarantee',
-    guaranteeBody: 'A free 2ml sample vial is included with every full bottle. Try the sample first; if it does not suit your taste, return the sealed bottle for a full refund.',
+    guaranteeTitle: '✓ 14-day returns & exchanges',
+    guaranteeBody: 'If anything is wrong with your order, you can return or exchange it within 14 days of delivery as long as the perfume is in its original condition.',
     subtotal: 'Subtotal',
     discount: 'Discount',
     shipping: 'Shipping',
@@ -566,20 +591,18 @@ export const en = {
         { title: 'Try before you commit', body: 'Every full bottle comes with a free 2ml sample packed outside the box. Wear it first — if it is not for you, return the sealed bottle within 14 days.' },
       ],
     },
-    shipping: {
-      title: 'Shipping & Returns',
-      deliveryTitle: 'Delivery times',
-      deliveryBody: 'Alexandria, Cairo, and Giza: 24–48 business hours (orders before 2:00 PM ship the same day). All other governorates: 2–4 business days.',
-      freeTitle: 'Free shipping',
-      freeBody: 'Every order of {amount} EGP or more ships free to any governorate in Egypt.',
-      ratesTitle: 'Shipping rates by governorate',
-      returnsTitle: 'Returns & the 2ml sample guarantee',
-      returns: [
-        'Every 100ml bottle comes with a 2ml sample packed outside the box.',
-        'Try the sample first. If you do not love the scent, keep the 100ml box sealed and contact us within 14 days of delivery.',
-        'We collect the sealed bottle and refund you within 7 business days of receiving it.',
-        'Received a damaged or incorrect item? Tell us within 48 hours and we replace it the same day at our cost.',
+    returns: {
+      title: 'Return & Exchange Policy',
+      intro: 'We want your SIMAT experience to feel easy from the moment you order until your perfume arrives.',
+      policyTitle: 'Returns & exchanges',
+      policy: [
+        'You can request a return or exchange within 14 days of receiving your order, as long as the perfume is in its original condition with the box sealed.',
+        'Received a damaged or wrong item? Tell us within 48 hours of delivery and we will replace it at our cost.',
+        'Once we receive and inspect the item, your refund is issued within 7 business days.',
+        'To start a return or exchange, message us on WhatsApp with your order number.',
       ],
+      shippingTitle: 'Shipping & delivery',
+      shippingBody: 'We deliver to every governorate in Egypt. Shipping is calculated automatically at checkout based on your governorate and address. Alexandria, Cairo and Giza: 24–48 business hours; other governorates: 2–4 business days.',
     },
     privacy: {
       title: 'Privacy Policy',

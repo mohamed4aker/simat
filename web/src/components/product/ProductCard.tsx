@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, ShoppingCart } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
 import { price } from '@/lib/format';
 import { displayName, productText, shortName, subLine } from '@/lib/localize';
-import { defaultVariant, hasPrice } from '@/lib/pricing';
+import { defaultVariant, hasPrice, variantsOf } from '@/lib/pricing';
 import { useHydrated, useWishlist } from '@/components/cart/CartProvider';
 import { Flacon } from '@/components/brand/Flacon';
 import { NotesModal } from './NotesModal';
@@ -34,20 +34,21 @@ export function ProductCard({ product }: { product: Product }) {
   const title = displayName(product, lang, dict.concentration);
   const variant = defaultVariant(product);
   const priced = hasPrice(product);
+  const sizes = product.kind === 'bottle' ? variantsOf(product) : [];
 
   return (
-    <article className="flip-card group relative bg-linen-light border border-linen-border p-4 flex flex-col justify-between hover:border-bordeaux/40 hover:shadow-xl transition-all duration-300">
+    <article className="flip-card group relative bg-white border border-linen-border p-2.5 sm:p-3 flex flex-col justify-between hover:border-bordeaux/40 hover:shadow-lg transition-all duration-300">
       <button
         type="button"
         onClick={() => bag.toggleSaved(product)}
-        className={`absolute top-6 end-6 z-20 p-1 transition-colors ${saved ? 'text-bordeaux' : 'text-stone-400 hover:text-bordeaux'}`}
+        className={`absolute top-4 end-4 z-20 p-1 transition-colors ${saved ? 'text-bordeaux' : 'text-stone-400 hover:text-bordeaux'}`}
         aria-label={saved ? dict.wishlist.unsave : dict.wishlist.save}
         aria-pressed={saved}
       >
-        <Heart className="w-5 h-5" strokeWidth={1.3} fill={saved ? 'currentColor' : 'none'} />
+        <Heart className="w-[18px] h-[18px]" strokeWidth={1.4} fill={saved ? 'currentColor' : 'none'} />
       </button>
 
-      <div className="relative w-full aspect-[3/4] overflow-hidden bg-[#ece6dc] mb-4 border border-linen-border/70">
+      <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#ece6dc] mb-3">
         <Link href={href} aria-label={title} className="absolute inset-0">
           {/* الصورة الأساسية: الزجاجة لوحدها */}
           <div className="flip-primary absolute inset-0 flex items-center justify-center bg-gradient-to-b from-[#f2ece1] to-[#e5ddd0]">
@@ -83,29 +84,41 @@ export function ProductCard({ product }: { product: Product }) {
         )}
       </div>
 
-      <div>
-        <h3 className="text-[15px] font-serif text-noir font-bold leading-snug">
-          <Link href={href} className="hover:text-bordeaux transition-colors">{title}</Link>
+      <div className="flex flex-col flex-1">
+        <h3 className="latin text-[13px] sm:text-sm font-serif text-noir font-bold leading-snug">
+          <Link href={href} className="hover:text-bordeaux transition-colors"><bdi>{title}</bdi></Link>
         </h3>
-        <p className="mt-1 text-[11px] text-stone-500 tracking-wide">
+        <p className="mt-0.5 text-[10.5px] sm:text-[11px] text-stone-500 line-clamp-1">
           {subLine(product, lang, dict.genderTag, dict.product.inspiredBy)}
         </p>
-        <div className="flex items-center justify-between mt-4 pt-3 border-t border-linen-border gap-2">
-          <span className="latin text-sm text-noir tracking-wider font-medium">
-            {priced ? price(variant.price, lang) : dict.common.priceSoon}
-            {priced && product.kind === 'bottle' && (
-              <span className="ms-1.5 text-[10px] text-stone-400 font-normal">· <bdi dir="ltr">{variant.sizeMl} ml</bdi></span>
-            )}
-          </span>
-          <button
-            type="button"
-            onClick={() => bag.add(product)}
-            disabled={!priced || product.stock <= 0}
-            className="text-[11px] uppercase tracking-wider text-bordeaux hover:underline font-medium disabled:text-stone-400 disabled:no-underline whitespace-nowrap"
-          >
-            {!priced ? dict.common.comingSoon : product.stock > 0 ? `+ ${dict.common.addToCart}` : dict.common.outOfStock}
-          </button>
-        </div>
+
+        {/* الأحجام المتاحة باينة من برّه */}
+        {sizes.length > 1 && (
+          <div className="mt-2 flex flex-wrap gap-1" aria-label={dict.product.size}>
+            {sizes.map((v) => (
+              <span key={v.sizeMl} dir="ltr" className="latin text-[10px] px-1.5 py-0.5 border border-linen-border bg-linen text-stone-600">
+                {v.sizeMl} ml
+              </span>
+            ))}
+          </div>
+        )}
+
+        <p className="latin mt-2 mb-3 text-sm text-bordeaux font-semibold">
+          {priced ? price(variant.price, lang) : dict.common.priceSoon}
+          {priced && sizes.length > 1 && (
+            <span className="ms-1 text-[10px] text-stone-400 font-normal">/ <bdi dir="ltr">{variant.sizeMl} ml</bdi></span>
+          )}
+        </p>
+
+        <button
+          type="button"
+          onClick={() => bag.add(product)}
+          disabled={!priced || product.stock <= 0}
+          className="mt-auto flex items-center justify-center gap-2 w-full py-2.5 bg-bordeaux hover:bg-bordeaux-light active:bg-bordeaux-dark text-linen-light text-[11px] sm:text-xs font-semibold tracking-wide transition-colors disabled:bg-stone-300 disabled:text-stone-600 disabled:cursor-not-allowed"
+        >
+          <ShoppingCart className="w-4 h-4" strokeWidth={1.8} />
+          {!priced ? dict.common.comingSoon : product.stock > 0 ? dict.common.addToCart : dict.common.outOfStock}
+        </button>
       </div>
 
       {product.kind === 'bottle' && (

@@ -13,7 +13,7 @@ import { Coffret, Flacon } from '@/components/brand/Flacon';
 import { BuyBox } from '@/components/product/BuyBox';
 import { AddBothButton } from '@/components/product/AddBothButton';
 import { ProductCard } from '@/components/product/ProductCard';
-import { ProductImage } from '@/components/product/ProductImage';
+import { ProductGallery } from '@/components/product/ProductGallery';
 
 // الصفحة بتتحدّث كل دقيقة، فأي تعديل من لوحة التحكم بيظهر بسرعة.
 export const revalidate = 60;
@@ -131,33 +131,30 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
       </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-        {/* الصور */}
-        <div className="lg:col-span-6 lg:sticky lg:top-32 space-y-3">
-          <div className="relative aspect-[4/5] bg-gradient-to-b from-[#f2ece1] via-[#ece5d9] to-[#dfd6c7] border border-linen-border flex items-center justify-center shadow-xl overflow-hidden">
-            {product.imageUrl ? (
-              <ProductImage src={product.imageUrl} alt={title} priority />
-            ) : isSet ? (
-              <Coffret size="lg" />
-            ) : (
-              <Flacon
-                labelStyle={product.labelStyle}
-                name={shortName(product)}
-                concentration={dict.concentration[product.concentration]}
-                size="lg"
-              />
-            )}
-          </div>
-          {product.hoverImageUrl && (
-            <div className="relative aspect-square border border-linen-border overflow-hidden">
-              <ProductImage src={product.hoverImageUrl} alt={title} />
-            </div>
-          )}
+        {/* الصور: صورة كبيرة + صور صغيرة وأسهم */}
+        <div className="lg:col-span-6 lg:sticky lg:top-32">
+          <ProductGallery
+            images={[product.imageUrl, product.hoverImageUrl].filter((u): u is string => Boolean(u))}
+            alt={title}
+            fallback={
+              isSet ? (
+                <Coffret size="lg" />
+              ) : (
+                <Flacon
+                  labelStyle={product.labelStyle}
+                  name={shortName(product)}
+                  concentration={dict.concentration[product.concentration]}
+                  size="lg"
+                />
+              )
+            }
+          />
         </div>
 
         {/* التفاصيل — بنفس ترتيب المواصفات */}
         <div className="lg:col-span-6 space-y-6">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-serif text-noir leading-tight">{title}</h1>
+            <h1 className="latin text-3xl sm:text-4xl font-serif text-noir leading-tight"><bdi>{title}</bdi></h1>
             <p className="mt-2 text-xs sm:text-sm text-stone-500 tracking-wide">
               {subLine(product, lang, dict.genderTag, t.inspiredBy)}
             </p>
@@ -167,7 +164,7 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
             <dl className="space-y-1.5 text-sm">
               {specs.map(([label, value]) => (
                 <div key={label} className="flex gap-2">
-                  <dt className="text-bordeaux font-medium shrink-0">{label}:</dt>
+                  <dt className="text-bordeaux font-medium shrink-0"><bdi className="latin">{label}</bdi>:</dt>
                   <dd className="text-stone-700">{value}</dd>
                 </div>
               ))}

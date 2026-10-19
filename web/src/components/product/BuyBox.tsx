@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { Minus, Plus } from 'lucide-react';
+import { Minus, Plus, ShoppingCart } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { fill } from '@/i18n/fill';
 import { to } from '@/lib/href';
@@ -99,12 +99,19 @@ export function BuyBox({ product }: { product: Product }) {
               <Plus className="w-3.5 h-3.5" />
             </button>
           </div>
-          <button type="button" disabled={blocked} onClick={addToCart} className={`${btn.primary} flex-1 !px-4`}>
+          {/* أهم زرار في الصفحة: كبير وبلون الهوية وعليه أيقونة السلة */}
+          <button
+            type="button"
+            disabled={blocked}
+            onClick={addToCart}
+            className="flex-1 inline-flex items-center justify-center gap-2.5 px-4 py-4 sm:py-[18px] bg-bordeaux hover:bg-bordeaux-light active:scale-[0.98] text-linen-light text-sm sm:text-[15px] font-semibold shadow-lg shadow-bordeaux/25 hover:shadow-xl transition-all disabled:bg-stone-300 disabled:text-stone-600 disabled:shadow-none disabled:cursor-not-allowed"
+          >
+            <ShoppingCart className="w-5 h-5" strokeWidth={1.8} />
             {blocked ? blockedLabel : dict.common.addToCart}
           </button>
         </div>
         {!blocked && (
-          <button type="button" onClick={buyNow} className={`${btn.dark} w-full`}>
+          <button type="button" onClick={buyNow} className={`${btn.outline} w-full !border-bordeaux/40 hover:!bg-linen`}>
             {t.buyNow}
           </button>
         )}
@@ -132,8 +139,9 @@ export function BuyBox({ product }: { product: Product }) {
           disabled={blocked}
           tabIndex={showSticky ? 0 : -1}
           onClick={addToCart}
-          className="shrink-0 px-5 py-2.5 bg-bordeaux hover:bg-bordeaux-dark text-linen-light text-[11px] tracking-wider uppercase font-medium shadow-md disabled:opacity-60"
+          className="shrink-0 inline-flex items-center gap-2 px-5 py-3 bg-bordeaux hover:bg-bordeaux-light text-linen-light text-sm font-semibold shadow-md disabled:opacity-60"
         >
+          <ShoppingCart className="w-4 h-4" strokeWidth={1.8} />
           {blocked ? blockedLabel : dict.common.addToCart}
         </button>
       </aside>

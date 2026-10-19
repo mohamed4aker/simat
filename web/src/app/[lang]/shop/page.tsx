@@ -98,6 +98,21 @@ export default async function ShopPage({ params, searchParams }: PageProps<'/[la
 
   const hasFilters = Object.entries(current).some(([k, v]) => v && k !== 'sort');
 
+  const filters = (
+    <div className="space-y-6">
+      {group(t.gender, GENDERS.map((g) => option('gender', g, dict.gender[g])))}
+      {group(t.family, FAMILIES.map((f) => option('family', f, t.families[f])))}
+      {group(
+        dict.nav.collections,
+        categories.map((c) => option('category', c.slug, categoryName(c, lang))),
+      )}
+      {group(
+        t.maxPrice,
+        PRICES.map((p) => option('max', String(p), `≤ ${priceNumber(p)} ${dict.common.currency}`)),
+      )}
+    </div>
+  );
+
   return (
     <div className="py-12 px-6 max-w-7xl mx-auto">
       <div className="mb-10">
@@ -113,29 +128,31 @@ export default async function ShopPage({ params, searchParams }: PageProps<'/[la
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <aside className="lg:col-span-3 bg-linen p-6 border border-linen-border text-xs">
-          <details className="group lg:[&>summary]:pointer-events-none" open>
-            <summary className="flex items-center justify-between pb-3 border-b border-linen-border cursor-pointer">
-              <span className="font-serif font-bold uppercase tracking-wider text-noir text-sm">{t.filterTitle}</span>
+        <aside className="lg:col-span-3 text-xs">
+          {/* الموبايل: الفلاتر مقفولة عشان المنتجات تبان على طول */}
+          <details className="lg:hidden bg-linen border border-linen-border p-4">
+            <summary className="flex items-center justify-between cursor-pointer">
+              <span className="font-serif font-bold text-noir text-sm">{t.filterTitle}</span>
               {hasFilters && (
-                <Link href={to(lang, '/shop')} className="text-stone-500 hover:text-bordeaux underline pointer-events-auto">
+                <Link href={to(lang, '/shop')} className="text-stone-500 hover:text-bordeaux underline">
                   {t.reset}
                 </Link>
               )}
             </summary>
-            <div className="space-y-6 pt-5">
-              {group(t.gender, GENDERS.map((g) => option('gender', g, dict.gender[g])))}
-              {group(t.family, FAMILIES.map((f) => option('family', f, t.families[f])))}
-              {group(
-                dict.nav.collections,
-                categories.map((c) => option('category', c.slug, categoryName(c, lang))),
-              )}
-              {group(
-                t.maxPrice,
-                PRICES.map((p) => option('max', String(p), `≤ ${priceNumber(p)} ${dict.common.currency}`)),
+            <div className="mt-4 pt-4 border-t border-linen-border">{filters}</div>
+          </details>
+          {/* الكمبيوتر: الفلاتر ظاهرة على جنب */}
+          <div className="hidden lg:block bg-linen p-6 border border-linen-border">
+            <div className="flex items-center justify-between pb-3 border-b border-linen-border">
+              <span className="font-serif font-bold uppercase tracking-wider text-noir text-sm">{t.filterTitle}</span>
+              {hasFilters && (
+                <Link href={to(lang, '/shop')} className="text-stone-500 hover:text-bordeaux underline">
+                  {t.reset}
+                </Link>
               )}
             </div>
-          </details>
+            <div className="pt-5">{filters}</div>
+          </div>
         </aside>
 
         <div className="lg:col-span-9 space-y-6">
@@ -151,7 +168,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<'/[la
               <Link href={to(lang, '/shop')} className="mt-4 inline-block text-bordeaux underline">{t.reset}</Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
               {products.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}
