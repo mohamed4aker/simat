@@ -13,6 +13,14 @@ export const STORE = {
   currency: 'ج.م',
 } as const;
 
+/** مطوّر الموقع والأبلكيشن — بيظهر في آخر الفوتر (الرقم بيفتح واتساب). */
+export const DEVELOPER = {
+  nameAr: 'م. محمد أحمد شاكر',
+  nameEn: 'Eng. Mohamed Ahmed Shaker',
+  email: 'mohamedshaker123654@gmail.com',
+  phone: '01068287355',
+} as const;
+
 export const whatsappLink = (text = '') =>
   `https://wa.me/${STORE.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
 

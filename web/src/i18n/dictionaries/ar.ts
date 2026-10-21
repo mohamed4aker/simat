@@ -368,6 +368,7 @@ export const ar: Dictionary = {
   },
 
   footer: {
+    developedBy: 'تصميم وتطوير',
     newArrivals: 'المنتجات الجديدة',
     bestSellers: 'الأكثر مبيعاً',
     allProducts: 'جميع المنتجات',

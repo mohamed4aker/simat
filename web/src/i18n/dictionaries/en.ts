@@ -365,6 +365,7 @@ export const en = {
   },
 
   footer: {
+    developedBy: 'Designed & developed by',
     newArrivals: 'New arrivals',
     bestSellers: 'Best sellers',
     allProducts: 'All products',

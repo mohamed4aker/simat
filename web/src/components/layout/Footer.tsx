@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import { fill, getDictionary, type Locale } from '@/i18n';
 import { to } from '@/lib/href';
-import { STORE, whatsappLink } from '@/lib/constants';
+import { DEVELOPER, STORE, whatsappLink } from '@/lib/constants';
 import { Drop } from '@/components/brand/Wordmark';
 import { FooterNewsletter } from './FooterNewsletter';
 
@@ -137,6 +137,23 @@ export function Footer({ lang }: { lang: Locale }) {
             <Link href="/admin" className="hover:text-gold" rel="nofollow">{t.admin}</Link>
           </div>
         </div>
+        {/* مطوّر الموقع */}
+        <p className="max-w-7xl mx-auto px-6 pb-5 text-center text-[11px] text-linen-light/50">
+          {t.developedBy}:{' '}
+          <span className="text-linen-light/80">{lang === 'en' ? DEVELOPER.nameEn : DEVELOPER.nameAr}</span>
+          <span className="mx-2">·</span>
+          <a href={`mailto:${DEVELOPER.email}`} className="hover:text-gold" dir="ltr">{DEVELOPER.email}</a>
+          <span className="mx-2">·</span>
+          <a
+            href={`https://wa.me/${DEVELOPER.phone.replace(/^0/, '20')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gold"
+            dir="ltr"
+          >
+            {DEVELOPER.phone}
+          </a>
+        </p>
       </div>
     </footer>
   );
