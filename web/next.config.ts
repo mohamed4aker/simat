@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     : {}),
 
   images: {
+    // الصور webp جاهزة ومصغّرة (scripts/import-images.mjs)، فمفيش ضغط على
+    // السيرفر — ده بيخلّي نسخة الهوست تشتغل من غير sharp.
+    unoptimized: true,
     // صور المنتجات ممكن تتحط في Supabase Storage أو أي مكان تاني.
     remotePatterns: [
       { protocol: 'https', hostname: '**.supabase.co' },

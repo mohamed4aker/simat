@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getDictionary, hasLocale } from '@/i18n';
 import { isLive } from '@/lib/store';
+
+// وضع العرض بيتحدد من متغيرات البيئة وقت التشغيل.
+export const dynamic = 'force-dynamic';
 import { CheckoutForm } from '@/components/cart/CheckoutForm';
 import { Eyebrow } from '@/components/ui/store';
 
@@ -19,7 +22,7 @@ export default async function CheckoutPage({ params }: PageProps<'/[lang]/checko
     <div className="max-w-6xl mx-auto px-6 py-12">
       <Eyebrow className="mb-1 !text-[10px] !tracking-wider">{t.eyebrow}</Eyebrow>
       <h1 className="text-3xl font-serif text-noir mb-8">{t.title}</h1>
-      <CheckoutForm demo={!isLive} />
+      <CheckoutForm demo={!isLive()} />
     </div>
   );
 }

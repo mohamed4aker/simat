@@ -1,24 +1,27 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { supabaseEnv } from './runtime-env';
 
 /**
  * عميل Supabase.
  *
  * لو متغيّرات البيئة مش موجودة، الموقع بيشتغل بـ«وضع العرض»:
  * الكتالوج بيتقرا من البيانات المحليّة في src/lib/seed.ts والطلبات
- * ما بتتسجّلش. أول ما تحط المفتاحين في .env يتحوّل تلقائياً
- * لقاعدة البيانات الحقيقية.
+ * ما بتتسجّلش. أول ما تحط SUPABASE_URL و SUPABASE_ANON_KEY يتحوّل
+ * تلقائياً لقاعدة البيانات الحقيقية (من غير بناء جديد).
  */
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+export function isLive(): boolean {
+  const { url, anonKey } = supabaseEnv();
+  return Boolean(url && anonKey);
+}
 
-export const isLive = Boolean(url && anonKey);
-
-let cached: SupabaseClient | null = null;
+let cached: { key: string; client: SupabaseClient } | null = null;
 
 export function supabase(): SupabaseClient | null {
-  if (!isLive) return null;
-  cached ??= createClient(url!, anonKey!, {
-    auth: { persistSession: false },
-  });
-  return cached;
+  const { url, anonKey } = supabaseEnv();
+  if (!url || !anonKey) return null;
+  const key = `${url}|${anonKey}`;
+  if (cached?.key !== key) {
+    cached = { key, client: createClient(url, anonKey, { auth: { persistSession: false } }) };
+  }
+  return cached.client;
 }

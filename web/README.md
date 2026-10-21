@@ -139,10 +139,16 @@ npm run export:app    # نسخة الكتالوج المدمجة في الأبل
 cp .env.example .env.local
 ```
 ```env
-NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
+SUPABASE_URL=https://xxxx.supabase.co
+SUPABASE_ANON_KEY=eyJhbGci...
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...   # للسيرفر بس (webhook الواتساب)
 NEXT_PUBLIC_SITE_URL=https://simatfragrances.com
 ```
+
+> المفاتيح بتتقري **وقت التشغيل** (`src/lib/runtime-env.ts`)، فتقدر تتحط أو
+> تتغير من إعدادات الهوست (cPanel → Setup Node.js App → Environment variables)
+> من غير بناء جديد. الأسامي القديمة `NEXT_PUBLIC_SUPABASE_URL` و
+> `NEXT_PUBLIC_SUPABASE_ANON_KEY` لسه شغالة.
 
 > مفتاح `anon` ده **آمن** إنه يبقى في المتصفح — الحماية الحقيقية في
 > سياسات RLS. متحطّش مفتاح `service_role` هنا خالص.
@@ -260,7 +266,7 @@ sudo certbot --nginx -d simat.store -d www.simat.store
 |---|---|---|
 | `No Next.js version detected` أو `package.json not found` | Vercel بيدوّر على المشروع في جذر الريبو، والموقع جوّه `web/` | **Settings → General → Root Directory** → اكتب `web` → Save → Redeploy |
 | `Error: Cannot find module ...` أو البناء بيقف فجأة | نسخة Node قديمة | **Settings → General → Node.js Version** → اختار `22.x` |
-| الموقع بيفتح بس المنتجات مش ظاهرة | متغيّرات البيئة ناقصة | **Settings → Environment Variables** → زوّد `NEXT_PUBLIC_SUPABASE_URL` و `NEXT_PUBLIC_SUPABASE_ANON_KEY` و `NEXT_PUBLIC_SITE_URL` → Redeploy |
+| الموقع بيفتح بس المنتجات مش ظاهرة | متغيّرات البيئة ناقصة | **Settings → Environment Variables** → زوّد `SUPABASE_URL` و `SUPABASE_ANON_KEY` → Redeploy (أو Restart على الهوست) |
 
 > الموقع بيتبني تمام على GitHub Actions في كل دفعة
 > (workflow «بناء الموقع»)، فلو البناء وقع عند Vercel بس، غالباً

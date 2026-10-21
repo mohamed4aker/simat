@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { supabaseEnv } from './runtime-env';
 
 /**
  * عميل Supabase بصلاحيات السيرفر (service_role) — بيُستخدم في
@@ -8,8 +9,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
  * (SUPABASE_SERVICE_ROLE_KEY) ومن غير NEXT_PUBLIC أبداً.
  */
 export function serviceSupabase(): SupabaseClient | null {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const { url, serviceKey: key } = supabaseEnv();
   if (!url || !key) return null;
   return createClient(url, key, { auth: { persistSession: false } });
 }

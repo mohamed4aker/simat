@@ -14,6 +14,7 @@ import { BuyBox } from '@/components/product/BuyBox';
 import { AddBothButton } from '@/components/product/AddBothButton';
 import { ProductCard } from '@/components/product/ProductCard';
 import { ProductGallery } from '@/components/product/ProductGallery';
+import { cardProduct } from '@/lib/slim';
 
 // الصفحة بتتحدّث كل دقيقة، فأي تعديل من لوحة التحكم بيظهر بسرعة.
 export const revalidate = 60;
@@ -171,7 +172,7 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
             </dl>
           )}
 
-          <BuyBox product={product} />
+          <BuyBox product={cardProduct(product)} />
 
           <ul className="bg-stone-100 border border-linen-border p-4 space-y-2.5 text-xs text-stone-700">
             <li className="flex items-center gap-3">
@@ -244,7 +245,7 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
                           {price(defaultVariant(p).price, lang)} · <bdi dir="ltr">{defaultVariant(p).sizeMl} ml</bdi>
                         </span>
                       </Link>
-                      <AddBothButton product={product} partner={p} />
+                      <AddBothButton product={cardProduct(product)} partner={cardProduct(p)} />
                     </li>
                   ))}
                 </ul>
@@ -272,7 +273,7 @@ export default async function ProductPage({ params }: PageProps<'/[lang]/product
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {others.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <ProductCard key={p.id} product={cardProduct(p)} />
             ))}
           </div>
         </section>

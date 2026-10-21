@@ -10,6 +10,7 @@ import { BestSellers } from '@/components/home/BestSellers';
 import { Testimonials } from '@/components/home/Testimonials';
 import { Faq } from '@/components/home/Faq';
 import { Eyebrow, SectionTitle, btn } from '@/components/ui/store';
+import { cardProduct } from '@/lib/slim';
 
 export const revalidate = 60;
 
@@ -74,7 +75,7 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
       </section>
 
       {/* ── 03 · الأكثر مبيعاً ────────────────────────────────── */}
-      <BestSellers products={bestSellers} />
+      <BestSellers products={bestSellers.map(cardProduct)} />
 
       {/* ── 04 · قصتنا ───────────────────────────────────────── */}
       <section id="story" className="bg-linen border-y border-linen-border">

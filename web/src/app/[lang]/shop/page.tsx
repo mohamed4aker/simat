@@ -11,6 +11,7 @@ import { ProductCard } from '@/components/product/ProductCard';
 import { SortSelect } from '@/components/shop/SortSelect';
 import { Eyebrow } from '@/components/ui/store';
 import type { Concentration, Gender } from '@/lib/types';
+import { cardProduct } from '@/lib/slim';
 
 export async function generateMetadata({ params }: PageProps<'/[lang]/shop'>): Promise<Metadata> {
   const { lang } = await params;
@@ -170,7 +171,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<'/[la
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
               {products.map((p) => (
-                <ProductCard key={p.id} product={p} />
+                <ProductCard key={p.id} product={cardProduct(p)} />
               ))}
             </div>
           )}

@@ -29,9 +29,9 @@ cp -r .next/standalone/. "$OUT/app/"
 cp -r .next/static "$OUT/app/.next/static"
 [ -d public ] && cp -r public "$OUT/app/public"
 
-# سيرفرات cPanel (CloudLinux) لينكس عادي (glibc) — نسخ sharp التانية
-# (musl / wasm) ملهاش لازمة وبتكبّر الملف.
-rm -rf "$OUT/app/node_modules/@img/"*linuxmusl* "$OUT/app/node_modules/@img/sharp-wasm32"
+# كل صور الموقع unoptimized (webp جاهزة في public/products)، فـ sharp
+# (أداة ضغط الصور) مش بتستخدم خالص على السيرفر — بنشيلها عشان الملف يصغر.
+rm -rf "$OUT/app/node_modules/@img" "$OUT/app/node_modules/sharp"
 
 # ملف التشغيل اللي بنحطه في «Application startup file»
 cat > "$OUT/server.js" <<'JS'

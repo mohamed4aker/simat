@@ -27,7 +27,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: session } = useSWR(
-    hasSupabase ? 'admin-session' : null,
+    hasSupabase() ? 'admin-session' : null,
     async () => {
       const db = browserSupabase();
       const { data } = await db.auth.getSession();
@@ -61,7 +61,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     router.replace('/admin/login');
   }
 
-  if (!hasSupabase) return <SetupNeeded />;
+  if (!hasSupabase()) return <SetupNeeded />;
 
   if (state === 'checking') {
     return (
@@ -190,8 +190,9 @@ function SetupNeeded() {
           <li>اعمل مشروع مجاني على supabase.com واختار منطقة Frankfurt</li>
           <li>شغّل <code>supabase/schema.sql</code> ثم <code>supabase/seed.sql</code></li>
           <li>
-            حط <code>NEXT_PUBLIC_SUPABASE_URL</code> و
-            <code> NEXT_PUBLIC_SUPABASE_ANON_KEY</code> في إعدادات الموقع
+            حط <code>SUPABASE_URL</code> و <code>SUPABASE_ANON_KEY</code> و
+            <code> SUPABASE_SERVICE_ROLE_KEY</code> في إعدادات الهوست
+            (Environment variables) واعمل Restart
           </li>
         </ol>
         <Link

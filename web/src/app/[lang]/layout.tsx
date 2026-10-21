@@ -11,6 +11,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { Toaster } from '@/components/ui/Toaster';
+import { cardProduct } from '@/lib/slim';
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -66,7 +67,7 @@ export default async function StorefrontLayout({
       <body className="min-h-screen flex flex-col font-sans selection:bg-bordeaux">
         <I18nProvider lang={lang} dict={dict}>
           <AnnouncementBar />
-          <Header products={products} />
+          <Header products={products.map(cardProduct)} />
           <main className="flex-1">{children}</main>
           <Footer lang={lang} />
           <CartDrawer />

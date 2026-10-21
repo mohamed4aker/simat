@@ -2,6 +2,11 @@ import type { Metadata, Viewport } from 'next';
 import '../globals.css';
 import { adminFonts } from '../fonts';
 import { SITE_URL } from '@/lib/constants';
+import { supabaseEnv } from '@/lib/runtime-env';
+import { SupabaseConfig } from '@/components/admin/SupabaseConfig';
+
+// المفاتيح بتتقري وقت التشغيل (من إعدادات الهوست)، فالصفحات دي مش static.
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -21,10 +26,14 @@ export default function AdminRootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // المفتاح العام بس (anon) — المفتاح السري service_role عمره ما بيوصل للمتصفح.
+  const { url, anonKey } = supabaseEnv();
   return (
     <html lang="ar" dir="rtl" className={`${adminFonts} h-full`}>
       <body className="min-h-full flex flex-col bg-ivory text-charcoal">
-        {children}
+        <SupabaseConfig url={url} anonKey={anonKey}>
+          {children}
+        </SupabaseConfig>
       </body>
     </html>
   );

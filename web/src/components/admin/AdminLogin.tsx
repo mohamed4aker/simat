@@ -58,7 +58,7 @@ export function AdminLogin() {
           الصفحة دي لإدارة المتجر — مش للعملاء.
         </p>
 
-        {!hasSupabase ? (
+        {!hasSupabase() ? (
           <p className="mt-7 rounded-xl border border-warn/40 bg-warn/10 px-4 py-3 text-sm leading-7">
             قاعدة البيانات لسه مش متوصّلة، فتسجيل الدخول مش هيشتغل. اربط
             Supabase الأول (الخطوات في <code>web/README.md</code>).
