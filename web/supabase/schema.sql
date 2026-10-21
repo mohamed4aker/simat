@@ -28,7 +28,8 @@ create table if not exists public.products (
   brand           text default 'SIMAT',
   category_id     text references public.categories(id) on delete set null,
   description     text default '',
-  price           numeric(10,2) not null check (price > 0),
+  -- 0 = لسه ملهوش سعر («السعر قريباً» ومينفعش يتطلب — create_order بيرفضه).
+  price           numeric(10,2) not null check (price >= 0),
   old_price       numeric(10,2),
   size_ml         int default 100,
   gender          text default 'unisex'
@@ -176,6 +177,10 @@ alter table public.products
   -- [{"size_ml":40,"price":450},{"size_ml":60,"price":700},...]
   add column if not exists variants             jsonb  default '[]'::jsonb,
   add column if not exists image_hover_url      text;
+
+-- ── ١-ج٢. منتج من غير سعر (سعره 0) مسموح — للقواعد القديمة اللي كان فيها price > 0.
+alter table public.products drop constraint if exists products_price_check;
+alter table public.products add constraint products_price_check check (price >= 0);
 
 -- ── ١-د. النسخة العربي من محتوى صفحة المنتج (الشيت العربي) ───────
 alter table public.products
