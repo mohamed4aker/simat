@@ -6,11 +6,11 @@ import { Eyebrow } from '@/components/ui/store';
 
 /**
  * «زورنا في المحل»: صورة المحل + العنوان + زرار يفتح اللوكيشن على Google Maps.
- * مش بيظهر غير لما العنوان واللينك يتحطوا في STORE_VISIT (src/lib/constants.ts).
+ * بيظهر لما لينك اللوكيشن يتحط في STORE_VISIT (src/lib/constants.ts)، والعنوان لو اتكتب.
  */
 export function VisitStore({ lang }: { lang: Locale }) {
   const address = lang === 'en' ? STORE_VISIT.addressEn || STORE_VISIT.addressAr : STORE_VISIT.addressAr || STORE_VISIT.addressEn;
-  if (!address || !STORE_VISIT.mapsUrl) return null;
+  if (!STORE_VISIT.mapsUrl) return null;
   const t = getDictionary(lang).visit;
 
   return (
@@ -36,10 +36,12 @@ export function VisitStore({ lang }: { lang: Locale }) {
             <Eyebrow>{t.eyebrow}</Eyebrow>
             <h2 className="text-4xl sm:text-5xl font-serif text-noir leading-[1.1]">{t.title}</h2>
             <p className="text-sm text-stone-600 leading-relaxed">{t.body}</p>
-            <div>
-              <span className="block text-[11px] uppercase tracking-wider text-stone-500 mb-1">{t.findUs}</span>
-              <p className="text-base font-semibold text-noir">{address}</p>
-            </div>
+            {address && (
+              <div>
+                <span className="block text-[11px] uppercase tracking-wider text-stone-500 mb-1">{t.findUs}</span>
+                <p className="text-base font-semibold text-noir">{address}</p>
+              </div>
+            )}
             <a
               href={STORE_VISIT.mapsUrl}
               target="_blank"

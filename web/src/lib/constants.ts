@@ -17,14 +17,14 @@ export const STORE = {
 
 /**
  * قسم «زورنا في المحل» (فوق الفوتر في الصفحة الرئيسية).
- * بيظهر بس لما العنوان ولينك Google Maps يتحطوا هنا.
+ * بيظهر لما لينك Google Maps يتحط هنا (سطر العنوان بيظهر لو اتكتب).
  *   mapsUrl: من Google Maps ← Share ← Copy link
  *   image:   صورة المحل في public/brand/ (مثلاً '/brand/store.webp')
  */
 export const STORE_VISIT = {
   addressAr: '',
   addressEn: '',
-  mapsUrl: '',
+  mapsUrl: 'https://maps.google.com/?q=31.244717,29.996843',
   image: '/brand/store.webp',
 };
 
