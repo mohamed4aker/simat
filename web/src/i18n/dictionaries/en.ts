@@ -316,8 +316,8 @@ export const en = {
 
   visit: {
     eyebrow: 'Visit SIMAT',
-    title: 'Try our fragrances in store',
-    body: 'Visit us, test your favourites and choose the right fragrance for you.',
+    title: 'Your scent is waiting in store.',
+    body: 'Visit our store, explore our collection, and experience your favourite fragrances before you choose.',
     findUs: 'Find us',
     cta: 'Open directions',
     badge: 'Smell before you choose',
