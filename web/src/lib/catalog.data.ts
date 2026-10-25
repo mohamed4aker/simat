@@ -1927,15 +1927,15 @@ export const catalogRows = [
     "variants": [
       {
         "sizeMl": 40,
-        "price": 450
+        "price": 499
       },
       {
         "sizeMl": 60,
-        "price": 700
+        "price": 749
       },
       {
         "sizeMl": 100,
-        "price": 900
+        "price": 999
       }
     ],
     "imageUrl": "/products/shadow.webp",
@@ -2666,15 +2666,15 @@ export const catalogRows = [
     "variants": [
       {
         "sizeMl": 40,
-        "price": 450
+        "price": 499
       },
       {
         "sizeMl": 60,
-        "price": 700
+        "price": 749
       },
       {
         "sizeMl": 100,
-        "price": 900
+        "price": 999
       }
     ],
     "imageUrl": "/products/dark-matter.webp",
@@ -3995,8 +3995,8 @@ export const catalogRows = [
     ],
     "imageUrl": "/products/umbra.webp",
     "hoverImageUrl": "/products/umbra-notes.webp",
-    "gender": "unisex",
-    "labelStyle": "velvet",
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 11
   },
@@ -4077,8 +4077,8 @@ export const catalogRows = [
     ],
     "imageUrl": "/products/imperium.webp",
     "hoverImageUrl": "/products/imperium-notes.webp",
-    "gender": "unisex",
-    "labelStyle": "velvet",
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 10
   },
@@ -4159,8 +4159,8 @@ export const catalogRows = [
     ],
     "imageUrl": "/products/mood.webp",
     "hoverImageUrl": "/products/mood-notes.webp",
-    "gender": "unisex",
-    "labelStyle": "velvet",
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 9
   },
@@ -4235,8 +4235,8 @@ export const catalogRows = [
     ],
     "imageUrl": "/products/resonance.webp",
     "hoverImageUrl": "/products/resonance-notes.webp",
-    "gender": "unisex",
-    "labelStyle": "velvet",
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 8
   },
@@ -4399,8 +4399,8 @@ export const catalogRows = [
     ],
     "imageUrl": "/products/noesis.webp",
     "hoverImageUrl": "/products/noesis-notes.webp",
-    "gender": "unisex",
-    "labelStyle": "velvet",
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 6
   },
@@ -4643,8 +4643,8 @@ export const catalogRows = [
     ],
     "imageUrl": "/products/paradox.webp",
     "hoverImageUrl": "/products/paradox-notes.webp",
-    "gender": "unisex",
-    "labelStyle": "velvet",
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 3
   },
@@ -4727,8 +4727,8 @@ export const catalogRows = [
     ],
     "imageUrl": "/products/aureate.webp",
     "hoverImageUrl": "/products/aureate-notes.webp",
-    "gender": "unisex",
-    "labelStyle": "velvet",
+    "gender": "men",
+    "labelStyle": "noir",
     "isFeatured": false,
     "soldCount": 2
   }

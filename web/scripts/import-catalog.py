@@ -22,11 +22,11 @@ IMAGES = Path(__file__).resolve().parent.parent / 'public' / 'products'
 
 # الشيت مفيهوش عمود Category. ترتيب الشيت النهائي (من العميل):
 #   1–17 حريمي · 18–21 للجنسين · 22–46 رجالي
-# ومن 47 لـ 58 مقالوش، فاتحددوا من العطر المستوحى منه — راجعهم.
+# ومن 47 لـ 58: رجالي ما عدا CLOUD و SPARK (نسائي) — حسب العميلة.
 GENDER_BY_NAME = {
-    'DESIRE': 'men', 'TOBACCO': 'men', 'UMBRA': 'unisex', 'IMPERIUM': 'unisex',
-    'MOOD': 'unisex', 'RESONANCE': 'unisex', 'FERAL': 'men', 'NOESIS': 'unisex',
-    'CLOUD': 'women', 'SPARK': 'women', 'PARADOX': 'unisex', 'AUREATE': 'unisex',
+    'DESIRE': 'men', 'TOBACCO': 'men', 'UMBRA': 'men', 'IMPERIUM': 'men',
+    'MOOD': 'men', 'RESONANCE': 'men', 'FERAL': 'men', 'NOESIS': 'men',
+    'CLOUD': 'women', 'SPARK': 'women', 'PARADOX': 'men', 'AUREATE': 'men',
 }
 
 
@@ -50,7 +50,9 @@ EXCLUDE = {'REGAL', 'SANCTUM', 'PEARL'}
 PRICES = {40: 450, 60: 700, 100: 900}
 PREMIUM_PRICES = {40: 499, 60: 749, 100: 999}
 PREMIUM = {'LEGACY', 'ROOT', 'FLOW', 'POISE', 'MAGNET', 'ASCEND', 'VECTOR',
-           'NEXUS', 'REBEL', 'IGNITE'}
+           'NEXUS', 'REBEL', 'IGNITE',
+           # SHADOW و DARK MATTER نفس العطر (Black Afgano) — سعره 499 / 749 / 999
+           'SHADOW', 'DARK MATTER'}
 
 # العطور اللي بتظهر في «الأكثر طلباً» والـ Mega Menu (بالترتيب).
 FEATURED = ['NOCTURNE', 'IMPRINT', 'CLARITY', 'INSTINCT', 'SOMA', 'CLOUD',
