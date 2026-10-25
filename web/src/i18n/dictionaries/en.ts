@@ -314,6 +314,15 @@ export const en = {
     title: 'What they say about SIMAT',
   },
 
+  visit: {
+    eyebrow: 'Visit SIMAT',
+    title: 'Try our fragrances in store',
+    body: 'Visit us, test your favourites and choose the right fragrance for you.',
+    findUs: 'Find us',
+    cta: 'Open directions',
+    badge: 'Smell before you choose',
+  },
+
   faq: {
     eyebrow: 'Practical Answers',
     title: 'Frequently Asked Questions',

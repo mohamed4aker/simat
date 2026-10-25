@@ -9,6 +9,7 @@ import { HeroSlider } from '@/components/home/HeroSlider';
 import { BestSellers } from '@/components/home/BestSellers';
 import { Testimonials } from '@/components/home/Testimonials';
 import { Faq } from '@/components/home/Faq';
+import { VisitStore } from '@/components/home/VisitStore';
 import { Eyebrow, SectionTitle, btn } from '@/components/ui/store';
 import { cardProduct } from '@/lib/slim';
 
@@ -16,7 +17,7 @@ export const revalidate = 60;
 
 /**
  * الصفحة الرئيسية — بسيطة ومركّزة:
- *   سلايدر · تسوق حسب الفئة · الأكثر مبيعاً · قصتنا · آراء العملاء · الأسئلة الشائعة
+ *   سلايدر · تسوق حسب الفئة · الأكثر مبيعاً · قصتنا · آراء العملاء · الأسئلة الشائعة · زورنا في المحل
  */
 export default async function HomePage({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params;
@@ -111,6 +112,9 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
 
       {/* ── 06 · الأسئلة الشائعة ──────────────────────────────── */}
       <Faq lang={lang} />
+
+      {/* ── 07 · زورنا في المحل (بيظهر لما العنوان واللينك يتحطوا) ── */}
+      <VisitStore lang={lang} />
     </div>
   );
 }

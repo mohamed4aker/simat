@@ -15,6 +15,19 @@ export const STORE = {
   currency: 'ج.م',
 } as const;
 
+/**
+ * قسم «زورنا في المحل» (فوق الفوتر في الصفحة الرئيسية).
+ * بيظهر بس لما العنوان ولينك Google Maps يتحطوا هنا.
+ *   mapsUrl: من Google Maps ← Share ← Copy link
+ *   image:   صورة المحل في public/brand/ (مثلاً '/brand/store.webp')
+ */
+export const STORE_VISIT = {
+  addressAr: '',
+  addressEn: '',
+  mapsUrl: '',
+  image: '',
+};
+
 /** مطوّر الموقع والأبلكيشن — بيظهر في آخر الفوتر (الرقم بيفتح واتساب). */
 export const DEVELOPER = {
   nameAr: 'م. محمد أحمد شاكر',
