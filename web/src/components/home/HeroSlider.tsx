@@ -20,6 +20,8 @@ export function HeroSlider({ slides }: { slides: HomeSlide[] }) {
   const [paused, setPaused] = useState(false);
   const touchX = useRef<number | null>(null);
   const count = slides.length;
+  // وضع البانرات بيشتغل لما كل السلايدات يبقى ليها بانر (عشان الارتفاع يبقى واحد).
+  const bannerMode = count > 0 && slides.every((s) => s.banner);
 
   const go = useCallback((i: number) => setIndex(((i % count) + count) % count), [count]);
   const next = useCallback(() => go(index + 1), [go, index]);
@@ -57,7 +59,7 @@ export function HeroSlider({ slides }: { slides: HomeSlide[] }) {
         else prev();
       }}
     >
-      <div className="relative grid">
+      <div className={bannerMode ? 'relative aspect-[4/5] md:aspect-[12/5]' : 'relative grid'}>
         {slides.map((s, i) => {
           const active = i === index;
           return (
@@ -67,10 +69,34 @@ export function HeroSlider({ slides }: { slides: HomeSlide[] }) {
               aria-roledescription="slide"
               aria-label={`${i + 1} / ${count}`}
               aria-hidden={!active}
-              className={`col-start-1 row-start-1 grid md:grid-cols-2 transition-opacity duration-700 ease-out ${
-                active ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-              }`}
+              className={`transition-opacity duration-700 ease-out ${
+                bannerMode ? 'absolute inset-0' : 'col-start-1 row-start-1 grid md:grid-cols-2'
+              } ${active ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
             >
+              {bannerMode && s.banner ? (
+                /* بانر بعرض الصفحة: صورة للكمبيوتر وصورة للموبايل، والزرار فوقها */
+                <Link href={to(lang, s.href)} tabIndex={-1} aria-hidden="true" className="absolute inset-0">
+                  <span className="absolute inset-0 md:hidden">
+                    <Image src={s.banner.mobile} alt={s.title[lang]} fill unoptimized priority={i === 0} sizes="100vw" className="object-cover" />
+                  </span>
+                  <span className="absolute inset-0 hidden md:block">
+                    <Image src={s.banner.desktop} alt={s.title[lang]} fill unoptimized priority={i === 0} sizes="100vw" className="object-cover" />
+                  </span>
+                </Link>
+              ) : null}
+              {bannerMode ? (
+                <div className="absolute inset-x-0 bottom-12 md:bottom-16 flex justify-center">
+                  <Link
+                    href={to(lang, s.href)}
+                    tabIndex={active ? 0 : -1}
+                    aria-label={`SHOP NOW — ${s.title[lang]}`}
+                    className="latin inline-flex items-center gap-2 bg-linen-light text-bordeaux hover:bg-gold hover:text-noir px-9 py-3.5 text-xs tracking-[0.2em] font-semibold uppercase transition-colors shadow-lg"
+                  >
+                    SHOP NOW
+                  </Link>
+                </div>
+              ) : (
+              <>
               {/* الصورة مربعة دايماً عشان تبان كاملة من غير قص */}
               <div className="relative aspect-square md:order-2">
                 <Image
@@ -97,6 +123,8 @@ export function HeroSlider({ slides }: { slides: HomeSlide[] }) {
                   </Link>
                 </div>
               </div>
+              </>
+              )}
             </div>
           );
         })}

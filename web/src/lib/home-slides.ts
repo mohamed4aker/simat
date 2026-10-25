@@ -1,8 +1,16 @@
 /**
  * سلايدات أول الصفحة الرئيسية. كل سلايد ليه صورة ورسالة ولينك مختلف
- * (فئة، منتج، عرض…). لما الديزاينر يبعت بانرات، غيّر `image` بس.
+ * (فئة، منتج، عرض…).
+ *
+ * بانر بعرض الصفحة: حط `banner` (الكلام بيبقى مكتوب جوه البانر، والموقع
+ * بيحط زرار SHOP NOW تحت):
+ *   desktop — 1920 × 800   ·   mobile — 1080 × 1350
+ *   مثال: banner: { desktop: '/banners/slide-1.webp', mobile: '/banners/slide-1-m.webp' }
+ * من غير `banner` السلايد بيظهر بالشكل المتقسّم: صورة مربعة (1600 × 1600)
+ * والكلام جنبها.
  */
 export type HomeSlide = {
+  banner?: { desktop: string; mobile: string };
   image: string;
   href: string;
   eyebrow: { ar: string; en: string };
