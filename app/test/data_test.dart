@@ -133,9 +133,9 @@ void main() {
     test('الشيت النهائي: الأسعار والعطور المشالة والمحتوى العربي', () async {
       final repository = CatalogRepository(store);
       final all = await repository.allProducts(includeInactive: true);
-      // الشيت النهائي: 58 عطر، REGAL و SANCTUM اتلغوا و PEARL بقى PARADOX.
-      expect(all.where((p) => p.kind == 'bottle').length, 58);
-      for (final id in ['regal', 'sanctum', 'pearl']) {
+      // الشيت النهائي: 58 عطر، REGAL و SANCTUM اتلغوا و PEARL بقى PARADOX، و SHADOW اتشال (نفس DARK MATTER).
+      expect(all.where((p) => p.kind == 'bottle').length, 57);
+      for (final id in ['regal', 'sanctum', 'pearl', 'shadow']) {
         expect(await repository.productById(id), isNull);
       }
       for (final id in ['ground', 'apex', 'amoria', 'lumina', 'paradox']) {

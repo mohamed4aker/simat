@@ -43,7 +43,8 @@ def gender_of(pid: int, short: str) -> str:
 
 
 # عطور اتلغت (لو رجعت في شيت قديم مش هتنزل).
-EXCLUDE = {'REGAL', 'SANCTUM', 'PEARL'}
+EXCLUDE = {'REGAL', 'SANCTUM', 'PEARL',
+           'SHADOW'}  # SHADOW نفس عطر DARK MATTER — العميلة اختارت DARK MATTER
 
 # الأسعار من العميل: 450 / 700 / 900 لكل العطور (40 / 60 / 100 مل)،
 # ما عدا العشرة دول 499 / 749 / 999. (بالاسم عشان الأرقام بتتغير.)
@@ -51,8 +52,7 @@ PRICES = {40: 450, 60: 700, 100: 900}
 PREMIUM_PRICES = {40: 499, 60: 749, 100: 999}
 PREMIUM = {'LEGACY', 'ROOT', 'FLOW', 'POISE', 'MAGNET', 'ASCEND', 'VECTOR',
            'NEXUS', 'REBEL', 'IGNITE',
-           # SHADOW و DARK MATTER نفس العطر (Black Afgano) — سعره 499 / 749 / 999
-           'SHADOW', 'DARK MATTER'}
+           'DARK MATTER'}  # (Black Afgano) — 499 / 749 / 999
 
 # العطور اللي بتظهر في «الأكثر طلباً» والـ Mega Menu (بالترتيب).
 FEATURED = ['NOCTURNE', 'IMPRINT', 'CLARITY', 'INSTINCT', 'SOMA', 'CLOUD',

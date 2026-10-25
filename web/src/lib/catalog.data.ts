@@ -1867,85 +1867,6 @@ export const catalogRows = [
     "soldCount": 37
   },
   {
-    "id": "shadow",
-    "slug": "shadow",
-    "sheetId": 24,
-    "nameEn": "SIMAT SHADOW",
-    "secondaryLine": "Inspired by Black Afgano",
-    "tagline": "Embrace the mystery.",
-    "taglineAr": "اكتشف الغموض.",
-    "shortDescription": "A dark, smoky woody aromatic fragrance.",
-    "shortDescriptionAr": "عطر خشبي أروماتك دخاني وعميق.",
-    "descriptionEn": "SIMAT SHADOW is an intense, hypnotic blend of resins, woods, and smoky incense.",
-    "description": "عطر SHADOW هو مزيج مكثف وآسر من الراتنجات والأخشاب والبخور الدخاني.",
-    "scentCharacter": "Dark, Mysterious",
-    "scentCharacterAr": "داكن، غامض",
-    "familyEn": "Woody Aromatic",
-    "family": "خشبي أروماتك",
-    "accords": [
-      "Woody",
-      "Smoky",
-      "Balsamic"
-    ],
-    "accordsAr": [
-      "أخشاب دافئة",
-      "دخاني راتنجي"
-    ],
-    "topNotesEn": [
-      "Cannabis",
-      "Green Notes"
-    ],
-    "heartNotesEn": [
-      "Resins",
-      "Woodsy Notes"
-    ],
-    "baseNotesEn": [
-      "Incense",
-      "Agarwood (Oud)"
-    ],
-    "topNotes": [
-      "قنب",
-      "نفحات خضراء"
-    ],
-    "heartNotes": [
-      "راتنجات",
-      "نفحات خشبية"
-    ],
-    "baseNotes": [
-      "بخور",
-      "عود"
-    ],
-    "wearProfile": "A deep, dark, and intoxicating scent.",
-    "wearProfileAr": "رائحة عميقة، داكنة، وآسرة.",
-    "occasion": "Evening, Winter",
-    "occasionAr": "المساء، الشتاء",
-    "related": [
-      "dark-matter",
-      "umbra",
-      "imperium"
-    ],
-    "variants": [
-      {
-        "sizeMl": 40,
-        "price": 499
-      },
-      {
-        "sizeMl": 60,
-        "price": 749
-      },
-      {
-        "sizeMl": 100,
-        "price": 999
-      }
-    ],
-    "imageUrl": "/products/shadow.webp",
-    "hoverImageUrl": "/products/shadow-notes.webp",
-    "gender": "men",
-    "labelStyle": "noir",
-    "isFeatured": false,
-    "soldCount": 36
-  },
-  {
     "id": "temper",
     "slug": "temper",
     "sheetId": 25,
@@ -2659,7 +2580,6 @@ export const catalogRows = [
     "occasion": "Evening, Winter",
     "occasionAr": "المساء، الشتاء",
     "related": [
-      "shadow",
       "umbra",
       "imperium"
     ],
@@ -3317,7 +3237,6 @@ export const catalogRows = [
     "occasion": "Night out, Modern casual, Signature scent",
     "occasionAr": "الخروجات المسائية، اللقاءات العصرية، والاستخدام اليومي",
     "related": [
-      "shadow",
       "temper",
       "vector"
     ],
@@ -3644,8 +3563,7 @@ export const catalogRows = [
     "occasionAr": "المساء، الشتاء",
     "related": [
       "temper",
-      "impulse",
-      "shadow"
+      "impulse"
     ],
     "variants": [
       {
@@ -3975,7 +3893,6 @@ export const catalogRows = [
     "occasion": "Evening, Winter",
     "occasionAr": "المساء، الشتاء",
     "related": [
-      "shadow",
       "dark-matter",
       "imperium"
     ],

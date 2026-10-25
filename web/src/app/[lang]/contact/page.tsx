@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { AtSign, Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { getDictionary, hasLocale } from '@/i18n';
 import { pageMeta } from '@/lib/page-meta';
-import { STORE, whatsappLink } from '@/lib/constants';
+import { STORE, whatsappLink, STORE_VISIT } from '@/lib/constants';
 
 export const generateMetadata = ({ params }: PageProps<'/[lang]/contact'>) =>
   pageMeta(params, '/contact', (l) => {
@@ -23,7 +23,12 @@ export default async function ContactPage({ params }: PageProps<'/[lang]/contact
     { icon: AtSign, label: t.instagram, value: `@${STORE.instagram}`, href: `https://www.instagram.com/${STORE.instagram}`, ltr: true },
     { icon: AtSign, label: 'TikTok', value: `@${STORE.tiktok}`, href: `https://www.tiktok.com/@${STORE.tiktok}`, ltr: true },
     { icon: AtSign, label: 'Facebook', value: 'SIMAT', href: STORE.facebookUrl, ltr: true },
-    { icon: MapPin, label: t.address, value: dict.footer.location },
+    {
+      icon: MapPin,
+      label: t.address,
+      value: lang === 'en' ? STORE_VISIT.addressEn : STORE_VISIT.addressAr,
+      href: STORE_VISIT.mapsUrl,
+    },
     { icon: Clock, label: '', value: t.hours },
   ];
 

@@ -22,8 +22,8 @@ export const STORE = {
  *   image:   صورة المحل في public/brand/ (مثلاً '/brand/store.webp')
  */
 export const STORE_VISIT = {
-  addressAr: '',
-  addressEn: '',
+  addressAr: 'السيوف، شارع البنك الأهلي، كومباوند أليكس هايتس، بجوار سيلفر جيم للرجال، الإسكندرية',
+  addressEn: "El Seyouf, National Bank Street, Alex Heights Compound, Next to Silver Gym (Men's Gym), Alexandria, Egypt",
   mapsUrl: 'https://maps.google.com/?q=31.244717,29.996843',
   image: '/brand/store.webp',
 };
