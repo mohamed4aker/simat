@@ -25,7 +25,7 @@ export const STORE_VISIT = {
   addressAr: '',
   addressEn: '',
   mapsUrl: '',
-  image: '',
+  image: '/brand/store.webp',
 };
 
 /** مطوّر الموقع والأبلكيشن — بيظهر في آخر الفوتر (الرقم بيفتح واتساب). */
