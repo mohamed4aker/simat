@@ -178,28 +178,3 @@ details[open] > summary .plus-icon {
     scroll-behavior: auto !important;
   }
 }
-
-/* ── شريط الإعلانات المتحرك ───────────────────────────────── */
-/* المحتوى متكرر مرتين، فالحركة بتلف من غير قطع. */
-@keyframes marquee-ltr {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@keyframes marquee-rtl {
-  from { transform: translateX(0); }
-  to { transform: translateX(50%); }
-}
-.marquee-track {
-  animation: marquee-ltr 38s linear infinite;
-}
-[dir="rtl"] .marquee-track {
-  animation-name: marquee-rtl;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
-}

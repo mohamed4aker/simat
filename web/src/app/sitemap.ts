@@ -27,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry('', 1),
     entry('/shop', 0.9),
     entry('/faq', 0.6),
+    entry('/find-your-scent', 0.6),
     entry('/about', 0.5),
     entry('/returns', 0.5),
     entry('/contact', 0.4),

@@ -52,6 +52,10 @@ export const en = {
 
   // ── Header & mega menus ───────────────────────────────────────
   nav: {
+    findScent: 'Find Your Scent',
+    byCategory: 'By Category',
+    signature: 'Signature Scent',
+    viewProduct: 'View fragrance →',
     home: 'Home',
     story: 'Our Story',
     faq: 'FAQ',

@@ -20,7 +20,9 @@ export default async function ContactPage({ params }: PageProps<'/[lang]/contact
     { icon: MessageCircle, label: t.whatsapp, value: STORE.phoneDisplay, href: whatsappLink(), ltr: true },
     { icon: Phone, label: t.phone, value: STORE.phoneDisplay, href: `tel:${STORE.phone}`, ltr: true },
     { icon: Mail, label: t.email, value: STORE.email, href: `mailto:${STORE.email}`, ltr: true },
-    { icon: AtSign, label: t.instagram, value: `@${STORE.instagram}`, href: `https://instagram.com/${STORE.instagram}`, ltr: true },
+    { icon: AtSign, label: t.instagram, value: `@${STORE.instagram}`, href: `https://www.instagram.com/${STORE.instagram}`, ltr: true },
+    { icon: AtSign, label: 'TikTok', value: `@${STORE.tiktok}`, href: `https://www.tiktok.com/@${STORE.tiktok}`, ltr: true },
+    { icon: AtSign, label: 'Facebook', value: 'SIMAT', href: STORE.facebookUrl, ltr: true },
     { icon: MapPin, label: t.address, value: dict.footer.location },
     { icon: Clock, label: '', value: t.hours },
   ];

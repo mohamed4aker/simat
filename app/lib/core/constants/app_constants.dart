@@ -28,7 +28,7 @@ class AppConstants {
   static const String developerEmail = 'mohamedshaker123654@gmail.com';
   static const String developerPhone = '01068287355';
   static const String supportEmail = 'care@simat.store';
-  static const String instagram = '@simat.perfumes';
+  static const String instagram = '@simatt_eg';
 
   /// المحافظات المصرية وتكلفة الشحن لكل منها بالجنيه.
   static const Map<String, double> shippingRates = {

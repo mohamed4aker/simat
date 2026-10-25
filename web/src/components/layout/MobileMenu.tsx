@@ -1,13 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { X } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
 import { useUi, uiStore } from '@/components/cart/CartProvider';
 import { useLockScroll } from '@/components/ui/Modal';
 import { LanguageSwitch } from './LanguageSwitch';
-import { navLinks } from './nav-links';
+import { navLinks, shopLinks } from './nav-links';
 
 /** قائمة الموبايل الجانبية — نفس روابط القائمة الرئيسية. */
 export function MobileMenu() {
@@ -18,7 +18,7 @@ export function MobileMenu() {
 
   return (
     <div
-      className={`fixed inset-0 z-[60] lg:hidden transition-opacity duration-300 ${
+      className={`fixed inset-0 z-[60] xl:hidden transition-opacity duration-300 ${
         open ? 'opacity-100' : 'opacity-0 pointer-events-none invisible'
       }`}
       aria-hidden={!open}
@@ -39,16 +39,32 @@ export function MobileMenu() {
           </div>
 
           <nav className="py-4 divide-y divide-linen-border">
-            {navLinks(dict.nav).map(([label, path]) => (
-              <Link
-                key={path}
-                href={to(lang, path)}
-                onClick={close}
-                className="block py-4 text-[15px] text-noir hover:text-bordeaux"
-              >
-                {label}
-              </Link>
-            ))}
+            {navLinks(dict.nav).map(([label, path]) =>
+              path === '/shop' ? (
+                <details key={path} className="group">
+                  <summary className="flex items-center justify-between py-4 text-[15px] text-noir cursor-pointer list-none">
+                    {label}
+                    <ChevronDown className="chevron w-4 h-4 text-stone-400 transition-transform group-open:rotate-180" strokeWidth={1.5} />
+                  </summary>
+                  <div className="ps-4 pb-3 space-y-3">
+                    {shopLinks(dict).map(([l, href]) => (
+                      <Link key={href} href={to(lang, href)} onClick={close} className="block text-sm text-stone-600 hover:text-bordeaux">
+                        {l}
+                      </Link>
+                    ))}
+                  </div>
+                </details>
+              ) : (
+                <Link
+                  key={path}
+                  href={to(lang, path)}
+                  onClick={close}
+                  className="block py-4 text-[15px] text-noir hover:text-bordeaux"
+                >
+                  {label}
+                </Link>
+              ),
+            )}
           </nav>
         </div>
 

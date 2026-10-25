@@ -1,6 +1,6 @@
 // ثوابت المتجر: معلومات التواصل، الشحن، والمحافظات.
 
-// رقم سِمة (واتساب وتليفون) من العميل. الإيميل وحسابات السوشيال لسه مؤقتة.
+// رقم سِمة (واتساب وتليفون) وحسابات السوشيال من العميلة. الإيميل لسه مؤقت.
 export const STORE = {
   name: 'SIMAT',
   nameAr: 'سِمة',
@@ -8,8 +8,10 @@ export const STORE = {
   phoneDisplay: '+20 12 73162855',
   whatsapp: '201273162855',
   email: 'care@simat.store',
-  instagram: 'simat.perfumes',
-  facebook: 'simat.perfumes',
+  // حسابات السوشيال (من العميلة)
+  instagram: 'simatt_eg',
+  tiktok: 'simatt.eg',
+  facebookUrl: 'https://www.facebook.com/share/1DVxtVSNKU/',
   currency: 'ج.م',
 } as const;
 

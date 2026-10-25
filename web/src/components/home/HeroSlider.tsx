@@ -71,7 +71,8 @@ export function HeroSlider({ slides }: { slides: HomeSlide[] }) {
                 active ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              <div className="relative aspect-square md:aspect-auto md:min-h-[540px] lg:min-h-[600px] md:order-2">
+              {/* الصورة مربعة دايماً عشان تبان كاملة من غير قص */}
+              <div className="relative aspect-square md:order-2">
                 <Image
                   src={s.image}
                   alt={s.title[lang]}

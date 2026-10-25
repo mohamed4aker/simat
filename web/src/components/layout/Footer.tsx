@@ -3,7 +3,7 @@ import { MessageCircle } from 'lucide-react';
 import { fill, getDictionary, type Locale } from '@/i18n';
 import { to } from '@/lib/href';
 import { DEVELOPER, STORE, whatsappLink } from '@/lib/constants';
-import { Drop } from '@/components/brand/Wordmark';
+import Image from 'next/image';
 import { FooterNewsletter } from './FooterNewsletter';
 
 // lucide شالت أيقونات البراندات، فدول مرسومين هنا.
@@ -13,6 +13,14 @@ function Instagram({ className = '' }: { className?: string; strokeWidth?: numbe
       <rect x="3" y="3" width="18" height="18" rx="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function TikTok({ className = '' }: { className?: string; strokeWidth?: number }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M16.6 3c.4 2.1 1.7 3.6 3.9 3.8v3.1c-1.4.1-2.7-.3-3.9-1.1v6.1c0 3.6-2.6 6.1-6 6.1-3.3 0-5.8-2.5-5.8-5.7 0-3.6 3.1-6.2 6.8-5.6v3.2c-1.8-.4-3.6.8-3.6 2.5 0 1.4 1.1 2.5 2.6 2.5 1.6 0 2.7-1 2.7-3V3h3.3Z" />
     </svg>
   );
 }
@@ -54,8 +62,9 @@ export function Footer({ lang }: { lang: Locale }) {
     [dict.nav.contact, '/contact'],
   ];
   const social = [
-    { icon: Instagram, href: `https://instagram.com/${STORE.instagram}`, label: 'Instagram' },
-    { icon: Facebook, href: `https://facebook.com/${STORE.facebook}`, label: 'Facebook' },
+    { icon: Instagram, href: `https://www.instagram.com/${STORE.instagram}`, label: 'Instagram' },
+    { icon: TikTok, href: `https://www.tiktok.com/@${STORE.tiktok}`, label: 'TikTok' },
+    { icon: Facebook, href: STORE.facebookUrl, label: 'Facebook' },
     { icon: MessageCircle, href: whatsappLink(), label: 'WhatsApp' },
   ];
 
@@ -64,12 +73,7 @@ export function Footer({ lang }: { lang: Locale }) {
       <div className="max-w-7xl mx-auto px-6 pt-14 pb-10 grid grid-cols-2 lg:grid-cols-12 gap-10">
         {/* سِمة */}
         <div className="col-span-2 lg:col-span-4 space-y-4">
-          <div className="latin flex items-center gap-2" dir="ltr">
-            <Drop className="w-5 h-7 text-gold" />
-            <span className="text-2xl tracking-[0.28em] uppercase" style={{ fontFamily: 'var(--font-cormorant), Georgia, serif' }}>
-              SIMAT
-            </span>
-          </div>
+          <Image src="/brand/simat-logo-light.png" alt="SIMAT سِمة" width={378} height={360} className="h-24 w-auto" />
           <p className="text-sm text-linen-light/75 leading-relaxed max-w-xs">{t.about}</p>
           <div className="flex gap-3">
             {social.map(({ icon: Icon, href, label }) => (
@@ -137,18 +141,19 @@ export function Footer({ lang }: { lang: Locale }) {
             <Link href="/admin" className="hover:text-gold" rel="nofollow">{t.admin}</Link>
           </div>
         </div>
-        {/* مطوّر الموقع */}
-        <p className="max-w-7xl mx-auto px-6 pb-5 text-center text-[11px] text-linen-light/50">
-          {t.developedBy}:{' '}
-          <span className="text-linen-light/80">{lang === 'en' ? DEVELOPER.nameEn : DEVELOPER.nameAr}</span>
-          <span className="mx-2">·</span>
-          <a href={`mailto:${DEVELOPER.email}`} className="hover:text-gold" dir="ltr">{DEVELOPER.email}</a>
-          <span className="mx-2">·</span>
+        {/* مطوّر الموقع — كل جزء في سطر لوحده لو المساحة ضيقة */}
+        <p className="max-w-7xl mx-auto px-6 pb-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-[11px] text-linen-light/50">
+          <span className="whitespace-nowrap">
+            {t.developedBy}: <span className="text-linen-light/80">{lang === 'en' ? DEVELOPER.nameEn : DEVELOPER.nameAr}</span>
+          </span>
+          <span aria-hidden="true">·</span>
+          <a href={`mailto:${DEVELOPER.email}`} className="hover:text-gold whitespace-nowrap" dir="ltr">{DEVELOPER.email}</a>
+          <span aria-hidden="true">·</span>
           <a
             href={`https://wa.me/${DEVELOPER.phone.replace(/^0/, '20')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-gold"
+            className="hover:text-gold whitespace-nowrap"
             dir="ltr"
           >
             {DEVELOPER.phone}

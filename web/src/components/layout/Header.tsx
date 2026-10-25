@@ -2,21 +2,23 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Heart, Menu, Search, ShoppingCart } from 'lucide-react';
+import Image from 'next/image';
+import { ChevronDown, Heart, Menu, Search, ShoppingCart } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
-import { Wordmark } from '@/components/brand/Wordmark';
 import { useCart, useHydrated, useWishlist, uiStore } from '@/components/cart/CartProvider';
 import { LanguageSwitch } from './LanguageSwitch';
 import { MobileMenu } from './MobileMenu';
 import { SearchModal } from './SearchModal';
 import { WishlistModal } from './WishlistModal';
-import { navLinks } from './nav-links';
+import { navLinks, shopLinks } from './nav-links';
+import { ProductImage } from '@/components/product/ProductImage';
+import { displayName, subLine } from '@/lib/localize';
 import type { Product } from '@/lib/types';
 
 /**
  * الهيدر: القائمة على جنب، اللوجو في النص، والأيقونات على الجنب التاني.
- * القائمة: الصفحة الرئيسية | تسوق | قصتنا | الأسئلة الشائعة | تواصل معنا
+ * القائمة: الصفحة الرئيسية | تسوق ▾ | اكتشف عطرك | قصتنا | الأسئلة الشائعة | تواصل معنا
  */
 export function Header({ products }: { products: Product[] }) {
   const { lang, dict } = useI18n();
@@ -25,6 +27,13 @@ export function Header({ products }: { products: Product[] }) {
   const wishlist = useWishlist();
   const hydrated = useHydrated();
   const cartCount = hydrated ? count : 0;
+  const featured =
+    [...products].filter((p) => p.isFeatured && p.kind === 'bottle').sort((a, b) => b.soldCount - a.soldCount)[0] ??
+    null;
+  const linkClass = (path: string) =>
+    `relative py-2 transition-colors hover:text-bordeaux after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-bordeaux after:transition-transform after:duration-300 ${
+      isActive(path) ? 'text-bordeaux after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'
+    }`;
 
   const isActive = (path: string) => {
     const href = to(lang, path);
@@ -40,33 +49,89 @@ export function Header({ products }: { products: Product[] }) {
             <button
               type="button"
               onClick={() => uiStore.open('menu')}
-              className="lg:hidden p-2 -ms-2 text-noir hover:text-bordeaux"
+              className="xl:hidden p-2 -ms-2 text-noir hover:text-bordeaux"
               aria-label={dict.nav.openMenu}
             >
               <Menu className="w-6 h-6" strokeWidth={1.3} />
             </button>
-            <nav aria-label={dict.mobile.menu} className="hidden lg:block">
-              <ul className="flex items-center gap-6 xl:gap-8 text-[13px] font-medium text-noir">
-                {navLinks(dict.nav).map(([label, path]) => (
-                  <li key={path}>
-                    <Link
-                      href={to(lang, path)}
-                      aria-current={isActive(path) ? 'page' : undefined}
-                      className={`relative py-2 transition-colors hover:text-bordeaux after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-bordeaux after:transition-transform after:duration-300 ${
-                        isActive(path) ? 'text-bordeaux after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'
-                      }`}
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
+            <nav aria-label={dict.mobile.menu} className="hidden xl:block">
+              <ul className="flex items-center gap-6 2xl:gap-8 text-[13px] font-medium text-noir whitespace-nowrap">
+                {navLinks(dict.nav).map(([label, path]) =>
+                  path === '/shop' ? (
+                    /* تسوق + القائمة المنسدلة (بتفتح بالماوس أو بالكيبورد) */
+                    <li key={path} className="group/shop relative">
+                      <Link
+                        href={to(lang, path)}
+                        aria-current={isActive(path) ? 'page' : undefined}
+                        aria-haspopup="true"
+                        className={`${linkClass(path)} inline-flex items-center gap-1`}
+                      >
+                        {label}
+                        <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover/shop:rotate-180" strokeWidth={1.6} />
+                      </Link>
+                      <div className="absolute start-0 top-full pt-5 invisible opacity-0 translate-y-1 group-hover/shop:visible group-hover/shop:opacity-100 group-hover/shop:translate-y-0 group-focus-within/shop:visible group-focus-within/shop:opacity-100 group-focus-within/shop:translate-y-0 transition-all duration-200 z-50">
+                        <div className="w-[520px] bg-linen-light border border-linen-border shadow-2xl p-6 grid grid-cols-2 gap-6">
+                          <div>
+                            <p className="text-[11px] tracking-wider uppercase text-bordeaux font-bold pb-2 mb-3 border-b border-linen-border">
+                              {dict.nav.byCategory}
+                            </p>
+                            <ul className="space-y-3 text-[13px] font-normal">
+                              {shopLinks(dict).map(([l, href]) => (
+                                <li key={href}>
+                                  <Link href={to(lang, href)} className="text-stone-700 hover:text-bordeaux transition-colors">
+                                    {l}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          {featured && (
+                            <Link
+                              href={to(lang, `/product/${featured.slug}`)}
+                              className="group/feat block bg-linen border border-linen-border p-4 hover:border-bordeaux/40 transition-colors whitespace-normal"
+                            >
+                              <span className="block text-[10px] tracking-wider uppercase text-bordeaux font-bold">{dict.nav.signature}</span>
+                              <span className="latin block mt-1 text-sm font-serif font-bold text-noir">
+                                <bdi>{displayName(featured, lang, dict.concentration)}</bdi>
+                              </span>
+                              <span className="block text-[11px] text-stone-500 mt-0.5 line-clamp-1">
+                                {subLine(featured, lang, dict.genderTag, dict.product.inspiredBy)}
+                              </span>
+                              {featured.imageUrl && (
+                                <span className="relative block h-28 mt-3">
+                                  <ProductImage src={featured.imageUrl} alt={featured.nameEn} fit="contain" sizes="200px" />
+                                </span>
+                              )}
+                              <span className="block mt-3 text-[11px] text-bordeaux font-medium group-hover/feat:underline">
+                                {dict.nav.viewProduct}
+                              </span>
+                            </Link>
+                          )}
+                        </div>
+                      </div>
+                    </li>
+                  ) : (
+                    <li key={path}>
+                      <Link href={to(lang, path)} aria-current={isActive(path) ? 'page' : undefined} className={linkClass(path)}>
+                        {label}
+                      </Link>
+                    </li>
+                  ),
+                )}
               </ul>
             </nav>
           </div>
 
           {/* اللوجو في النص */}
-          <Link href={to(lang)} aria-label="SIMAT" className="justify-self-center">
-            <Wordmark tagline={dict.nav.tagline} />
+          <Link href={to(lang)} aria-label="SIMAT سِمة" className="justify-self-center">
+            <Image
+              src="/brand/simat-logo.png"
+              alt="SIMAT سِمة"
+              width={378}
+              height={360}
+              priority
+              className="h-14 md:h-20 w-auto"
+            />
           </Link>
 
           {/* اللغة، البحث، المفضلة، السلة */}
