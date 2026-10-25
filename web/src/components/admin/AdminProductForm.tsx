@@ -444,7 +444,7 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
           <Field label="الفئة">
             <select value={form.gender} onChange={set('gender')} className={adminInput}>
               <option value="men">رجالي</option>
-              <option value="women">حريمي</option>
+              <option value="women">نسائي</option>
               <option value="unisex">للجنسين</option>
             </select>
           </Field>

@@ -185,7 +185,7 @@ class Product {
   String get displayName =>
       isSet ? name : '$shortName — ${concentration.labelEn}';
 
-  /// «حريمي · مستوحى من Black Opium»
+  /// «نسائي · مستوحى من Black Opium»
   String get subLine {
     if (isSet) return secondaryLine;
     final match =

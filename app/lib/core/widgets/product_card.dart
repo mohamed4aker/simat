@@ -62,7 +62,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 2),
-                    // «حريمي · مستوحى من Black Opium»
+                    // «نسائي · مستوحى من Black Opium»
                     Text(
                       product.subLine,
                       maxLines: 1,

@@ -22,7 +22,7 @@ export const homeSlides: HomeSlide[] = [
   {
     image: '/products/nocturne-notes.webp',
     href: '/shop?gender=women',
-    eyebrow: { ar: 'FOR HER · عطور حريمي', en: 'FOR HER' },
+    eyebrow: { ar: 'FOR HER · عطور نسائي', en: 'FOR HER' },
     title: { ar: 'أنوثة بتفضل معاكي طول اليوم', en: 'Femininity that stays with you all day' },
     body: {
       ar: 'من الفانيلا الدافية للزهور الناعمة — اختاري العطر اللي يشبهك.',

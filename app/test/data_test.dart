@@ -124,7 +124,7 @@ void main() {
       final nocturne = await repository.productById('nocturne');
       expect(nocturne, isNotNull);
       expect(nocturne!.displayName, 'NOCTURNE — Eau de Parfum');
-      expect(nocturne.subLine, 'حريمي · مستوحى من Black Opium');
+      expect(nocturne.subLine, 'نسائي · مستوحى من Black Opium');
       expect(nocturne.sizes.map((v) => v.sizeMl), [40, 60, 100]);
       expect(nocturne.defaultVariant.sizeMl, 60);
       expect(nocturne.related, isNotEmpty);

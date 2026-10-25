@@ -294,7 +294,7 @@ export async function getOffers(limit = 8): Promise<Product[]> {
 
 export async function getRelated(product: Product, limit = 4): Promise<Product[]> {
   const list = await allProducts();
-  // زجاجات تانية: اللي من نفس النوع (رجالي/حريمي/للجنسين) الأول.
+  // زجاجات تانية: اللي من نفس النوع (رجالي/نسائي/للجنسين) الأول.
   return list
     .filter((p) => p.id !== product.id && p.kind === 'bottle')
     .sort(

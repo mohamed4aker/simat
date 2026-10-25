@@ -78,7 +78,7 @@ export const ar: Dictionary = {
     shop: {
       byCategory: 'حسب النوع',
       all: 'كل العطور',
-      women: 'حريمي',
+      women: 'نسائي',
       men: 'رجالي',
       unisex: 'للجنسين',
       byCollection: 'المجموعات',
@@ -184,7 +184,7 @@ export const ar: Dictionary = {
     eyebrow: 'اختيارات الناس',
     title: 'الأكثر طلباً',
     tabAll: 'الكل',
-    tabHer: 'حريمي',
+    tabHer: 'نسائي',
     tabHim: 'رجالي',
     tabUnisex: 'للجنسين',
     cardGuaranteeLabel: 'ضمان سِمة',
@@ -196,7 +196,7 @@ export const ar: Dictionary = {
     eyebrow: 'تسوق حسب الفئة',
     title: 'اختار العطر اللي يناسب مودك',
     cta: 'تسوق الآن',
-    women: { sub: 'ورد ناعم ومسك', title: 'عطور حريمي', body: 'ورد طائفي، مسك أبيض نظيف، ولمسة فانيليا ناعمة.' },
+    women: { sub: 'ورد ناعم ومسك', title: 'عطور نسائي', body: 'ورد طائفي، مسك أبيض نظيف، ولمسة فانيليا ناعمة.' },
     men: { sub: 'أخشاب وجلود', title: 'عطور رجالي', body: 'عود مدخن، جلود فخمة، وبخور دافي.' },
     unisex: { sub: 'توليفات متوازنة', title: 'عطور للجنسين', body: 'عنبر وزعفران وأخشاب دافية تناسب الكل.' },
     discovery: { sub: 'جرب في البيت', title: 'طقم العينات', body: '5 عينات صغيرة تجربهم على مهلك قبل ما تشتري.' },
@@ -318,12 +318,12 @@ export const ar: Dictionary = {
   },
 
   visit: {
-    eyebrow: 'زورينا',
-    title: 'جرّبي عطورنا في المحل',
-    body: 'تعالي زورينا، جرّبي العطور اللي بتحبيها، واختاري العطر المناسب ليكي.',
+    eyebrow: 'زورنا',
+    title: 'جرّب عطورنا في المحل',
+    body: 'تعالى زورنا، جرّب العطور اللي بتحبها، واختار العطر المناسب ليك.',
     findUs: 'العنوان',
-    cta: 'افتحي الخريطة',
-    badge: 'جرّبي قبل ما تختاري',
+    cta: 'افتح الخريطة',
+    badge: 'جرّب قبل ما تختار',
   },
 
   faq: {
@@ -575,12 +575,12 @@ export const ar: Dictionary = {
   },
   gender: {
     men: 'رجالي',
-    women: 'حريمي',
+    women: 'نسائي',
     unisex: 'للجنسين',
   },
   genderTag: {
     men: 'رجالي',
-    women: 'حريمي',
+    women: 'نسائي',
     unisex: 'للجنسين',
   },
   orderStatus: {

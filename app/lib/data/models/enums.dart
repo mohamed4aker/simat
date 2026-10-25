@@ -67,7 +67,7 @@ enum Gender {
 
   String get labelAr => switch (this) {
         Gender.men => 'رجالي',
-        Gender.women => 'حريمي',
+        Gender.women => 'نسائي',
         Gender.unisex => 'للجنسين',
       };
 }

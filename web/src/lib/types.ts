@@ -178,7 +178,7 @@ export interface Coupon {
 
 export const genderLabels: Record<Gender, string> = {
   men: 'رجالي',
-  women: 'حريمي',
+  women: 'نسائي',
   unisex: 'للجنسين',
 };
 
