@@ -7,7 +7,7 @@ import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
 import { price } from '@/lib/format';
 import { displayName, productText, shortName, subLine } from '@/lib/localize';
-import { defaultVariant, hasPrice, variantsOf } from '@/lib/pricing';
+import { hasPrice, variantWithin, variantsOf } from '@/lib/pricing';
 import { useHydrated, useWishlist } from '@/components/cart/CartProvider';
 import { Flacon } from '@/components/brand/Flacon';
 import { NotesModal } from './NotesModal';
@@ -23,7 +23,7 @@ import type { Product } from '@/lib/types';
  * الصورة الأساسية للزجاجة، ولما الماوس يقف عليها بتتبدل لصورة
  * الزجاجة وسط المكونات الطبيعية.
  */
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, budget }: { product: Product; budget?: number }) {
   const { lang, dict } = useI18n();
   const bag = useBag();
   const wishlist = useWishlist();
@@ -32,7 +32,8 @@ export function ProductCard({ product }: { product: Product }) {
   const [notesOpen, setNotesOpen] = useState(false);
   const href = to(lang, `/product/${product.slug}`);
   const title = displayName(product, lang, dict.concentration);
-  const variant = defaultVariant(product);
+  // مع فلتر «أقصى سعر» الكارت بيعرض أكبر حجم في حدود المبلغ (وإلا 60 مل).
+  const variant = variantWithin(product, budget);
   const priced = hasPrice(product);
   const sizes = product.kind === 'bottle' ? variantsOf(product) : [];
 
@@ -112,7 +113,7 @@ export function ProductCard({ product }: { product: Product }) {
 
         <button
           type="button"
-          onClick={() => bag.add(product)}
+          onClick={() => bag.add(product, 1, variant.sizeMl)}
           disabled={!priced || product.stock <= 0}
           className="mt-auto flex items-center justify-center gap-2 w-full py-2.5 bg-bordeaux hover:bg-bordeaux-light active:bg-bordeaux-dark text-linen-light text-[11px] sm:text-xs font-semibold tracking-wide transition-colors disabled:bg-stone-300 disabled:text-stone-600 disabled:cursor-not-allowed"
         >

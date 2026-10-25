@@ -171,7 +171,7 @@ export default async function ShopPage({ params, searchParams }: PageProps<'/[la
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
               {products.map((p) => (
-                <ProductCard key={p.id} product={cardProduct(p)} />
+                <ProductCard key={p.id} product={cardProduct(p)} budget={query.maxPrice} />
               ))}
             </div>
           )}

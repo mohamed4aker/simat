@@ -6,7 +6,7 @@
  * الباك إند بعدين، الملف ده بس هو اللي بيتغيّر.
  */
 import { normalizeArabic } from './format';
-import { priceFor } from './pricing';
+import { priceFor, variantsOf } from './pricing';
 import * as seed from './seed';
 import { supabase, isLive } from './supabase';
 import type {
@@ -197,7 +197,8 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
     list = list.filter((p) => p.price >= query.minPrice!);
   }
   if (query.maxPrice !== undefined) {
-    list = list.filter((p) => p.price <= query.maxPrice!);
+    // بيبص على كل الأحجام: العطر بيظهر لو أي حجم منه سعره في حدود المبلغ.
+    list = list.filter((p) => variantsOf(p).some((v) => v.price > 0 && v.price <= query.maxPrice!));
   }
   if (query.onlyOffers) {
     list = list.filter((p) => p.oldPrice !== null && p.oldPrice > p.price);
