@@ -33,9 +33,11 @@ export function ProductCard({ product, budget }: { product: Product; budget?: nu
   const href = to(lang, `/product/${product.slug}`);
   const title = displayName(product, lang, dict.concentration);
   // مع فلتر «أقصى سعر» الكارت بيعرض أكبر حجم في حدود المبلغ (وإلا 60 مل).
-  const variant = variantWithin(product, budget);
-  const priced = hasPrice(product);
   const sizes = product.kind === 'bottle' ? variantsOf(product) : [];
+  // الحجم اللي العميل وقف عليه أو داس عليه — السعر وزرار السلة بيمشوا وراه.
+  const [picked, setPicked] = useState<number | null>(null);
+  const variant = sizes.find((v) => v.sizeMl === picked) ?? variantWithin(product, budget);
+  const priced = hasPrice(product);
 
   return (
     <article className="flip-card group relative bg-white border border-linen-border p-2.5 sm:p-3 flex flex-col justify-between hover:border-bordeaux/40 hover:shadow-lg transition-all duration-300">
@@ -93,14 +95,31 @@ export function ProductCard({ product, budget }: { product: Product; budget?: nu
           {subLine(product, lang, dict.genderTag, dict.product.inspiredBy)}
         </p>
 
-        {/* الأحجام المتاحة باينة من برّه */}
+        {/* الأحجام: الوقوف بالماوس أو الضغط على حجم بيغيّر السعر */}
         {sizes.length > 1 && (
-          <div className="mt-2 flex flex-wrap gap-1" aria-label={dict.product.size}>
-            {sizes.map((v) => (
-              <span key={v.sizeMl} dir="ltr" className="latin text-[10px] px-1.5 py-0.5 border border-linen-border bg-linen text-stone-600">
-                {v.sizeMl} ml
-              </span>
-            ))}
+          <div className="mt-2 flex flex-wrap gap-1" role="radiogroup" aria-label={dict.product.size}>
+            {sizes.map((v) => {
+              const active = v.sizeMl === variant.sizeMl;
+              return (
+                <button
+                  key={v.sizeMl}
+                  type="button"
+                  role="radio"
+                  aria-checked={active}
+                  dir="ltr"
+                  onMouseEnter={() => setPicked(v.sizeMl)}
+                  onFocus={() => setPicked(v.sizeMl)}
+                  onClick={() => setPicked(v.sizeMl)}
+                  className={`latin text-[10px] px-1.5 py-0.5 border transition-colors ${
+                    active
+                      ? 'border-bordeaux bg-bordeaux text-linen-light'
+                      : 'border-linen-border bg-linen text-stone-600 hover:border-bordeaux/60'
+                  }`}
+                >
+                  {v.sizeMl} ml
+                </button>
+              );
+            })}
           </div>
         )}
 

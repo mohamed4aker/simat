@@ -216,32 +216,6 @@ class ProfileScreen extends ConsumerWidget {
               style: TextStyle(fontSize: 11.5, color: AppColors.textMuted),
             ),
           ),
-          const SizedBox(height: 6),
-          // مطوّر الأبلكيشن
-          Center(
-            child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () => launchUrl(
-                Uri(scheme: 'mailto', path: AppConstants.developerEmail),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Column(
-                  children: [
-                    const Text(
-                      'تصميم وتطوير: ${AppConstants.developerName}',
-                      style: TextStyle(fontSize: 11.5, color: AppColors.textMuted),
-                    ),
-                    const Text(
-                      '${AppConstants.developerEmail} · ${AppConstants.developerPhone}',
-                      textDirection: TextDirection.ltr,
-                      style: TextStyle(fontSize: 11, color: AppColors.textMuted),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );

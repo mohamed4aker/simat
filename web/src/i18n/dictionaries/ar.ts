@@ -141,7 +141,7 @@ export const ar: Dictionary = {
     placeholder: 'اكتب نوتة (مثلاً: ورد طائفي، عود، عنبر)…',
     submit: 'بحث',
     quick: 'عمليات بحث شائعة:',
-    suggestions: ['ورد طائفي', 'عود', 'مسك أبيض', 'عنبر', 'طقم العينات'],
+    suggestions: ['ورد طائفي', 'عود', 'مسك أبيض', 'عنبر', 'فانيليا'],
   },
 
   wishlist: {
@@ -381,7 +381,6 @@ export const ar: Dictionary = {
   },
 
   footer: {
-    developedBy: 'تصميم وتطوير',
     newArrivals: 'المنتجات الجديدة',
     bestSellers: 'الأكثر مبيعاً',
     allProducts: 'جميع المنتجات',
@@ -504,7 +503,7 @@ export const ar: Dictionary = {
   shop: {
     eyebrow: 'المجموعة الكاملة',
     title: 'كل العطور',
-    intro: 'تصفح مجموعتنا الكاملة من ماء العطر بأحجام 40 و60 و100 مل، بالإضافة لأطقم العينات.',
+    intro: 'تصفح مجموعتنا الكاملة من ماء العطر بأحجام 40 و60 و100 مل.',
     filterTitle: 'تصفية حسب',
     reset: 'إعادة ضبط',
     gender: 'النوع',

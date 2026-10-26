@@ -139,9 +139,9 @@ lines.push(
   "  'p_011','p_012','p_013','p_014','p_015','p_016','p_017','p_018','p_019','p_020',",
   "  'simat-bordeaux','simat-noir','simat-ivoire','royal-velvet');",
   '-- عطور اتشالت من الكتالوج بطلب العميل (الشيت النهائي).',
-  "update public.products set is_active = false where id in ('regal','sanctum','pearl','shadow');",
+  "update public.products set is_active = false where id in ('regal','sanctum','pearl','shadow','discovery-set');",
   "update public.categories set is_active = false where id in (",
-  "  'cat_oriental','cat_french','cat_oud','cat_niche','cat_body','cat_gift');",
+  "  'cat_oriental','cat_french','cat_oud','cat_niche','cat_body','cat_gift','cat_discovery');",
 );
 
 lines.push('');

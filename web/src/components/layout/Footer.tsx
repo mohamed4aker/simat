@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import { fill, getDictionary, type Locale } from '@/i18n';
 import { to } from '@/lib/href';
-import { DEVELOPER, STORE, whatsappLink } from '@/lib/constants';
+import { STORE, whatsappLink } from '@/lib/constants';
 import Image from 'next/image';
 import { FooterNewsletter } from './FooterNewsletter';
 
@@ -141,24 +141,6 @@ export function Footer({ lang }: { lang: Locale }) {
             <Link href="/admin" className="hover:text-gold" rel="nofollow">{t.admin}</Link>
           </div>
         </div>
-        {/* مطوّر الموقع — كل جزء في سطر لوحده لو المساحة ضيقة */}
-        <p className="max-w-7xl mx-auto px-6 pb-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-[11px] text-linen-light/50">
-          <span className="whitespace-nowrap">
-            {t.developedBy}: <span className="text-linen-light/80">{lang === 'en' ? DEVELOPER.nameEn : DEVELOPER.nameAr}</span>
-          </span>
-          <span aria-hidden="true">·</span>
-          <a href={`mailto:${DEVELOPER.email}`} className="hover:text-gold whitespace-nowrap" dir="ltr">{DEVELOPER.email}</a>
-          <span aria-hidden="true">·</span>
-          <a
-            href={`https://wa.me/${DEVELOPER.phone.replace(/^0/, '20')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-gold whitespace-nowrap"
-            dir="ltr"
-          >
-            {DEVELOPER.phone}
-          </a>
-        </p>
       </div>
     </footer>
   );

@@ -138,7 +138,7 @@ export const en = {
     placeholder: 'Type a note (e.g. Taif Rose, Oud, Amber)…',
     submit: 'Search',
     quick: 'Quick searches:',
-    suggestions: ['Taif Rose', 'Oud', 'White Musk', 'Amber', 'Discovery Set'],
+    suggestions: ['Taif Rose', 'Oud', 'White Musk', 'Amber', 'Vanilla'],
   },
 
   wishlist: {
@@ -378,7 +378,6 @@ export const en = {
   },
 
   footer: {
-    developedBy: 'Designed & developed by',
     newArrivals: 'New arrivals',
     bestSellers: 'Best sellers',
     allProducts: 'All products',
@@ -501,7 +500,7 @@ export const en = {
   shop: {
     eyebrow: 'Collection',
     title: 'All Fragrances',
-    intro: 'Explore our complete collection of Eau de Parfum in 40, 60 and 100 ml, plus discovery sample sets.',
+    intro: 'Explore our complete collection of Eau de Parfum in 40, 60 and 100 ml.',
     filterTitle: 'Filter By',
     reset: 'Reset',
     gender: 'Gender',

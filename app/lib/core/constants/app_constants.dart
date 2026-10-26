@@ -23,10 +23,6 @@ class AppConstants {
   /// رقم خدمة العملاء / واتساب.
   static const String supportPhone = '01273162855';
 
-  /// مطوّر الأبلكيشن — بيظهر في آخر صفحة «حسابي».
-  static const String developerName = 'م. محمد أحمد شاكر';
-  static const String developerEmail = 'mohamedshaker123654@gmail.com';
-  static const String developerPhone = '01068287355';
   static const String supportEmail = 'care@simat.store';
   static const String instagram = '@simatt_eg';
 

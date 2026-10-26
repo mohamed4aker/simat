@@ -1,4 +1,4 @@
-// كتالوج سِمة — عطور شيت المنتجات (55 عطر) + طقم العينات.
+// كتالوج سِمة — عطور شيت المنتجات (طقم العينات اتشال بطلب العميل).
 // بيُستخدم في وضع العرض (من غير قاعدة بيانات)، وكمان بيتحوّل لـ SQL
 // في supabase/seed.sql (npm run gen:seed) عشان يتزرع في قاعدة البيانات.
 
@@ -19,16 +19,6 @@ export const categories: Category[] = [
     descriptionEn: 'Eau de Parfum in 40, 60 and 100 ml',
     iconKey: 'bottle',
     sortOrder: 1,
-  },
-  {
-    id: 'cat_discovery',
-    slug: 'discovery',
-    name: 'أطقم العينات',
-    nameEn: 'Discovery Sets',
-    description: 'جرب في البيت قبل ما تقرر',
-    descriptionEn: 'Try at home before you decide',
-    iconKey: 'gift',
-    sortOrder: 2,
   },
 ];
 
@@ -91,55 +81,7 @@ const sheetProducts: Product[] = catalogRows.map((r) => ({
   createdAt: daysAgo(r.sheetId),
 }));
 
-const discoverySet: Product = {
-  ...empty,
-  id: 'discovery-set',
-  slug: 'discovery-set',
-  name: 'طقم عينات سِمة (5 × 2 مل)',
-  nameEn: 'SIMAT Discovery Set (5 × 2ml)',
-  categoryId: 'cat_discovery',
-  description:
-    'جرب 5 من أكتر عطورنا المحبوبة على جلدك في البيت قبل ما تقرر.',
-  descriptionEn:
-    'Try five of our most loved perfumes at home on your own skin before you decide.',
-  family: 'طقم عينات',
-  familyEn: 'Discovery Coffret',
-  kind: 'set',
-  labelStyle: 'noir',
-  secondaryLine: '5 × 2ml',
-  tagline: 'Try before you decide.',
-  taglineAr: 'جرب قبل ما تقرر.',
-  shortDescription: 'Five 2ml vials of our best sellers.',
-  shortDescriptionAr: '5 عينات 2 مل من أكتر عطورنا مبيعاً.',
-  scentCharacter: '',
-  scentCharacterAr: '',
-  accords: [],
-  accordsAr: [],
-  wearProfile: '',
-  wearProfileAr: '',
-  occasion: '',
-  occasionAr: '',
-  related: [],
-  // لسه ملهوش سعر من العميل — بيظهر «السعر قريباً» ومينفعش يتطلب.
-  variants: [],
-  price: 0,
-  sizeMl: 10,
-  gender: 'unisex',
-  concentration: 'edp',
-  topNotes: ['NOCTURNE', 'IMPRINT', 'CLARITY', 'INSTINCT', 'SOMA'],
-  heartNotes: [],
-  baseNotes: [],
-  topNotesEn: ['NOCTURNE', 'IMPRINT', 'CLARITY', 'INSTINCT', 'SOMA'],
-  heartNotesEn: [],
-  baseNotesEn: [],
-  longevityHours: 8,
-  stock: 120,
-  soldCount: 50,
-  isFeatured: false,
-  createdAt: daysAgo(90),
-};
-
-export const products: Product[] = [...sheetProducts, discoverySet];
+export const products: Product[] = sheetProducts;
 
 export const coupons: Coupon[] = [
   {

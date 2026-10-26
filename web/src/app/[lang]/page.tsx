@@ -41,31 +41,32 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
       <HeroSlider slides={homeSlides} />
 
       {/* ── 02 · تسوق حسب الفئة ───────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6">
-        <div className="mb-10">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="mb-8 md:mb-10">
           <SectionTitle center eyebrow={dict.categories.eyebrow} title={dict.categories.title} />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        {/* التلاتة جنب بعض حتى على الموبايل */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-5">
           {categories.map((c) => {
             const t = dict.categories[c.key];
             return (
               <Link
                 key={c.key}
                 href={to(lang, c.href)}
-                className="group relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-bordeaux-deep"
+                className="group relative aspect-[3/4] overflow-hidden bg-bordeaux-deep"
               >
                 <Image
                   src={c.image}
                   alt={t.title}
                   fill
                   unoptimized
-                  sizes="(max-width: 640px) 100vw, 33vw"
+                  sizes="33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-bordeaux-deep/90 via-bordeaux-dark/30 to-transparent" />
-                <div className="absolute bottom-0 inset-x-0 p-6 text-center">
-                  <h3 className="text-2xl font-serif text-linen-light">{t.title}</h3>
-                  <span className="mt-3 inline-block border border-linen-light/70 text-linen-light px-5 py-2 text-[11px] tracking-wider uppercase group-hover:bg-linen-light group-hover:text-bordeaux transition-colors">
+                <div className="absolute bottom-0 inset-x-0 p-2 sm:p-6 text-center">
+                  <h3 className="text-[13px] leading-tight sm:text-2xl font-serif text-linen-light">{t.title}</h3>
+                  <span className="hidden sm:inline-block mt-3 border border-linen-light/70 text-linen-light px-5 py-2 text-[11px] tracking-wider uppercase group-hover:bg-linen-light group-hover:text-bordeaux transition-colors">
                     {dict.categories.cta}
                   </span>
                 </div>
