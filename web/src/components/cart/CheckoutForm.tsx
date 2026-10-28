@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import { AlertCircle, Gift, Lock } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nProvider';
 import { fill } from '@/i18n/fill';
@@ -17,6 +17,7 @@ import {
   shippingFor,
 } from '@/lib/constants';
 import { submitOrder } from '@/lib/actions/checkout';
+import { lineItem, trackBeginCheckout, trackPurchase } from '@/lib/analytics';
 import { cartStore, useCart } from './CartProvider';
 import { btn, field } from '@/components/ui/store';
 import type { PaymentMethod } from '@/lib/types';
@@ -52,6 +53,14 @@ export function CheckoutForm({ demo }: { demo: boolean }) {
   const total = Math.max(0, cart.subtotal - discount) + shipping;
   const govLabel = (g: string) => (lang === 'en' ? GOVERNORATE_EN[g] ?? g : g);
   const areas = AREA_SUGGESTIONS[form.governorate] ?? [];
+
+  // فتح صفحة الدفع → begin_checkout (مرة واحدة)
+  const checkoutTracked = useRef(false);
+  useEffect(() => {
+    if (checkoutTracked.current || !cart.ready || cart.lines.length === 0) return;
+    checkoutTracked.current = true;
+    trackBeginCheckout(cart.lines.map(lineItem));
+  }, [cart.ready, cart.lines]);
 
   if (cart.ready && cart.lines.length === 0) {
     return (
@@ -97,6 +106,13 @@ export function CheckoutForm({ demo }: { demo: boolean }) {
       } catch {
         // مش مهم لو ما اتحفظش — رقم الطلب في الرابط.
       }
+      trackPurchase({
+        transactionId: result.orderNumber ?? '',
+        value: result.total ?? total,
+        shipping,
+        coupon: cart.coupon?.code,
+        items: cart.lines.map(lineItem),
+      });
       cartStore.clear();
       router.push(to(lang, `/order-received?number=${encodeURIComponent(result.orderNumber ?? '')}`));
     });

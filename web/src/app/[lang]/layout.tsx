@@ -12,6 +12,7 @@ import { Footer } from '@/components/layout/Footer';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { Toaster } from '@/components/ui/Toaster';
 import { cardProduct } from '@/lib/slim';
+import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/GoogleTagManager';
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -64,7 +65,11 @@ export default async function StorefrontLayout({
 
   return (
     <html lang={lang} dir={dirOf(lang)} className={storefrontFonts}>
+      <head>
+        <GoogleTagManager />
+      </head>
       <body className="min-h-screen flex flex-col font-sans selection:bg-bordeaux">
+        <GoogleTagManagerNoScript />
         <I18nProvider lang={lang} dict={dict}>
           <AnnouncementBar />
           <Header products={products.map(cardProduct)} />

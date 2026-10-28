@@ -2,6 +2,7 @@
  * عربة التسوق + كود الخصم + خيار الهدية — كلهم محفوظين في المتصفح.
  */
 import { createPersistedStore } from './persisted-store';
+import { productItem, trackAddToCart } from './analytics';
 import { defaultVariant, hasPrice, priceFor } from './pricing';
 import type { CartLine, Product } from './types';
 
@@ -52,6 +53,7 @@ export const cartStore = {
     const key = lineKey({ productId: product.id, sizeMl: size });
     const max = product.stock > 0 ? product.stock : 99;
     const found = lines.find((l) => lineKey(l) === key);
+    trackAddToCart(productItem(product, size, quantity));
     if (found) {
       commit(
         lines.map((l) =>

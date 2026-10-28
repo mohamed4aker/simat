@@ -10,6 +10,7 @@ import { price } from '@/lib/format';
 import { displayName } from '@/lib/localize';
 import { defaultVariant, hasPrice, variantsOf } from '@/lib/pricing';
 import { cartStore } from '@/components/cart/CartProvider';
+import { productItem, trackViewItem } from '@/lib/analytics';
 import { btn } from '@/components/ui/store';
 import { useBag } from './useBag';
 import type { Product } from '@/lib/types';
@@ -27,6 +28,11 @@ export function BuyBox({ product }: { product: Product }) {
   const [size, setSize] = useState(defaultVariant(product).sizeMl);
   const [qty, setQty] = useState(1);
   const current = variants.find((v) => v.sizeMl === size) ?? variants[0];
+
+  // فتح صفحة المنتج → view_item
+  useEffect(() => {
+    if (hasPrice(product)) trackViewItem(productItem(product, defaultVariant(product).sizeMl));
+  }, [product]);
   const soldOut = product.stock <= 0;
   // لسه ملهوش سعر → «السعر قريباً» ومينفعش يتطلب.
   const priced = hasPrice(product);
