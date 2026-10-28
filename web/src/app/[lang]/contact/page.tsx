@@ -2,7 +2,8 @@ import { notFound } from 'next/navigation';
 import { AtSign, Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { getDictionary, hasLocale } from '@/i18n';
 import { pageMeta } from '@/lib/page-meta';
-import { STORE, whatsappLink, STORE_VISIT } from '@/lib/constants';
+import { pick, whatsappHref } from '@/lib/site-content';
+import { getSiteContent } from '@/lib/site-content.server';
 
 export const generateMetadata = ({ params }: PageProps<'/[lang]/contact'>) =>
   pageMeta(params, '/contact', (l) => {
@@ -15,22 +16,23 @@ export default async function ContactPage({ params }: PageProps<'/[lang]/contact
   if (!hasLocale(lang)) notFound();
   const dict = getDictionary(lang);
   const t = dict.pages.contact;
+  const { contact: c, visit } = await getSiteContent();
 
   const rows = [
-    { icon: MessageCircle, label: t.whatsapp, value: STORE.phoneDisplay, href: whatsappLink(), ltr: true },
-    { icon: Phone, label: t.phone, value: STORE.phoneDisplay, href: `tel:${STORE.phone}`, ltr: true },
-    { icon: Mail, label: t.email, value: STORE.email, href: `mailto:${STORE.email}`, ltr: true },
-    { icon: AtSign, label: t.instagram, value: `@${STORE.instagram}`, href: `https://www.instagram.com/${STORE.instagram}`, ltr: true },
-    { icon: AtSign, label: 'TikTok', value: `@${STORE.tiktok}`, href: `https://www.tiktok.com/@${STORE.tiktok}`, ltr: true },
-    { icon: AtSign, label: 'Facebook', value: 'SIMAT', href: STORE.facebookUrl, ltr: true },
+    { icon: MessageCircle, label: t.whatsapp, value: c.phoneDisplay, href: whatsappHref(c), ltr: true },
+    { icon: Phone, label: t.phone, value: c.phoneDisplay, href: `tel:${c.phone}`, ltr: true },
+    { icon: Mail, label: t.email, value: c.email, href: `mailto:${c.email}`, ltr: true },
+    { icon: AtSign, label: t.instagram, value: c.instagram ? `@${c.instagram}` : '', href: `https://www.instagram.com/${c.instagram}`, ltr: true },
+    { icon: AtSign, label: 'TikTok', value: c.tiktok ? `@${c.tiktok}` : '', href: `https://www.tiktok.com/@${c.tiktok}`, ltr: true },
+    { icon: AtSign, label: 'Facebook', value: c.facebookUrl ? 'SIMAT' : '', href: c.facebookUrl, ltr: true },
     {
       icon: MapPin,
       label: t.address,
-      value: lang === 'en' ? STORE_VISIT.addressEn : STORE_VISIT.addressAr,
-      href: STORE_VISIT.mapsUrl,
+      value: pick(visit.address, lang),
+      href: visit.mapsUrl || undefined,
     },
     { icon: Clock, label: '', value: t.hours },
-  ];
+  ].filter((r) => r.value);
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-14">

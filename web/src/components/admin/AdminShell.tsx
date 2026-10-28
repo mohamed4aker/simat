@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import {
-  LayoutDashboard, Package, ReceiptText, LogOut, Store, Menu, X,
+  LayoutDashboard, Package, ReceiptText, LogOut, Store, Menu, X, Palette,
 } from 'lucide-react';
 
 import { SimatMark } from '@/components/brand/SimatLogo';
@@ -15,6 +15,7 @@ const NAV = [
   { href: '/admin', label: 'لوحة التحكم', icon: LayoutDashboard },
   { href: '/admin/products', label: 'المنتجات', icon: Package },
   { href: '/admin/orders', label: 'الطلبات', icon: ReceiptText },
+  { href: '/admin/site', label: 'تصميم الموقع', icon: Palette },
 ];
 
 /**

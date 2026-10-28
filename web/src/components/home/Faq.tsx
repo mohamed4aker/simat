@@ -1,14 +1,14 @@
 import { ChevronDown } from 'lucide-react';
 import { fill, getDictionary, type Locale } from '@/i18n';
-import { STORE, whatsappLink } from '@/lib/constants';
+import { pick, whatsappHref } from '@/lib/site-content';
+import { getSiteContent } from '@/lib/site-content.server';
 import { Eyebrow } from '@/components/ui/store';
 
 /**
- * الأسئلة الشائعة: التوصيل، الدفع عند الاستلام، فحص الطرد،
- * وسياسة العينات. بتتعرض في الرئيسية وصفحة المنتج وصفحة FAQ،
+ * الأسئلة الشائعة (بتتعدل من لوحة التحكم ← تصميم الموقع). بتتعرض في الرئيسية وصفحة المنتج وصفحة FAQ،
  * ومعاها بيانات FAQPage لجوجل.
  */
-export function Faq({
+export async function Faq({
   lang,
   variant = 'section',
   headingLevel = 'h2',
@@ -18,7 +18,11 @@ export function Faq({
   headingLevel?: 'h1' | 'h2';
 }) {
   const t = getDictionary(lang).faq;
-  const items = t.items.map((i) => ({ ...i, a: fill(i.a, { email: STORE.email }) }));
+  const { faq, contact } = await getSiteContent();
+  const items = faq
+    .map((i) => ({ topic: pick(i.topic, lang), q: pick(i.q, lang), a: fill(pick(i.a, lang), { email: contact.email }) }))
+    .filter((i) => i.q && i.a);
+  if (items.length === 0) return null;
   const compact = variant === 'compact';
   const Heading = headingLevel;
 
@@ -45,7 +49,7 @@ export function Faq({
       <div className={compact ? 'space-y-2' : 'space-y-3'}>
         {items.map((item, i) => (
           <details
-            key={item.q}
+            key={i}
             className={`group border border-linen-border ${compact ? 'bg-linen-light p-3.5' : 'bg-linen p-5'} open:border-bordeaux/40 transition-colors`}
             open={!compact && i === 0}
           >
@@ -65,7 +69,7 @@ export function Faq({
 
       {!compact && (
         <p className="mt-8 text-center">
-          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-wider text-bordeaux hover:underline font-medium">
+          <a href={whatsappHref(contact)} target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-wider text-bordeaux hover:underline font-medium">
             {t.more}
           </a>
         </p>

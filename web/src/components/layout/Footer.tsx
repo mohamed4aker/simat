@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import { fill, getDictionary, type Locale } from '@/i18n';
 import { to } from '@/lib/href';
-import { STORE, whatsappLink } from '@/lib/constants';
+import { whatsappHref } from '@/lib/site-content';
+import { getSiteContent } from '@/lib/site-content.server';
 import Image from 'next/image';
 import { FooterNewsletter } from './FooterNewsletter';
 
@@ -38,7 +39,8 @@ function Facebook({ className = '' }: { className?: string; strokeWidth?: number
  *   سِمة (لوجو + تعريف + سوشيال) · تسوق · معلومات · النشرة البريدية
  * وتحت: طرق الدفع، الحقوق، والروابط القانونية.
  */
-export function Footer({ lang }: { lang: Locale }) {
+export async function Footer({ lang }: { lang: Locale }) {
+  const { contact } = await getSiteContent();
   const dict = getDictionary(lang);
   const t = dict.footer;
 
@@ -62,10 +64,10 @@ export function Footer({ lang }: { lang: Locale }) {
     [dict.nav.contact, '/contact'],
   ];
   const social = [
-    { icon: Instagram, href: `https://www.instagram.com/${STORE.instagram}`, label: 'Instagram' },
-    { icon: TikTok, href: `https://www.tiktok.com/@${STORE.tiktok}`, label: 'TikTok' },
-    { icon: Facebook, href: STORE.facebookUrl, label: 'Facebook' },
-    { icon: MessageCircle, href: whatsappLink(), label: 'WhatsApp' },
+    { icon: Instagram, href: `https://www.instagram.com/${contact.instagram}`, label: 'Instagram' },
+    { icon: TikTok, href: `https://www.tiktok.com/@${contact.tiktok}`, label: 'TikTok' },
+    { icon: Facebook, href: contact.facebookUrl, label: 'Facebook' },
+    { icon: MessageCircle, href: whatsappHref(contact), label: 'WhatsApp' },
   ];
 
   return (
@@ -118,8 +120,8 @@ export function Footer({ lang }: { lang: Locale }) {
           <FooterNewsletter />
           <p className="mt-5 text-xs text-linen-light/60">
             WhatsApp:{' '}
-            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" dir="ltr" className={link}>
-              {STORE.phoneDisplay}
+            <a href={whatsappHref(contact)} target="_blank" rel="noopener noreferrer" dir="ltr" className={link}>
+              {contact.phoneDisplay}
             </a>
           </p>
         </div>

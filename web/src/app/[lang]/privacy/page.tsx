@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { fill, getDictionary, hasLocale } from '@/i18n';
 import { pageMeta } from '@/lib/page-meta';
-import { STORE } from '@/lib/constants';
+import { getSiteContent } from '@/lib/site-content.server';
 
 export const generateMetadata = ({ params }: PageProps<'/[lang]/privacy'>) =>
   pageMeta(params, '/privacy', (l) => ({ title: getDictionary(l).pages.privacy.title }));
@@ -10,6 +10,7 @@ export default async function PrivacyPage({ params }: PageProps<'/[lang]/privacy
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const t = getDictionary(lang).pages.privacy;
+  const { contact } = await getSiteContent();
   return (
     <div className="mx-auto max-w-3xl px-6 py-14">
       <h1 className="text-4xl font-serif text-noir">{t.title}</h1>
@@ -18,7 +19,7 @@ export default async function PrivacyPage({ params }: PageProps<'/[lang]/privacy
         {t.sections.map((s) => (
           <section key={s.title}>
             <h2 className="text-lg font-serif text-noir font-bold">{s.title}</h2>
-            <p className="mt-2 text-sm text-stone-600 leading-relaxed">{fill(s.body, { email: STORE.email })}</p>
+            <p className="mt-2 text-sm text-stone-600 leading-relaxed">{fill(s.body, { email: contact.email })}</p>
           </section>
         ))}
       </div>

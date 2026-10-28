@@ -849,3 +849,44 @@ $$;
 
 grant execute on function public.admin_set_order_status(uuid, text, text)
   to authenticated;
+
+-- ═══════════════════════════════════════════════════════════════
+--  صور الموقع (لوحة التحكم ← رفع صورة)
+-- ═══════════════════════════════════════════════════════════════
+-- فولدر media في Supabase Storage: أي حد يشوف الصور، والأدمن بس اللي
+-- يرفع ويمسح. (البلوك بيتخطى لوحده على Postgres عادي من غير Storage.)
+do $$
+begin
+  if to_regclass('storage.buckets') is null then
+    raise notice 'مفيش Storage هنا — اتخطينا فولدر الصور';
+    return;
+  end if;
+
+  insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+  values ('media', 'media', true, 10485760,
+          array['image/jpeg','image/png','image/webp','image/gif','image/avif'])
+  on conflict (id) do update
+    set public = true,
+        file_size_limit = excluded.file_size_limit,
+        allowed_mime_types = excluded.allowed_mime_types;
+
+  drop policy if exists "صور الموقع للجميع" on storage.objects;
+  create policy "صور الموقع للجميع" on storage.objects
+    for select using (bucket_id = 'media');
+
+  drop policy if exists "الأدمن يرفع الصور" on storage.objects;
+  create policy "الأدمن يرفع الصور" on storage.objects
+    for insert to authenticated
+    with check (bucket_id = 'media' and public.is_admin());
+
+  drop policy if exists "الأدمن يعدّل الصور" on storage.objects;
+  create policy "الأدمن يعدّل الصور" on storage.objects
+    for update to authenticated
+    using (bucket_id = 'media' and public.is_admin())
+    with check (bucket_id = 'media' and public.is_admin());
+
+  drop policy if exists "الأدمن يمسح الصور" on storage.objects;
+  create policy "الأدمن يمسح الصور" on storage.objects
+    for delete to authenticated
+    using (bucket_id = 'media' and public.is_admin());
+end $$;

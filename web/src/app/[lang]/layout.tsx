@@ -12,7 +12,12 @@ import { Footer } from '@/components/layout/Footer';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { Toaster } from '@/components/ui/Toaster';
 import { cardProduct } from '@/lib/slim';
+import { getShipping, getSiteContent } from '@/lib/site-content.server';
+import { SiteProvider } from '@/components/site/SiteProvider';
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/GoogleTagManager';
+
+// محتوى لوحة التحكم بيتحدّث فوراً بعد الحفظ، والدقيقة دي احتياطي.
+export const revalidate = 60;
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -61,7 +66,7 @@ export default async function StorefrontLayout({
 
   const dict = getDictionary(lang);
   // المنتجات بتتبعت للهيدر عشان البحث والمفضلة والـ Mega Menu.
-  const products = await getProducts();
+  const [products, content, shipping] = await Promise.all([getProducts(), getSiteContent(), getShipping()]);
 
   return (
     <html lang={lang} dir={dirOf(lang)} className={storefrontFonts}>
@@ -71,12 +76,14 @@ export default async function StorefrontLayout({
       <body className="min-h-screen flex flex-col font-sans selection:bg-bordeaux">
         <GoogleTagManagerNoScript />
         <I18nProvider lang={lang} dict={dict}>
+          <SiteProvider value={{ contact: content.contact, shipping, announcement: content.announcement }}>
           <AnnouncementBar />
           <Header products={products.map(cardProduct)} />
           <main className="flex-1">{children}</main>
           <Footer lang={lang} />
           <CartDrawer />
           <Toaster />
+          </SiteProvider>
         </I18nProvider>
       </body>
     </html>

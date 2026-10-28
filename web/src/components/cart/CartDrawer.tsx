@@ -8,7 +8,7 @@ import { fill } from '@/i18n/fill';
 import { to } from '@/lib/href';
 import { price, priceNumber } from '@/lib/format';
 import { lineName } from '@/lib/localize';
-import { FREE_SHIPPING_THRESHOLD } from '@/lib/constants';
+import { useSite } from '@/components/site/SiteProvider';
 import { checkCoupon } from '@/lib/actions/checkout';
 import { cartStore, useCart, useUi, uiStore } from './CartProvider';
 import { lineKey } from '@/lib/cart-store';
@@ -23,12 +23,13 @@ export function CartDrawer() {
   const t = dict.cart;
   const open = useUi().panel === 'cart';
   const cart = useCart();
+  const freeLimit = useSite().shipping.freeThreshold;
   useLockScroll(open);
 
   const discount = cart.coupon?.discount ?? 0;
   const afterDiscount = Math.max(0, cart.subtotal - discount);
-  const freeShipping = cart.subtotal >= FREE_SHIPPING_THRESHOLD;
-  const progress = Math.min(100, Math.round((cart.subtotal / FREE_SHIPPING_THRESHOLD) * 100));
+  const freeShipping = cart.subtotal >= freeLimit;
+  const progress = freeLimit > 0 ? Math.min(100, Math.round((cart.subtotal / freeLimit) * 100)) : 100;
 
   return (
     <div
@@ -75,7 +76,7 @@ export function CartDrawer() {
                   <span className="text-stone-800">
                     {freeShipping
                       ? t.meterUnlocked
-                      : fill(t.meterRemaining, { amount: priceNumber(FREE_SHIPPING_THRESHOLD - cart.subtotal) })}
+                      : fill(t.meterRemaining, { amount: priceNumber(freeLimit - cart.subtotal) })}
                   </span>
                   <span className="latin text-bordeaux font-medium text-[10px]">{progress}%</span>
                 </div>

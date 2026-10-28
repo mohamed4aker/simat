@@ -13,9 +13,9 @@ import {
   AREA_SUGGESTIONS,
   FAST_DELIVERY,
   GOVERNORATE_EN,
-  GOVERNORATES,
-  shippingFor,
 } from '@/lib/constants';
+import { shippingCost } from '@/lib/site-content';
+import { useSite } from '@/components/site/SiteProvider';
 import { submitOrder } from '@/lib/actions/checkout';
 import { lineItem, trackBeginCheckout, trackPurchase } from '@/lib/analytics';
 import { cartStore, useCart } from './CartProvider';
@@ -29,6 +29,8 @@ export function CheckoutForm({ demo }: { demo: boolean }) {
   const t = dict.checkout;
   const router = useRouter();
   const cart = useCart();
+  const site = useSite();
+  const governorates = Object.keys(site.shipping.rates);
   const [pending, start] = useTransition();
   const [error, setError] = useState('');
   const [payment, setPayment] = useState<PaymentMethod>('cod');
@@ -49,7 +51,7 @@ export function CheckoutForm({ demo }: { demo: boolean }) {
       setForm((f) => ({ ...f, [key]: e.target.value }));
 
   const discount = cart.coupon?.discount ?? 0;
-  const shipping = shippingFor(form.governorate, cart.subtotal);
+  const shipping = shippingCost(site.shipping, form.governorate, cart.subtotal);
   const total = Math.max(0, cart.subtotal - discount) + shipping;
   const govLabel = (g: string) => (lang === 'en' ? GOVERNORATE_EN[g] ?? g : g);
   const areas = AREA_SUGGESTIONS[form.governorate] ?? [];
@@ -155,7 +157,7 @@ export function CheckoutForm({ demo }: { demo: boolean }) {
           <label className="block">
             {label(t.governorate)}
             <select required value={form.governorate} onChange={set('governorate')} className={field}>
-              {GOVERNORATES.map((g) => (
+              {governorates.map((g) => (
                 <option key={g} value={g}>{govLabel(g)}</option>
               ))}
             </select>

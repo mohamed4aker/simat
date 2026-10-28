@@ -8,7 +8,8 @@ import { useI18n } from '@/i18n/I18nProvider';
 import { to } from '@/lib/href';
 import { price } from '@/lib/format';
 import { subscribeNoop } from '@/lib/persisted-store';
-import { whatsappLink } from '@/lib/constants';
+import { whatsappHref } from '@/lib/site-content';
+import { useSite } from '@/components/site/SiteProvider';
 import { btn } from '@/components/ui/store';
 import { LAST_ORDER_KEY } from './CheckoutForm';
 
@@ -20,6 +21,7 @@ interface LastOrder {
 
 export function OrderReceived() {
   const { lang, dict } = useI18n();
+  const { contact } = useSite();
   const t = dict.orderReceived;
   const numberFromUrl = useSearchParams().get('number') ?? '';
 
@@ -67,7 +69,7 @@ export function OrderReceived() {
         <Link href={to(lang, '/shop')} className={btn.outline}>{t.continue}</Link>
       </div>
       <a
-        href={whatsappLink(number ? `${t.number}: ${number}` : '')}
+        href={whatsappHref(contact, number ? `${t.number}: ${number}` : '')}
         target="_blank"
         rel="noopener noreferrer"
         className="mt-6 inline-block text-xs text-bordeaux hover:underline"

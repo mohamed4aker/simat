@@ -6,9 +6,10 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import { ArrowRight, Save } from 'lucide-react';
 
-import { BottleArt } from '@/components/brand/BottleArt';
 import { adminInput } from '@/components/admin/ui';
 import { browserSupabase } from '@/lib/supabase-browser';
+import { refreshSiteNow } from '@/lib/upload';
+import { ImageField } from './ImageField';
 
 /** صف التصنيف زي ما بيرجع من قاعدة البيانات. */
 interface CategoryRow {
@@ -288,6 +289,7 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
       );
       return;
     }
+    await refreshSiteNow();
     router.push('/admin/products');
     router.refresh();
   }
@@ -496,33 +498,21 @@ export function AdminProductForm({ productId }: { productId: string | null }) {
 
       <section className="rounded-2xl border border-line bg-surface p-5 space-y-3">
         <h2 className="font-bold mb-1">الصورة والعرض</h2>
-        <div className="flex gap-4 items-start">
-          <div className="shrink-0 w-24 h-24 overflow-hidden rounded-xl border border-line">
-            {form.image_url.trim() ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={form.image_url} alt="" className="w-full h-full object-cover" />
-            ) : (
-              <BottleArt seed={productId ?? 'new'} className="w-full h-full" />
-            )}
-          </div>
-          <div className="flex-1">
-            <Field label="رابط الصورة (اختياري)">
-              <input
-                value={form.image_url} onChange={set('image_url')} dir="ltr"
-                placeholder="https://..." className={adminInput}
-              />
-            </Field>
-            <Field label="صورة الهوفر — الزجاجة وسط المكونات (اختياري)">
-              <input
-                value={form.image_hover_url} onChange={set('image_hover_url')} dir="ltr"
-                placeholder="https://..." className={adminInput}
-              />
-            </Field>
-            <p className="mt-1.5 text-[11px] text-faint leading-5">
-              ارفع الصورة في Supabase → Storage، وانسخ اللينك هنا. من غير
-              صورة بيتعرض رسم زجاجة بألوان الهوية.
-            </p>
-          </div>
+        <div className="space-y-4">
+          <ImageField
+            label="صورة الزجاجة"
+            folder="products"
+            aspect="aspect-[4/5]"
+            value={form.image_url}
+            onChange={(v) => setForm((f) => (f ? { ...f, image_url: v } : f))}
+            hint="أحسن حاجة: خلفية فاتحة، 1200 × 1500. من غير صورة بيتعرض رسم زجاجة بألوان الهوية."
+          />
+          <ImageField
+            label="صورة الهوفر — الزجاجة وسط المكونات (اختياري)"
+            folder="products"
+            value={form.image_hover_url}
+            onChange={(v) => setForm((f) => (f ? { ...f, image_hover_url: v } : f))}
+          />
         </div>
 
         <label className="flex items-center gap-2.5 text-sm font-semibold">
